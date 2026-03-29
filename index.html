@@ -12,25 +12,102 @@
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,400&display=swap');
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { margin: 0; overflow: hidden; background: #080a12; color: #e0d8c8; font-family: 'Cinzel', Georgia, serif; }
+    
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
+    body { 
+      margin: 0; 
+      overflow: hidden; 
+      background: #080a12; 
+      color: #e0d8c8; 
+      font-family: 'Cinzel', Georgia, serif; 
+      /* Prevent mobile pull-to-refresh */
+      overscroll-behavior: none; 
+    }
+    
     ::-webkit-scrollbar { width: 6px; }
     ::-webkit-scrollbar-thumb { background: #3a3050; border-radius: 6px; }
     ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-    @keyframes introK { 0% { opacity: 0; transform: translateY(60px) scale(0.4); filter: blur(4px); } 65% { transform: translateY(-8px) scale(1.08); filter: blur(0px); opacity: 1; } 100% { transform: none; opacity: 1; } }
-    @keyframes checkRing { 0%, 100% { box-shadow: inset 0 0 0 0 rgba(244,67,54,0); } 50% { box-shadow: inset 0 0 28px #f44336, 0 0 16px rgba(244,67,54,0.6); } }
-    @keyframes clockLow { 0%, 100% { color: #f44336; } 50% { color: #ff9999; } }
-    @keyframes boardIn { 0% { opacity: 0; transform: perspective(600px) rotateX(15deg) scale(0.85); } 100% { opacity: 1; transform: none; } }
-    @keyframes slideDown { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
-    @keyframes slideRight { from { opacity: 0; transform: translateX(100%); } to { opacity: 1; transform: translateX(0); } }
-    @keyframes modalPop { 0% { opacity: 0; transform: scale(0.8) translateY(30px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
-    @keyframes pieceDrop { 0% { transform: scale(0.6) translateY(-16px); opacity: 0.5; filter: blur(2px); } 60% { transform: scale(1.1) translateY(3px); filter: blur(0px); } 100% { transform: none; opacity: 1; } }
-    .glass-panel { background: rgba(13, 15, 26, 0.75); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
-    button { font-family: 'Cinzel', serif; outline: none; }
+    
+    @keyframes fadeUp { 
+      from { opacity: 0; transform: translateY(22px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+    
+    @keyframes fadeIn { 
+      from { opacity: 0; } 
+      to { opacity: 1; } 
+    }
+    
+    @keyframes bob { 
+      0%, 100% { transform: translateY(0); } 
+      50% { transform: translateY(-9px); } 
+    }
+    
+    @keyframes pulse { 
+      0%, 100% { opacity: 1; } 
+      50% { opacity: 0.4; } 
+    }
+    
+    @keyframes introK { 
+      0% { opacity: 0; transform: translateY(60px) scale(0.4); filter: blur(4px); } 
+      65% { transform: translateY(-8px) scale(1.08); filter: blur(0px); opacity: 1; } 
+      100% { transform: none; opacity: 1; } 
+    }
+    
+    @keyframes checkRing { 
+      0%, 100% { box-shadow: inset 0 0 0 0 rgba(244,67,54,0); } 
+      50% { box-shadow: inset 0 0 28px #f44336, 0 0 16px rgba(244,67,54,0.6); } 
+    }
+    
+    @keyframes clockLow { 
+      0%, 100% { color: #f44336; } 
+      50% { color: #ff9999; } 
+    }
+    
+    @keyframes boardIn { 
+      0% { opacity: 0; transform: perspective(600px) rotateX(15deg) scale(0.85); } 
+      100% { opacity: 1; transform: none; } 
+    }
+    
+    @keyframes slideDown { 
+      from { opacity: 0; transform: translateY(-12px); } 
+      to { opacity: 1; transform: translateY(0); } 
+    }
+    
+    @keyframes slideRight { 
+      from { opacity: 0; transform: translateX(100%); } 
+      to { opacity: 1; transform: translateX(0); } 
+    }
+    
+    @keyframes modalPop { 
+      0% { opacity: 0; transform: scale(0.8) translateY(30px); } 
+      100% { opacity: 1; transform: scale(1) translateY(0); } 
+    }
+    
+    @keyframes pieceDrop { 
+      0% { transform: scale(0.6) translateY(-16px); opacity: 0.5; filter: blur(2px); } 
+      60% { transform: scale(1.1) translateY(3px); filter: blur(0px); } 
+      100% { transform: none; opacity: 1; } 
+    }
+    
+    .glass-panel { 
+      background: rgba(13, 15, 26, 0.75); 
+      backdrop-filter: blur(12px); 
+      border: 1px solid rgba(255,255,255,0.08); 
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5); 
+    }
+    
+    button { 
+      font-family: 'Cinzel', serif; 
+      outline: none; 
+      /* Fix touch highlighting on mobile */
+      -webkit-tap-highlight-color: transparent; 
+    }
     button:hover { transform: translateY(-1px); }
     button:active { transform: translateY(1px); }
   </style>
@@ -40,10 +117,11 @@
   <div id="root"></div>
 
   <script type="text/babel">
+    // Extracting React Hooks so the browser understands them without 'import'
     const { useState, useEffect, useRef, useCallback } = React;
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   1. CORE ENGINE CONSTANTS & UTILS
+   CORE ENGINE CONSTANTS & UTILITIES
    ═══════════════════════════════════════════════════════════════════════════ */
 const cl = p => p ? p[0] : null;
 const tp = p => p ? p[1] : null;
@@ -53,130 +131,464 @@ const IB = (r, c) => r >= 0 && r < 8 && c >= 0 && c < 8;
 const sqN = (r, c) => String.fromCharCode(97 + c) + (8 - r);
 const nameSq = (s) => [8 - parseInt(s[1]), s.charCodeAt(0) - 97];
 
-const PVAL = { P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000 };
+// Piece Values (Standard Centipawns)
+const PVAL = { 
+  P: 100, 
+  N: 320, 
+  B: 330, 
+  R: 500, 
+  Q: 900, 
+  K: 20000 
+};
 
+// Tapered Piece Square Tables (Michniewski style)
 const PST = {
-  P: [[0,0,0,0,0,0,0,0], [50,50,50,50,50,50,50,50], [10,10,20,30,30,20,10,10], [5,5,10,25,25,10,5,5], [0,0,0,20,20,0,0,0], [5,-5,-10,0,0,-10,-5,5], [5,10,10,-20,-20,10,10,5], [0,0,0,0,0,0,0,0]],
-  N: [[-50,-40,-30,-30,-30,-30,-40,-50], [-40,-20,0,0,0,0,-20,-40], [-30,0,10,15,15,10,0,-30], [-30,5,15,20,20,15,5,-30], [-30,0,15,20,20,15,0,-30], [-30,5,10,15,15,10,5,-30], [-40,-20,0,5,5,0,-20,-40], [-50,-40,-30,-30,-30,-30,-40,-50]],
-  B: [[-20,-10,-10,-10,-10,-10,-10,-20], [-10,0,0,0,0,0,0,-10], [-10,0,5,10,10,5,0,-10], [-10,5,5,10,10,5,5,-10], [-10,0,10,10,10,10,0,-10], [-10,10,10,10,10,10,10,-10], [-10,5,0,0,0,0,5,-10], [-20,-10,-10,-10,-10,-10,-10,-20]],
-  R: [[0,0,0,0,0,0,0,0], [5,10,10,10,10,10,10,5], [-5,0,0,0,0,0,0,-5], [-5,0,0,0,0,0,0,-5], [-5,0,0,0,0,0,0,-5], [-5,0,0,0,0,0,0,-5], [-5,0,0,0,0,0,0,-5], [0,0,0,5,5,0,0,0]],
-  Q: [[-20,-10,-10,-5,-5,-10,-10,-20], [-10,0,0,0,0,0,0,-10], [-10,0,5,5,5,5,0,-10], [-5,0,5,5,5,5,0,-5], [0,0,5,5,5,5,0,-5], [-10,5,5,5,5,5,0,-10], [-10,0,5,0,0,0,0,-10], [-20,-10,-10,-5,-5,-10,-10,-20]],
-  K_MG: [[-30,-40,-40,-50,-50,-40,-40,-30], [-30,-40,-40,-50,-50,-40,-40,-30], [-30,-40,-40,-50,-50,-40,-40,-30], [-30,-40,-40,-50,-50,-40,-40,-30], [-20,-30,-30,-40,-40,-30,-30,-20], [-10,-20,-20,-20,-20,-20,-20,-10], [20,20,0,0,0,0,20,20], [20,30,10,0,0,10,30,20]],
-  K_EG: [[-50,-40,-30,-20,-20,-30,-40,-50], [-30,-20,-10,0,0,-10,-20,-30], [-30,-10,20,30,30,20,-10,-30], [-30,-10,30,40,40,30,-10,-30], [-30,-10,30,40,40,30,-10,-30], [-30,-10,20,30,30,20,-10,-30], [-30,-30,0,0,0,0,-30,-30], [-50,-30,-30,-30,-30,-30,-30,-50]]
+  P: [
+    [0,0,0,0,0,0,0,0], 
+    [50,50,50,50,50,50,50,50], 
+    [10,10,20,30,30,20,10,10], 
+    [5,5,10,25,25,10,5,5], 
+    [0,0,0,20,20,0,0,0], 
+    [5,-5,-10,0,0,-10,-5,5], 
+    [5,10,10,-20,-20,10,10,5], 
+    [0,0,0,0,0,0,0,0]
+  ],
+  N: [
+    [-50,-40,-30,-30,-30,-30,-40,-50], 
+    [-40,-20,0,0,0,0,-20,-40], 
+    [-30,0,10,15,15,10,0,-30], 
+    [-30,5,15,20,20,15,5,-30], 
+    [-30,0,15,20,20,15,0,-30], 
+    [-30,5,10,15,15,10,5,-30], 
+    [-40,-20,0,5,5,0,-20,-40], 
+    [-50,-40,-30,-30,-30,-30,-40,-50]
+  ],
+  B: [
+    [-20,-10,-10,-10,-10,-10,-10,-20], 
+    [-10,0,0,0,0,0,0,-10], 
+    [-10,0,5,10,10,5,0,-10], 
+    [-10,5,5,10,10,5,5,-10], 
+    [-10,0,10,10,10,10,0,-10], 
+    [-10,10,10,10,10,10,10,-10], 
+    [-10,5,0,0,0,0,5,-10], 
+    [-20,-10,-10,-10,-10,-10,-10,-20]
+  ],
+  R: [
+    [0,0,0,0,0,0,0,0], 
+    [5,10,10,10,10,10,10,5], 
+    [-5,0,0,0,0,0,0,-5], 
+    [-5,0,0,0,0,0,0,-5], 
+    [-5,0,0,0,0,0,0,-5], 
+    [-5,0,0,0,0,0,0,-5], 
+    [-5,0,0,0,0,0,0,-5], 
+    [0,0,0,5,5,0,0,0]
+  ],
+  Q: [
+    [-20,-10,-10,-5,-5,-10,-10,-20], 
+    [-10,0,0,0,0,0,0,-10], 
+    [-10,0,5,5,5,5,0,-10], 
+    [-5,0,5,5,5,5,0,-5], 
+    [0,0,5,5,5,5,0,-5], 
+    [-10,5,5,5,5,5,0,-10], 
+    [-10,0,5,0,0,0,0,-10], 
+    [-20,-10,-10,-5,-5,-10,-10,-20]
+  ],
+  K_MG: [
+    [-30,-40,-40,-50,-50,-40,-40,-30], 
+    [-30,-40,-40,-50,-50,-40,-40,-30], 
+    [-30,-40,-40,-50,-50,-40,-40,-30], 
+    [-30,-40,-40,-50,-50,-40,-40,-30], 
+    [-20,-30,-30,-40,-40,-30,-30,-20], 
+    [-10,-20,-20,-20,-20,-20,-20,-10], 
+    [20,20,0,0,0,0,20,20], 
+    [20,30,10,0,0,10,30,20]
+  ],
+  K_EG: [
+    [-50,-40,-30,-20,-20,-30,-40,-50], 
+    [-30,-20,-10,0,0,-10,-20,-30], 
+    [-30,-10,20,30,30,20,-10,-30], 
+    [-30,-10,30,40,40,30,-10,-30], 
+    [-30,-10,30,40,40,30,-10,-30], 
+    [-30,-10,20,30,30,20,-10,-30], 
+    [-30,-30,0,0,0,0,-30,-30], 
+    [-50,-30,-30,-30,-30,-30,-30,-50]
+  ]
 };
 
 const INIT_BOARD = () => [
-  ["bR","bN","bB","bQ","bK","bB","bN","bR"], ["bP","bP","bP","bP","bP","bP","bP","bP"],
-  [null,null,null,null,null,null,null,null], [null,null,null,null,null,null,null,null],
-  [null,null,null,null,null,null,null,null], [null,null,null,null,null,null,null,null],
-  ["wP","wP","wP","wP","wP","wP","wP","wP"], ["wR","wN","wB","wQ","wK","wB","wN","wR"]
+  ["bR","bN","bB","bQ","bK","bB","bN","bR"], 
+  ["bP","bP","bP","bP","bP","bP","bP","bP"],
+  [null,null,null,null,null,null,null,null], 
+  [null,null,null,null,null,null,null,null],
+  [null,null,null,null,null,null,null,null], 
+  [null,null,null,null,null,null,null,null],
+  ["wP","wP","wP","wP","wP","wP","wP","wP"], 
+  ["wR","wN","wB","wQ","wK","wB","wN","wR"]
 ];
 
 const INIT_CAST = () => ({ wK: true, wQ: true, bK: true, bQ: true });
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   2. FIDE OPENING BOOK
+   MASSIVE FIDE OPENING BOOK (ECO CODES A-E)
+   This forces the AI to play beautiful, theoretical chess early on.
    ═══════════════════════════════════════════════════════════════════════════ */
 const OPENINGS = {
+  // Main branches
   "": ["e2e4","d2d4","c2c4","g1f3"],
+  
+  // 1. e4 branches
   "e2e4": ["c7c5","e7e5","e7e6","c7c6","d7d5","g8f6","d7d6","g7g6"],
-  "d2d4": ["d7d5","g8f6","e7e6","f7f5","c7c5","g7g6"],
-  "c2c4": ["e7e5","c7c5","g8f6","e7e6"],
-  "g1f3": ["d7d5","g8f6","c7c5","e7e6"],
+  
+  // Sicilian Defense (B20-B99)
   "e2e4 c7c5": ["g1f3","b1c3","c2c3","d2d4"],
+  "e2e4 c7c5 g1f3": ["d7d6","b8c6","e7e6","g7g6","a7a6"],
+  "e2e4 c7c5 g1f3 d7d6": ["d2d4","f1b5","c2c3"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4": ["c5d4"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4": ["f3d4"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4": ["g8f6"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6": ["b1c3"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3": ["a7a6","g7g6","e7e6","b8c6"], // Najdorf, Dragon, Scheveningen, Classical
+  
+  // Sicilian Najdorf
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6": ["c1e3","c1g5","f1e2","f2f3","h2h3","a2a4","f1c4"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1e3": ["e7e5","e7e6","f6g4"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 a7a6 c1g5": ["e7e6","b8d7"],
+  
+  // Sicilian Dragon
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 g7g6": ["c1e3","f2f3","f1e2","c1g5","f1c4"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 g7g6 c1e3": ["f8g7"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 g7g6 c1e3 f8g7": ["f2f3"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 g7g6 c1e3 f8g7 f2f3": ["e1g1"],
+  "e2e4 c7c5 g1f3 d7d6 d2d4 c5d4 f3d4 g8f6 b1c3 g7g6 c1e3 f8g7 f2f3 e1g1": ["d1d2","f1c4"],
+
+  // Sicilian Alapin
+  "e2e4 c7c5 c2c3": ["d7d5","g8f6","e7e6"],
+  "e2e4 c7c5 c2c3 d7d5": ["e4d5"],
+  "e2e4 c7c5 c2c3 d7d5 e4d5": ["d8d5"],
+  "e2e4 c7c5 c2c3 d7d5 e4d5 d8d5": ["d2d4"],
+  "e2e4 c7c5 c2c3 g8f6": ["e4e5"],
+  "e2e4 c7c5 c2c3 g8f6 e4e5": ["f6d5"],
+  "e2e4 c7c5 c2c3 g8f6 e4e5 f6d5": ["d2d4"],
+
+  // Ruy Lopez & Italian Game (C20-C99)
   "e2e4 e7e5": ["g1f3","b1c3","f1c4","f2f4","d2d4"],
   "e2e4 e7e5 g1f3": ["b8c6","g8f6","d7d6"],
-  "e2e4 e7e6": ["d2d4","d2d3","b1c3","e4e5","g1f3"],
+  "e2e4 e7e5 g1f3 b8c6": ["f1b5","f1c4","d2d4","b1c3","c2c3"],
+  
+  // Ruy Lopez
+  "e2e4 e7e5 g1f3 b8c6 f1b5": ["a7a6","g8f6","d7d6","f8c5","f7f5","g7g6"],
+  "e2e4 e7e5 g1f3 b8c6 f1b5 a7a6": ["b5a4","b5c6"],
+  "e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4": ["g8f6","d7d6","b7b5"],
+  "e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6": ["e1g1","d2d3","b1c3"],
+  "e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1": ["f8e7","f8c5","b7b5","f6e4"],
+  "e2e4 e7e5 g1f3 b8c6 f1b5 a7a6 b5a4 g8f6 e1g1 f8e7": ["f1e1","d2d3","d2d4"],
+  
+  // Italian Game
+  "e2e4 e7e5 g1f3 b8c6 f1c4": ["f8c5","g8f6","f8e7"],
+  "e2e4 e7e5 g1f3 b8c6 f1c4 f8c5": ["c2c3","d2d3","b2b4","e1g1","b1c3"],
+  "e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3": ["g8f6"],
+  "e2e4 e7e5 g1f3 b8c6 f1c4 f8c5 c2c3 g8f6": ["d2d4","d2d3"],
+  "e2e4 e7e5 g1f3 b8c6 f1c4 g8f6": ["d2d3","d2d4","f3g5"], // Two Knights Defense
+  "e2e4 e7e5 g1f3 b8c6 f1c4 g8f6 f3g5": ["d7d5"],
+  "e2e4 e7e5 g1f3 b8c6 f1c4 g8f6 f3g5 d7d5": ["e4d5"],
+  "e2e4 e7e5 g1f3 b8c6 f1c4 g8f6 f3g5 d7d5 e4d5": ["c6a5","b7b5","f6d5"],
+
+  // French Defense (C00-C19)
+  "e2e4 e7e6": ["d2d4","d2d3","b1c3","e4e5","g1f3","c2c4"],
+  "e2e4 e7e6 d2d4": ["d7d5"],
+  "e2e4 e7e6 d2d4 d7d5": ["b1c3","e4e5","b1d2","e4d5"],
+  "e2e4 e7e6 d2d4 d7d5 b1c3": ["g8f6","f8b4","d5e4"], // Classical, Winawer, Rubinstein
+  "e2e4 e7e6 d2d4 d7d5 b1c3 g8f6": ["c1g5","e4e5"],
+  "e2e4 e7e6 d2d4 d7d5 b1c3 f8b4": ["e4e5","g1e2","a2a3"],
+  "e2e4 e7e6 d2d4 d7d5 b1d2": ["c7c5","g8f6","d5e4","a7a6"], // Tarrasch
+  "e2e4 e7e6 d2d4 d7d5 e4e5": ["c7c5"], // Advance
+  "e2e4 e7e6 d2d4 d7d5 e4e5 c7c5": ["c2c3"],
+  "e2e4 e7e6 d2d4 d7d5 e4e5 c7c5 c2c3": ["b8c6"],
+
+  // Caro-Kann Defense (B10-B19)
   "e2e4 c7c6": ["d2d4","b1c3","c2c4","d2d3"],
+  "e2e4 c7c6 d2d4": ["d7d5"],
+  "e2e4 c7c6 d2d4 d7d5": ["b1c3","e4e5","e4d5","f2f3","b1d2"],
+  "e2e4 c7c6 d2d4 d7d5 b1c3": ["d5e4"],
+  "e2e4 c7c6 d2d4 d7d5 b1c3 d5e4": ["c3e4"],
+  "e2e4 c7c6 d2d4 d7d5 b1c3 d5e4 c3e4": ["b8d7","c1f5","g8f6"],
+
+  // Pirc & Modern
+  "e2e4 d7d6": ["d2d4"],
+  "e2e4 d7d6 d2d4": ["g8f6"],
+  "e2e4 d7d6 d2d4 g8f6": ["b1c3"],
+  "e2e4 d7d6 d2d4 g8f6 b1c3": ["g7g6"],
+  "e2e4 g7g6": ["d2d4"],
+  "e2e4 g7g6 d2d4": ["f8g7"],
+  "e2e4 g7g6 d2d4 f8g7": ["b1c3","g1f3","c2c4"],
+
+  // 1. d4 branches
+  "d2d4": ["d7d5","g8f6","e7e6","f7f5","c7c5","g7g6","d7d6"],
+  
+  // Queen's Gambit (D06-D69)
   "d2d4 d7d5": ["c2c4","g1f3","c1f4","e2e3","b1c3"],
-  "d2d4 g8f6": ["c2c4","g1f3","c1g5","c1f4"]
+  "d2d4 d7d5 c2c4": ["e7e6","c7c6","d5c4","e7e5"], // QGD, Slav, QGA, Albin
+  "d2d4 d7d5 c2c4 e7e6": ["b1c3","g1f3","c4d5"],
+  "d2d4 d7d5 c2c4 e7e6 b1c3": ["g8f6","c7c5","f8e7","c7c6"],
+  "d2d4 d7d5 c2c4 e7e6 b1c3 g8f6": ["c1g5","g1f3","c4d5"],
+  "d2d4 d7d5 c2c4 c7c6": ["g1f3","b1c3","c4d5","e2e3"],
+  "d2d4 d7d5 c2c4 c7c6 g1f3": ["g8f6","d5c4","e7e6"],
+  "d2d4 d7d5 c2c4 d5c4": ["g1f3","e2e3","e2e4"],
+
+  // King's Indian & Nimzo-Indian & Grunfeld (E60-E99)
+  "d2d4 g8f6": ["c2c4","g1f3","c1g5","c1f4","a2a3"],
+  "d2d4 g8f6 c2c4": ["g7g6","e7e6","c7c5","d7d6","b7b6"],
+  
+  // King's Indian
+  "d2d4 g8f6 c2c4 g7g6": ["b1c3","g1f3","f2f3","g2g3"],
+  "d2d4 g8f6 c2c4 g7g6 b1c3": ["f8g7","d7d5"],
+  "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7": ["e2e4","g1f3","e2e3"],
+  "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7 e2e4": ["d7d6"],
+  "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7 e2e4 d7d6": ["g1f3","f2f3","f1e2"],
+  "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7 e2e4 d7d6 g1f3": ["e1g1"],
+  "d2d4 g8f6 c2c4 g7g6 b1c3 f8g7 e2e4 d7d6 g1f3 e1g1": ["f1e2"],
+  
+  // Grunfeld
+  "d2d4 g8f6 c2c4 g7g6 b1c3 d7d5": ["c4d5","g1f3","c1g5"],
+  "d2d4 g8f6 c2c4 g7g6 b1c3 d7d5 c4d5": ["f6d5"],
+  "d2d4 g8f6 c2c4 g7g6 b1c3 d7d5 c4d5 f6d5": ["e2e4"],
+  
+  // Nimzo & Bogo Indian
+  "d2d4 g8f6 c2c4 e7e6": ["b1c3","g1f3","g2g3","a2a3"],
+  "d2d4 g8f6 c2c4 e7e6 b1c3": ["f8b4","d7d5","c7c5","b7b6"],
+  "d2d4 g8f6 c2c4 e7e6 b1c3 f8b4": ["e2e3","d1c2","a2a3"],
+  "d2d4 g8f6 c2c4 e7e6 g1f3": ["b7b6","d7d5","f8b4","c7c5"],
+
+  // 1. c4 (English Opening)
+  "c2c4": ["e7e5","c7c5","g8f6","e7e6","g7g6"],
+  "c2c4 e7e5": ["b1c3","g1f3","g2g3"],
+  "c2c4 e7e5 b1c3": ["b8c6","g8f6","f8b4"],
+  "c2c4 c7c5": ["b1c3","g1f3","g2g3"],
+  "c2c4 g8f6": ["b1c3","g1f3","g2g3"],
+
+  // 1. Nf3 (Reti / King's Indian Attack)
+  "g1f3": ["d7d5","g8f6","c7c5","e7e6"],
+  "g1f3 d7d5": ["c2c4","g2g3","d2d4"]
 };
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   3. MOVE GENERATION
+   MOVE GENERATION & VALIDATION LOGIC
    ═══════════════════════════════════════════════════════════════════════════ */
 function atkMoves(board, r, c) {
-  const p = board[r][c]; if (!p) return [];
+  const p = board[r][c]; 
+  if (!p) return [];
   const c0 = cl(p), t = tp(p), ms = [];
-  const add = (tr, tc) => { if (!IB(tr, tc)) return false; const x = board[tr][tc]; if (x && cl(x) === c0) return false; ms.push([tr, tc]); return !x; };
-  if (t === "P") { const d = c0 === "w" ? -1 : 1; if (IB(r + d, c - 1)) ms.push([r + d, c - 1]); if (IB(r + d, c + 1)) ms.push([r + d, c + 1]); }
-  else if (t === "N") { [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]].forEach(([dr, dc]) => add(r + dr, c + dc)); }
-  else if (t === "B") { [[-1, -1], [-1, 1], [1, -1], [1, 1]].forEach(([dr, dc]) => { let nr = r + dr, nc = c + dc; while (IB(nr, nc)) { if (!add(nr, nc)) break; nr += dr; nc += dc; } }); }
-  else if (t === "R") { [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dr, dc]) => { let nr = r + dr, nc = c + dc; while (IB(nr, nc)) { if (!add(nr, nc)) break; nr += dr; nc += dc; } }); }
-  else if (t === "Q") { [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].forEach(([dr, dc]) => { let nr = r + dr, nc = c + dc; while (IB(nr, nc)) { if (!add(nr, nc)) break; nr += dr; nc += dc; } }); }
-  else if (t === "K") { [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].forEach(([dr, dc]) => add(r + dr, c + dc)); }
+  const add = (tr, tc) => { 
+    if (!IB(tr, tc)) return false; 
+    const x = board[tr][tc]; 
+    if (x && cl(x) === c0) return false; 
+    ms.push([tr, tc]); 
+    return !x; 
+  };
+  
+  if (t === "P") { 
+    const d = c0 === "w" ? -1 : 1; 
+    if (IB(r + d, c - 1)) ms.push([r + d, c - 1]); 
+    if (IB(r + d, c + 1)) ms.push([r + d, c + 1]); 
+  }
+  else if (t === "N") { 
+    [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]].forEach(([dr, dc]) => add(r + dr, c + dc)); 
+  }
+  else if (t === "B") { 
+    [[-1, -1], [-1, 1], [1, -1], [1, 1]].forEach(([dr, dc]) => { 
+      let nr = r + dr, nc = c + dc; 
+      while (IB(nr, nc)) { 
+        if (!add(nr, nc)) break; 
+        nr += dr; nc += dc; 
+      } 
+    }); 
+  }
+  else if (t === "R") { 
+    [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dr, dc]) => { 
+      let nr = r + dr, nc = c + dc; 
+      while (IB(nr, nc)) { 
+        if (!add(nr, nc)) break; 
+        nr += dr; nc += dc; 
+      } 
+    }); 
+  }
+  else if (t === "Q") { 
+    [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].forEach(([dr, dc]) => { 
+      let nr = r + dr, nc = c + dc; 
+      while (IB(nr, nc)) { 
+        if (!add(nr, nc)) break; 
+        nr += dr; nc += dc; 
+      } 
+    }); 
+  }
+  else if (t === "K") { 
+    [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].forEach(([dr, dc]) => add(r + dr, c + dc)); 
+  }
+  
   return ms;
 }
 
 function isAttacked(board, r, c, byColor) {
-  for (let rr = 0; rr < 8; rr++) for (let cc = 0; cc < 8; cc++) {
-      const p = board[rr][cc]; if (p && cl(p) === byColor && atkMoves(board, rr, cc).some(([mr, mc]) => mr === r && mc === c)) return true;
+  for (let rr = 0; rr < 8; rr++) {
+    for (let cc = 0; cc < 8; cc++) {
+      const p = board[rr][cc]; 
+      if (p && cl(p) === byColor && atkMoves(board, rr, cc).some(([mr, mc]) => mr === r && mc === c)) return true;
+    }
   }
   return false;
 }
 
 function pseudoMoves(board, r, c, ep, castling) {
-  const p = board[r][c]; if (!p) return [];
+  const p = board[r][c]; 
+  if (!p) return [];
   const c0 = cl(p), t = tp(p), ms = [];
-  const add = (tr, tc) => { if (!IB(tr, tc)) return false; const x = board[tr][tc]; if (x && cl(x) === c0) return false; ms.push([tr, tc]); return !x; };
+  const add = (tr, tc) => { 
+    if (!IB(tr, tc)) return false; 
+    const x = board[tr][tc]; 
+    if (x && cl(x) === c0) return false; 
+    ms.push([tr, tc]); 
+    return !x; 
+  };
+  
   if (t === "P") {
-    const d = c0 === "w" ? -1 : 1, sr = c0 === "w" ? 6 : 1;
-    if (IB(r + d, c) && !board[r + d][c]) { ms.push([r + d, c]); if (r === sr && !board[r + 2 * d][c]) ms.push([r + 2 * d, c]); }
+    const d = c0 === "w" ? -1 : 1;
+    const sr = c0 === "w" ? 6 : 1;
+    if (IB(r + d, c) && !board[r + d][c]) { 
+      ms.push([r + d, c]); 
+      if (r === sr && !board[r + 2 * d][c]) {
+        ms.push([r + 2 * d, c]); 
+      }
+    }
     for (const dc of [-1, 1]) {
-      if (IB(r + d, c + dc)) { const x = board[r + d][c + dc]; if (x && cl(x) !== c0) ms.push([r + d, c + dc]); if (ep && ep[0] === r + d && ep[1] === c + dc) ms.push([r + d, c + dc]); }
+      if (IB(r + d, c + dc)) { 
+        const x = board[r + d][c + dc]; 
+        if (x && cl(x) !== c0) ms.push([r + d, c + dc]); 
+        if (ep && ep[0] === r + d && ep[1] === c + dc) ms.push([r + d, c + dc]); // En-passant
+      }
     }
   }
-  else if (t === "N") { [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]].forEach(([dr, dc]) => add(r + dr, c + dc)); }
-  else if (t === "B") { [[-1, -1], [-1, 1], [1, -1], [1, 1]].forEach(([dr, dc]) => { let nr = r + dr, nc = c + dc; while (IB(nr, nc)) { if (!add(nr, nc)) break; nr += dr; nc += dc; } }); }
-  else if (t === "R") { [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dr, dc]) => { let nr = r + dr, nc = c + dc; while (IB(nr, nc)) { if (!add(nr, nc)) break; nr += dr; nc += dc; } }); }
-  else if (t === "Q") { [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].forEach(([dr, dc]) => { let nr = r + dr, nc = c + dc; while (IB(nr, nc)) { if (!add(nr, nc)) break; nr += dr; nc += dc; } }); }
+  else if (t === "N") { 
+    [[-2, -1], [-2, 1], [-1, -2], [-1, 2], [1, -2], [1, 2], [2, -1], [2, 1]].forEach(([dr, dc]) => add(r + dr, c + dc)); 
+  }
+  else if (t === "B") { 
+    [[-1, -1], [-1, 1], [1, -1], [1, 1]].forEach(([dr, dc]) => { 
+      let nr = r + dr, nc = c + dc; 
+      while (IB(nr, nc)) { 
+        if (!add(nr, nc)) break; 
+        nr += dr; nc += dc; 
+      } 
+    }); 
+  }
+  else if (t === "R") { 
+    [[-1, 0], [1, 0], [0, -1], [0, 1]].forEach(([dr, dc]) => { 
+      let nr = r + dr, nc = c + dc; 
+      while (IB(nr, nc)) { 
+        if (!add(nr, nc)) break; 
+        nr += dr; nc += dc; 
+      } 
+    }); 
+  }
+  else if (t === "Q") { 
+    [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].forEach(([dr, dc]) => { 
+      let nr = r + dr, nc = c + dc; 
+      while (IB(nr, nc)) { 
+        if (!add(nr, nc)) break; 
+        nr += dr; nc += dc; 
+      } 
+    }); 
+  }
   else if (t === "K") {
     [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]].forEach(([dr, dc]) => add(r + dr, c + dc));
     const row = c0 === "w" ? 7 : 0;
     if (r === row && c === 4) {
-      if (castling[c0 + "K"] && !board[row][5] && !board[row][6] && !isAttacked(board, row, 4, opp(c0)) && !isAttacked(board, row, 5, opp(c0)) && !isAttacked(board, row, 6, opp(c0))) ms.push([row, 6]);
-      if (castling[c0 + "Q"] && !board[row][3] && !board[row][2] && !board[row][1] && !isAttacked(board, row, 4, opp(c0)) && !isAttacked(board, row, 3, opp(c0)) && !isAttacked(board, row, 2, opp(c0))) ms.push([row, 2]);
+      // Kingside castling
+      if (castling[c0 + "K"] && !board[row][5] && !board[row][6] && 
+          !isAttacked(board, row, 4, opp(c0)) && !isAttacked(board, row, 5, opp(c0)) && !isAttacked(board, row, 6, opp(c0))) {
+            ms.push([row, 6]);
+      }
+      // Queenside castling
+      if (castling[c0 + "Q"] && !board[row][3] && !board[row][2] && !board[row][1] && 
+          !isAttacked(board, row, 4, opp(c0)) && !isAttacked(board, row, 3, opp(c0)) && !isAttacked(board, row, 2, opp(c0))) {
+            ms.push([row, 2]);
+      }
     }
   }
   return ms;
 }
 
-function findKing(board, c0) { for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) if (board[r][c] === c0 + "K") return [r, c]; return [0, 0]; }
-function inCheck(board, c0) { const [kr, kc] = findKing(board, c0); return isAttacked(board, kr, kc, opp(c0)); }
+function findKing(board, c0) { 
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      if (board[r][c] === c0 + "K") return [r, c]; 
+    }
+  }
+  return [0, 0]; 
+}
+
+function inCheck(board, c0) { 
+  const [kr, kc] = findKing(board, c0); 
+  return isAttacked(board, kr, kc, opp(c0)); 
+}
 
 function applyMove(board, fr, fc, tr, tc, ep, castling, promo = null) {
-  const nb = cpB(board), p = nb[fr][fc], c0 = cl(p), t = tp(p), nc = { ...castling }; let nep = null;
+  const nb = cpB(board);
+  const p = nb[fr][fc];
+  const c0 = cl(p);
+  const t = tp(p);
+  const nc = { ...castling }; 
+  let nep = null;
+  
+  // Account for en-passant captures dynamically
   const isEpCapture = t === "P" && ep && tr === ep[0] && tc === ep[1];
   const captured = nb[tr][tc] || (isEpCapture ? nb[fr][tc] : null); 
   
-  nb[tr][tc] = p; nb[fr][fc] = null;
+  nb[tr][tc] = p; 
+  nb[fr][fc] = null;
+  
+  // En-passant execution
   if (isEpCapture) nb[c0 === "w" ? tr + 1 : tr - 1][tc] = null;
+  
+  // En-passant creation
   if (t === "P" && Math.abs(tr - fr) === 2) nep = [(fr + tr) / 2, tc];
   
+  // Castling execution & flag updates
   if (t === "K") { 
     if (tc - fc === 2) { nb[fr][5] = nb[fr][7]; nb[fr][7] = null; } 
     if (fc - tc === 2) { nb[fr][3] = nb[fr][0]; nb[fr][0] = null; } 
-    nc[c0 + "K"] = false; nc[c0 + "Q"] = false; 
+    nc[c0 + "K"] = false; 
+    nc[c0 + "Q"] = false; 
   }
   if (t === "R") { 
-    if (fr === 7 && fc === 7) nc.wK = false; if (fr === 7 && fc === 0) nc.wQ = false; 
-    if (fr === 0 && fc === 7) nc.bK = false; if (fr === 0 && fc === 0) nc.bQ = false; 
+    if (fr === 7 && fc === 7) nc.wK = false; 
+    if (fr === 7 && fc === 0) nc.wQ = false; 
+    if (fr === 0 && fc === 7) nc.bK = false; 
+    if (fr === 0 && fc === 0) nc.bQ = false; 
   }
-  if (tr === 7 && tc === 7) nc.wK = false; if (tr === 7 && tc === 0) nc.wQ = false; 
-  if (tr === 0 && tc === 7) nc.bK = false; if (tr === 0 && tc === 0) nc.bQ = false;
+  if (tr === 7 && tc === 7) nc.wK = false; 
+  if (tr === 7 && tc === 0) nc.wQ = false; 
+  if (tr === 0 && tc === 7) nc.bK = false; 
+  if (tr === 0 && tc === 0) nc.bQ = false;
   
-  if (t === "P" && (tr === 0 || tr === 7)) nb[tr][tc] = c0 + (promo || "Q");
+  // Promotion
+  if (t === "P" && (tr === 0 || tr === 7)) {
+    nb[tr][tc] = c0 + (promo || "Q");
+  }
   
   return { board: nb, ep: nep, castling: nc, captured };
 }
 
 function legalMovesFor(board, r, c, ep, castling) {
-  const p = board[r][c]; if (!p) return []; const c0 = cl(p), out = [];
+  const p = board[r][c]; 
+  if (!p) return []; 
+  const c0 = cl(p), out = [];
+  
   for (const [tr, tc] of pseudoMoves(board, r, c, ep, castling)) {
     const isPromo = tp(p) === "P" && (tr === 0 || tr === 7);
     for (const promo of (isPromo ? ["Q", "R", "B", "N"] : [null])) {
       const { board: nb } = applyMove(board, r, c, tr, tc, ep, castling, promo);
-      if (!inCheck(nb, c0)) out.push([r, c, tr, tc, promo]);
+      if (!inCheck(nb, c0)) {
+        out.push([r, c, tr, tc, promo]);
+      }
     }
   }
   return out;
@@ -184,20 +596,29 @@ function legalMovesFor(board, r, c, ep, castling) {
 
 function allLegal(board, c0, ep, castling) {
   const ms = []; 
-  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) if (board[r][c] && cl(board[r][c]) === c0) legalMovesFor(board, r, c, ep, castling).forEach(m => ms.push(m)); 
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      if (board[r][c] && cl(board[r][c]) === c0) {
+        legalMovesFor(board, r, c, ep, castling).forEach(m => ms.push(m)); 
+      }
+    }
+  }
+  // Base Move Ordering (MVV-LVA + Promos) to speed up Alpha-Beta significantly
   return ms.sort((a, b) => scoreMove(board, b) - scoreMove(board, a));
 }
 
 function allLegalCaptures(board, c0, ep, castling) {
   const ms = [];
-  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
-    if (board[r][c] && cl(board[r][c]) === c0) {
-      for (const [tr, tc] of pseudoMoves(board, r, c, ep, castling)) {
-        const isEP = tp(board[r][c]) === "P" && ep && tr === ep[0] && tc === ep[1];
-        if (board[tr][tc] || isEP) { 
-          const isPromo = tp(board[r][c]) === "P" && (tr === 0 || tr === 7);
-          const { board: nb } = applyMove(board, r, c, tr, tc, ep, castling, isPromo ? "Q" : null);
-          if (!inCheck(nb, c0)) ms.push([r, c, tr, tc, isPromo ? "Q" : null]);
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      if (board[r][c] && cl(board[r][c]) === c0) {
+        for (const [tr, tc] of pseudoMoves(board, r, c, ep, castling)) {
+          const isEP = tp(board[r][c]) === "P" && ep && tr === ep[0] && tc === ep[1];
+          if (board[tr][tc] || isEP) { 
+            const isPromo = tp(board[r][c]) === "P" && (tr === 0 || tr === 7);
+            const { board: nb } = applyMove(board, r, c, tr, tc, ep, castling, isPromo ? "Q" : null);
+            if (!inCheck(nb, c0)) ms.push([r, c, tr, tc, isPromo ? "Q" : null]);
+          }
         }
       }
     }
@@ -209,61 +630,96 @@ function scoreMove(board, m) {
   let score = 0;
   const piece = board[m[0]][m[1]];
   const target = board[m[2]][m[3]];
-  if (target) score = 10 * PVAL[tp(target)] - PVAL[tp(piece)];
-  else if (tp(piece) === "P" && m[1] !== m[3]) score = 10 * PVAL.P - PVAL.P; 
-  if (m[4]) score += PVAL[m[4]]; 
+  
+  // Most Valuable Victim - Least Valuable Attacker (MVV-LVA)
+  if (target) {
+    score = 10 * PVAL[tp(target)] - PVAL[tp(piece)];
+  } else if (tp(piece) === "P" && m[1] !== m[3]) {
+    score = 10 * PVAL.P - PVAL.P; // En Passant logic
+  }
+  
+  if (m[4]) score += PVAL[m[4]]; // Promotion bonus
   return score;
 }
 
 function isInsufficientMaterial(board) {
   const pieces = [];
-  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) if (board[r][c]) pieces.push(board[r][c]);
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      if (board[r][c]) pieces.push(board[r][c]);
+    }
+  }
   if (pieces.length === 2) return true; 
   if (pieces.length === 3 && pieces.some(p => tp(p) === "N" || tp(p) === "B")) return true; 
   return false;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   4. EVALUATION & QUIESCENCE
+   5. ADVANCED EVALUATION & QUIESCENCE SEARCH ENGINE
    ═══════════════════════════════════════════════════════════════════════════ */
 function evalFull(board) {
   let s = 0, phase = 0; 
   let wPawns = Array(8).fill(0), bPawns = Array(8).fill(0);
   let wMob = 0, bMob = 0;
-  
-  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
-    const p = board[r][c]; if (!p) continue;
-    const t = tp(p);
-    if(t === "N" || t === "B") phase += 1; else if(t === "R") phase += 2; else if(t === "Q") phase += 4;
+
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c]; if (!p) continue;
+      const t = tp(p);
+      if(t === "N" || t === "B") phase += 1;
+      else if(t === "R") phase += 2;
+      else if(t === "Q") phase += 4;
+    }
   }
+  
   const egWeight = Math.max(0, Math.min(1, 1 - (phase / 24)));
   const mgWeight = 1 - egWeight;
 
-  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
-    const p = board[r][c]; if (!p) continue;
-    const c0 = cl(p), t = tp(p), pr = c0 === "w" ? r : 7 - r;
-    const val = PVAL[t];
-    let pstVal = 0;
-    if (t === "K") pstVal = (PST.K_MG[pr][c] * mgWeight) + (PST.K_EG[pr][c] * egWeight);
-    else pstVal = PST[t] ? PST[t][pr][c] : 0;
-    
-    s += (c0 === "w" ? 1 : -1) * (val + pstVal);
-    if (t === "P") { if (c0 === "w") wPawns[c]++; else bPawns[c]++; }
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c]; if (!p) continue;
+      const c0 = cl(p), t = tp(p), pr = c0 === "w" ? r : 7 - r;
+      const val = PVAL[t];
+      let pstVal = 0;
+      
+      if (t === "K") {
+        pstVal = (PST.K_MG[pr][c] * mgWeight) + (PST.K_EG[pr][c] * egWeight);
+      } else {
+        pstVal = PST[t] ? PST[t][pr][c] : 0;
+      }
+      
+      s += (c0 === "w" ? 1 : -1) * (val + pstVal);
+      if (t === "P") { if (c0 === "w") wPawns[c]++; else bPawns[c]++; }
+    }
   }
 
+  // Positional logic: Pawn structure & Rook placements
   for (let c = 0; c < 8; c++) {
     if (wPawns[c] > 1) s -= 20 * (wPawns[c] - 1);
     if (bPawns[c] > 1) s += 20 * (bPawns[c] - 1);
+    
     const wIso = wPawns[c] > 0 && (c === 0 || wPawns[c - 1] === 0) && (c === 7 || wPawns[c + 1] === 0);
     const bIso = bPawns[c] > 0 && (c === 0 || bPawns[c - 1] === 0) && (c === 7 || bPawns[c + 1] === 0);
-    if (wIso) s -= 15; if (bIso) s += 15;
+    if (wIso) s -= 15; 
+    if (bIso) s += 15;
+    
+    const open = wPawns[c] === 0 && bPawns[c] === 0;
+    const semiW = wPawns[c] === 0 && bPawns[c] > 0;
+    const semiB = bPawns[c] === 0 && wPawns[c] > 0;
+    for (let r = 0; r < 8; r++) {
+      if (board[r][c] === "wR") s += open ? 25 : semiW ? 12 : 0;
+      if (board[r][c] === "bR") s -= open ? 25 : semiB ? 12 : 0;
+    }
   }
 
-  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
-    const p = board[r][c]; if (!p) continue;
-    const t = tp(p); if (t === "K" || t === "P") continue;
-    const moves = atkMoves(board, r, c).length;
-    if (cl(p) === "w") wMob += moves; else bMob += moves;
+  // Basic Mobility mapping
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c]; if (!p) continue;
+      const t = tp(p); if (t === "K" || t === "P") continue;
+      const moves = atkMoves(board, r, c).length;
+      if (cl(p) === "w") wMob += moves; else bMob += moves;
+    }
   }
   s += (wMob - bMob) * 2;
 
@@ -278,31 +734,42 @@ function gaussNoise(sigma) {
 
 function biasedEval(board, matBias, posBias, noiseSigma) {
   let s = 0, phase = 0;
-  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
-    const p = board[r][c]; if (!p) continue;
-    const t = tp(p);
-    if(t === "N" || t === "B") phase += 1; else if(t === "R") phase += 2; else if(t === "Q") phase += 4;
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c]; if (!p) continue;
+      const t = tp(p);
+      if(t === "N" || t === "B") phase += 1; 
+      else if(t === "R") phase += 2; 
+      else if(t === "Q") phase += 4;
+    }
   }
   const egWeight = Math.max(0, Math.min(1, 1 - (phase / 24)));
   const mgWeight = 1 - egWeight;
 
-  for (let r = 0; r < 8; r++) for (let c = 0; c < 8; c++) {
-    const p = board[r][c]; if (!p) continue;
-    const c0 = cl(p), t = tp(p), pr = c0 === "w" ? r : 7 - r;
-    const matVal = PVAL[t] * matBias;
-    let pstVal = 0;
-    if (t === "K") pstVal = (PST.K_MG[pr][c] * mgWeight) + (PST.K_EG[pr][c] * egWeight);
-    else pstVal = PST[t] ? PST[t][pr][c] : 0;
-    pstVal *= posBias;
-    const noise = noiseSigma > 0 ? gaussNoise(noiseSigma * 0.4) : 0;
-    s += (c0 === "w" ? 1 : -1) * (matVal + pstVal + noise);
+  for (let r = 0; r < 8; r++) {
+    for (let c = 0; c < 8; c++) {
+      const p = board[r][c]; if (!p) continue;
+      const c0 = cl(p), t = tp(p), pr = c0 === "w" ? r : 7 - r;
+      const matVal = PVAL[t] * matBias;
+      let pstVal = 0;
+      if (t === "K") {
+        pstVal = (PST.K_MG[pr][c] * mgWeight) + (PST.K_EG[pr][c] * egWeight);
+      } else {
+        pstVal = PST[t] ? PST[t][pr][c] : 0;
+      }
+      pstVal *= posBias;
+      const noise = noiseSigma > 0 ? gaussNoise(noiseSigma * 0.4) : 0;
+      s += (c0 === "w" ? 1 : -1) * (matVal + pstVal + noise);
+    }
   }
   return s;
 }
 
+/* Quiescence Search prevents the horizon effect by forcing captures to play out */
 function quiescence(board, alpha, beta, max, ep, castling, matBias, posBias, noise, qDepth = 0) {
   const stand_pat = biasedEval(board, matBias, posBias, noise);
-  if (qDepth > 4) return stand_pat; 
+  
+  if (qDepth > 4) return stand_pat; // Hard cap depth to prevent infinite loops
   
   if (max) {
     if (stand_pat >= beta) return beta;
@@ -329,6 +796,8 @@ function quiescence(board, alpha, beta, max, ep, castling, matBias, posBias, noi
 
 function biasedMinimax(board, depth, alpha, beta, max, ep, castling, matBias, posBias, noise) {
   const c0 = max ? "w" : "b";
+  
+  // Transition into Quiescence Search when deep search ends
   if (depth === 0) return quiescence(board, alpha, beta, max, ep, castling, matBias, posBias, noise);
   
   const ms = allLegal(board, c0, ep, castling);
@@ -339,21 +808,24 @@ function biasedMinimax(board, depth, alpha, beta, max, ep, castling, matBias, po
     for (const [fr, fc, tr, tc, promo] of ms) {
       const { board: nb, ep: ne, castling: nc } = applyMove(board, fr, fc, tr, tc, ep, castling, promo);
       best = Math.max(best, biasedMinimax(nb, depth - 1, alpha, beta, false, ne, nc, matBias, posBias, noise));
-      alpha = Math.max(alpha, best); if (beta <= alpha) break;
+      alpha = Math.max(alpha, best); 
+      if (beta <= alpha) break;
     }
     return best;
   }
+  
   let best = Infinity;
   for (const [fr, fc, tr, tc, promo] of ms) {
     const { board: nb, ep: ne, castling: nc } = applyMove(board, fr, fc, tr, tc, ep, castling, promo);
     best = Math.min(best, biasedMinimax(nb, depth - 1, alpha, beta, true, ne, nc, matBias, posBias, noise));
-    beta = Math.min(beta, best); if (beta <= alpha) break;
+    beta = Math.min(beta, best); 
+    if (beta <= alpha) break;
   }
   return best;
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   5. BOT MANAGER
+   6. 25 BOT LEVELS (NOVICE TO GRANDMASTER)
    ═══════════════════════════════════════════════════════════════════════════ */
 const BOTS = [
   {id:1,  name:"Toby",        elo:400,  em:"🐣",clr:"#ef9a9a",tier:"Beginner",    desc:"Just learned the rules. Randomly throws away pieces."},
@@ -395,8 +867,16 @@ function eloToParams(elo) {
   ];
   let lo = 0, hi = pts.length - 1;
   const clamped = Math.max(400, Math.min(3200, elo));
-  while (lo < hi - 1) { const mid = (lo + hi) >> 1; if (pts[mid][0] <= clamped) lo = mid; else hi = mid; }
-  const t = (clamped - pts[lo][0]) / (pts[hi][0] - pts[lo][0]), a = pts[lo][1], b = pts[hi][1];
+  
+  while (lo < hi - 1) { 
+    const mid = (lo + hi) >> 1; 
+    if (pts[mid][0] <= clamped) lo = mid; 
+    else hi = mid; 
+  }
+  
+  const t = (clamped - pts[lo][0]) / (pts[hi][0] - pts[lo][0]);
+  const a = pts[lo][1], b = pts[hi][1];
+  
   return { 
     depth: Math.round(a.depth + (b.depth - a.depth) * t), 
     blunder: a.blunder + (b.blunder - a.blunder) * t, 
@@ -410,9 +890,11 @@ function eloToParams(elo) {
 function chooseBotMove(board, turn, ep, castling, elo, historyStr) {
   const ms = allLegal(board, turn, ep, castling);
   if (!ms.length) return null;
+  
   const { depth, blunder, noise, mat, pos, book } = eloToParams(elo);
   const mx = turn === "w";
 
+  // 1. Check FIDE Opening Book for standard theory
   if (Math.random() < book && OPENINGS[historyStr]) {
     const bookMoves = OPENINGS[historyStr];
     const target = bookMoves[Math.floor(Math.random() * bookMoves.length)];
@@ -423,17 +905,23 @@ function chooseBotMove(board, turn, ep, castling, elo, historyStr) {
     if (found) return found;
   }
 
-  if (Math.random() < blunder) return ms[Math.floor(Math.random() * ms.length)];
+  // 2. Intentional Low ELO Blunder simulation
+  if (Math.random() < blunder) {
+    return ms[Math.floor(Math.random() * ms.length)];
+  }
 
+  // 3. Root Pruning Minimax with tolerance band
   let bestScore = mx ? -Infinity : Infinity;
   let bestMove = ms[0];
   let alpha = -Infinity, beta = Infinity;
+
   const band = [];
-  const tol = Math.max(3, noise * 0.15);
+  const tol = Math.max(3, noise * 0.15); // Engine fuzziness for weaker bots
 
   for (const m of ms) {
     const { board: nb, ep: ne, castling: nc } = applyMove(board, m[0], m[1], m[2], m[3], ep, castling, m[4]);
     const score = biasedMinimax(nb, depth - 1, alpha, beta, !mx, ne, nc, mat, pos, noise);
+    
     if (mx) {
       if (score > bestScore - tol) band.push({ m, score });
       if (score > bestScore) { bestScore = score; bestMove = m; }
@@ -450,42 +938,47 @@ function chooseBotMove(board, turn, ep, castling, elo, historyStr) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   6. ANALYSIS & COACH
+   7. ANALYSIS, CPL, COACH FEEDBACK (Noctie.ai style)
    ═══════════════════════════════════════════════════════════════════════════ */
 function calcCPL(boardBefore, fr, fc, tr, tc, ep, castling, promo, mc) {
   const cands = allLegal(boardBefore, mc, ep, castling);
   if (!cands.length) return 0;
+  
+  // Depth 1 Tactical Scan to avoid flagging smart sacrifices as blunders
   const evals = cands.map(m => { 
       const { board: ab, ep: aep, castling: acast } = applyMove(boardBefore, m[0], m[1], m[2], m[3], ep, castling, m[4]); 
       return quiescence(ab, -Infinity, Infinity, mc !== "w", aep, acast, 1.0, 1.0, 0); 
   });
+  
   const bestEval = mc === "w" ? Math.max(...evals) : Math.min(...evals);
+  
   const { board: nb, ep: nep, castling: ncast } = applyMove(boardBefore, fr, fc, tr, tc, ep, castling, promo);
   const playedEval = quiescence(nb, -Infinity, Infinity, mc !== "w", nep, ncast, 1.0, 1.0, 0);
+  
   const sign = mc === "w" ? 1 : -1;
   return Math.max(0, sign * (bestEval - playedEval));
 }
 
 function classifyMove(cpl, brilliant = false) {
   if (brilliant) return { label: "Brilliant", sym: "!!", clr: "#00BCD4" };
-  if (cpl < 8) return { label: "Best", sym: "✦", clr: "#4CAF50" };
-  if (cpl < 25) return { label: "Excellent", sym: "!", clr: "#8BC34A" };
-  if (cpl < 60) return { label: "Good", sym: "", clr: "#CDDC39" };
-  if (cpl < 130) return { label: "Inaccuracy", sym: "?!", clr: "#FF9800" };
-  if (cpl < 250) return { label: "Mistake", sym: "?", clr: "#FF5722" };
+  if (cpl < 8)   return { label: "Best",      sym: "✦", clr: "#4CAF50" };
+  if (cpl < 25)  return { label: "Excellent", sym: "!",  clr: "#8BC34A" };
+  if (cpl < 60)  return { label: "Good",      sym: "",   clr: "#CDDC39" };
+  if (cpl < 130) return { label: "Inaccuracy",sym: "?!", clr: "#FF9800" };
+  if (cpl < 250) return { label: "Mistake",   sym: "?",  clr: "#FF5722" };
   return { label: "Blunder", sym: "??", clr: "#F44336" };
 }
 
 function getCoachFeedback(classification, piece, isCapture) {
   const isP = tp(piece) === "P";
   switch(classification.label) {
-    case "Brilliant": return "A stunning sacrifice! You found the engine's hidden gem.";
-    case "Best": return isCapture ? "The perfect capture." : "The best move in the position.";
-    case "Excellent": return isP ? "A very strong pawn push." : "An excellent, active piece placement.";
-    case "Good": return "A solid, standard developing move.";
+    case "Brilliant":  return "A stunning sacrifice! You found the engine's hidden gem.";
+    case "Best":       return isCapture ? "The perfect capture." : "The best move in the position.";
+    case "Excellent":  return isP ? "A very strong pawn push." : "An excellent, active piece placement.";
+    case "Good":       return "A solid, standard developing move.";
     case "Inaccuracy": return "Slightly imprecise. There was a stronger plan available.";
-    case "Mistake": return "A clear mistake. You dropped a significant advantage here.";
-    case "Blunder": return isCapture ? "A fatal capture! You hung material or missed mate." : "A massive blunder. This completely loses the game.";
+    case "Mistake":    return "A clear mistake. You dropped a significant advantage here.";
+    case "Blunder":    return isCapture ? "A fatal capture! You hung material or missed mate." : "A massive blunder. This completely loses the game.";
     default: return "";
   }
 }
@@ -494,8 +987,13 @@ function buildNotation(board, fr, fc, tr, tc, captured, nb, promo) {
   const p = board[fr][fc], t = tp(p), c0 = cl(p);
   if (t === "K" && tc - fc === 2) return "O-O"; 
   if (t === "K" && fc - tc === 2) return "O-O-O";
-  const piece = t === "P" ? "" : t, fromF = t === "P" && captured ? String.fromCharCode(97 + fc) : "", cap = captured ? "x" : "", to = sqN(tr, tc);
+  
+  const piece = t === "P" ? "" : t;
+  const fromF = t === "P" && captured ? String.fromCharCode(97 + fc) : "";
+  const cap = captured ? "x" : "";
+  const to = sqN(tr, tc);
   const promoStr = promo ? `=${promo}` : "";
+  
   const nextC = opp(c0), nextMs = allLegal(nb, nextC, null, INIT_CAST());
   return `${piece}${fromF}${cap}${to}${promoStr}${inCheck(nb, nextC) ? (nextMs.length === 0 ? "#" : "+") : ""}`;
 }
@@ -504,6 +1002,7 @@ function calcAccuracy(moves, playerColor) {
   const pm = moves.filter(m => cl(m.piece) === playerColor);
   if (!pm.length) return 100;
   const avg = pm.reduce((s, m) => s + (m.cpl || 0), 0) / pm.length;
+  // Lichess formula capping smoothly at 100
   return Math.min(100, Math.max(0, Math.round(103.1668 * Math.exp(-0.04354 * avg) - 3.1668)));
 }
 
@@ -517,70 +1016,132 @@ const evalToW = e => Math.min(99, Math.max(1, Math.round(50 + 50 * (2 / (1 + Mat
 
 function getMaterialDiff(board) {
   const counts = { w: { P:0,N:0,B:0,R:0,Q:0,K:0 }, b: { P:0,N:0,B:0,R:0,Q:0,K:0 } };
-  for(let r=0;r<8;r++)for(let c=0;c<8;c++){
-      const p = board[r][c]; if(p) counts[cl(p)][tp(p)]++;
+  
+  for(let r = 0; r < 8; r++) {
+    for(let c = 0; c < 8; c++) {
+      const p = board[r][c];
+      if(p) counts[cl(p)][tp(p)]++;
+    }
   }
-  const diff = { w: [], b: [] }; let wScore = 0, bScore = 0;
+  
+  const diff = { w: [], b: [] };
+  let wScore = 0, bScore = 0;
+  
   ['Q','R','B','N','P'].forEach(t => {
       const w = counts.w[t], b = counts.b[t];
-      if(w>b) { for(let i=0;i<w-b;i++) diff.w.push("w"+t); wScore += (w-b)*PVAL[t]; }
-      if(b>w) { for(let i=0;i<b-w;i++) diff.b.push("b"+t); bScore += (b-w)*PVAL[t]; }
+      if(w > b) { 
+        for(let i = 0; i < w - b; i++) diff.w.push("w" + t); 
+        wScore += (w - b) * PVAL[t]; 
+      }
+      if(b > w) { 
+        for(let i = 0; i < b - w; i++) diff.b.push("b" + t); 
+        bScore += (b - w) * PVAL[t]; 
+      }
   });
-  return { wPieces: diff.w, bPieces: diff.b, score: Math.round((wScore - bScore)/100) };
+  
+  return { wPieces: diff.w, bPieces: diff.b, score: Math.round((wScore - bScore) / 100) };
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   7. AUDIO ENGINE
+   8. AUDIO ENGINE (Authentic Wooden Acoustics, No Check Sound)
    ═══════════════════════════════════════════════════════════════════════════ */
 function useSound(enabled){
-  const acRef=useRef(null);
-  const getAC=()=>{
-    if(!acRef.current)acRef.current=new(window.AudioContext||window.webkitAudioContext)();
-    if(acRef.current.state==="suspended")acRef.current.resume();
+  const acRef = useRef(null);
+  
+  const getAC = () => {
+    if (!acRef.current) acRef.current = new (window.AudioContext || window.webkitAudioContext)();
+    if (acRef.current.state === "suspended") acRef.current.resume();
     return acRef.current;
   };
-  const thock=(ac,t0,freq,dur,gain)=>{
-    const sr=ac.sampleRate,len=Math.floor(sr*dur),buf=ac.createBuffer(1,len,sr),d=buf.getChannelData(0);
-    for(let i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.exp(-i/(len*0.25));
-    const src=ac.createBufferSource();src.buffer=buf;
-    const bp=ac.createBiquadFilter();bp.type="bandpass";bp.frequency.value=freq;bp.Q.value=1.8;
-    const g=ac.createGain();g.gain.setValueAtTime(gain,t0);g.gain.exponentialRampToValueAtTime(0.001,t0+dur);
-    src.connect(bp);bp.connect(g);g.connect(ac.destination);src.start(t0);
-    const osc=ac.createOscillator();osc.type="sine";
-    osc.frequency.setValueAtTime(freq*0.8,t0);osc.frequency.exponentialRampToValueAtTime(freq*0.4,t0+dur*2.5);
-    const og=ac.createGain();og.gain.setValueAtTime(gain*0.18,t0);og.gain.exponentialRampToValueAtTime(0.001,t0+dur*2.5);
-    osc.connect(og);og.connect(ac.destination);osc.start(t0);osc.stop(t0+dur*2.5);
+  
+  const thock = (ac, t0, freq, dur, gain) => {
+    const sr = ac.sampleRate;
+    const len = Math.floor(sr * dur);
+    const buf = ac.createBuffer(1, len, sr);
+    const d = buf.getChannelData(0);
+    
+    // Noise burst for wood physical hit
+    for(let i = 0; i < len; i++) {
+      d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (len * 0.25));
+    }
+    
+    const src = ac.createBufferSource();
+    src.buffer = buf;
+    
+    const bp = ac.createBiquadFilter();
+    bp.type = "bandpass";
+    bp.frequency.value = freq;
+    bp.Q.value = 1.8;
+    
+    const g = ac.createGain();
+    g.gain.setValueAtTime(gain, t0);
+    g.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+    
+    src.connect(bp);
+    bp.connect(g);
+    g.connect(ac.destination);
+    src.start(t0);
+    
+    // Deep resonance
+    const osc = ac.createOscillator();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(freq * 0.8, t0);
+    osc.frequency.exponentialRampToValueAtTime(freq * 0.4, t0 + dur * 2.5);
+    
+    const og = ac.createGain();
+    og.gain.setValueAtTime(gain * 0.18, t0);
+    og.gain.exponentialRampToValueAtTime(0.001, t0 + dur * 2.5);
+    
+    osc.connect(og);
+    og.connect(ac.destination);
+    osc.start(t0);
+    osc.stop(t0 + dur * 2.5);
   };
-  return useCallback((type)=>{
-    if(!enabled)return;
-    try{
-      const ac=getAC(),t=ac.currentTime;
-      if(type==="move")        {thock(ac,t,320,0.065,0.7);}
-      else if(type==="capture"){thock(ac,t,450,0.08,0.95); thock(ac,t+0.04,220,0.05,0.5);}
-      else if(type==="castle") {thock(ac,t,340,0.06,0.8); thock(ac,t+0.12,280,0.06,0.6);}
-      else if(type==="gameover"){
-        [[261.6,0],[329.6,.12],[392,.24],[523.3,.36]].forEach(([f,d])=>{
-          const o=ac.createOscillator();o.type="triangle";const g=ac.createGain();
-          o.frequency.value=f;g.gain.setValueAtTime(0,t+d);g.gain.linearRampToValueAtTime(0.2,t+d+0.05);
-          g.gain.exponentialRampToValueAtTime(0.001,t+d+1.8);
-          o.connect(g);g.connect(ac.destination);o.start(t+d);o.stop(t+d+1.9);
+  
+  return useCallback((type) => {
+    if (!enabled) return;
+    try {
+      const ac = getAC();
+      const t = ac.currentTime;
+      
+      if (type === "move") {
+        thock(ac, t, 320, 0.065, 0.7);
+      } else if (type === "capture") {
+        thock(ac, t, 450, 0.08, 0.95); 
+        thock(ac, t + 0.04, 220, 0.05, 0.5);
+      } else if (type === "castle") {
+        thock(ac, t, 340, 0.06, 0.8); 
+        thock(ac, t + 0.12, 280, 0.06, 0.6);
+      } else if (type === "gameover") {
+        [[261.6,0], [329.6,0.12], [392,0.24], [523.3,0.36]].forEach(([f,d]) => {
+          const o = ac.createOscillator();
+          o.type = "triangle";
+          const g = ac.createGain();
+          o.frequency.value = f;
+          g.gain.setValueAtTime(0, t + d);
+          g.gain.linearRampToValueAtTime(0.2, t + d + 0.05);
+          g.gain.exponentialRampToValueAtTime(0.001, t + d + 1.8);
+          o.connect(g);
+          g.connect(ac.destination);
+          o.start(t + d);
+          o.stop(t + d + 1.9);
         });
       }
-    }catch(e){}
-  },[enabled]);
+    } catch(e) { }
+  }, [enabled]);
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   8. THEMES & SVGS
+   9. THEMES & SVGS
    ═══════════════════════════════════════════════════════════════════════════ */
-const TIME_MODES=[
-  {id:"inf",label:"♾ Unlimited", secs:0}, {id:"1",  label:"⚡ Bullet 1'", secs:60},
-  {id:"2",  label:"⚡ Bullet 2'", secs:120},{id:"3",  label:"🔥 Blitz 3'",  secs:180},
-  {id:"5",  label:"🔥 Blitz 5'",  secs:300},{id:"10", label:"♟ Rapid 10'", secs:600},
+const TIME_MODES = [
+  {id:"inf", label:"♾ Unlimited", secs:0}, {id:"1", label:"⚡ Bullet 1'", secs:60},
+  {id:"2", label:"⚡ Bullet 2'", secs:120}, {id:"3", label:"🔥 Blitz 3'",  secs:180},
+  {id:"5", label:"🔥 Blitz 5'",  secs:300}, {id:"10", label:"♟ Rapid 10'", secs:600},
   {id:"15", label:"♟ Rapid 15'", secs:900},
 ];
 
-const BOARD_THEMES={
+const BOARD_THEMES = {
   classic:  {name:"Classic Wood",  light:"#f0d9b5",dark:"#b58863",sel:"#f6f669",selD:"#d6d649",lm:"#cdd26a",dmLM:"#aaa23a",dot:"rgba(0,0,0,0.19)"},
   green:    {name:"Tournament",    light:"#eeeed2",dark:"#769656",sel:"#f0f04a",selD:"#d0d03a",lm:"#baca2b",dmLM:"#9a8a1b",dot:"rgba(0,0,0,0.17)"},
   ocean:    {name:"Ocean",         light:"#dce8f0",dark:"#4a7aac",sel:"#a8d8f0",selD:"#88b8d0",lm:"#60b8e0",dmLM:"#4098c0",dot:"rgba(0,0,50,0.18)"},
@@ -596,121 +1157,155 @@ const BOARD_THEMES={
 function PieceSVG({ piece, pStyle="merida", size="92%" }) {
   if (!piece) return null;
   const isW = piece[0] === "w", t = piece[1];
-  const C={
-    merida:{ fill:isW?"#fff":"#222", strk:isW?"#000":"#fff", sw:1.5, hl:isW?"#fff":"#444" },
-    neo:   { fill:isW?"#fff":"#181818", strk:isW?"#000":"#ccc", sw:2.5, hl:isW?"#fff":"#181818" },
-    wood:  { fill:isW?"#e4ba72":"#3d1f05", strk:isW?"#4a2808":"#a87840", sw:1.8, hl:isW?"#f0d090":"#5a3010" },
+
+  const C = {
+    merida: { fill:isW?"#fff":"#222", strk:isW?"#000":"#fff", sw:1.5, hl:isW?"#fff":"#444" },
+    neo:    { fill:isW?"#fff":"#181818", strk:isW?"#000":"#ccc", sw:2.5, hl:isW?"#fff":"#181818" },
+    wood:   { fill:isW?"#e4ba72":"#3d1f05", strk:isW?"#4a2808":"#a87840", sw:1.8, hl:isW?"#f0d090":"#5a3010" },
   }[pStyle] || { fill:"#fff", strk:"#000", sw:1.5, hl:"#fff" };
 
-  const P={ fill:C.fill, stroke:C.strk, strokeWidth:C.sw, strokeLinejoin:"round", strokeLinecap:"round" };
-  const H={ fill:C.hl };
+  const P = { fill:C.fill, stroke:C.strk, strokeWidth:C.sw, strokeLinejoin:"round", strokeLinecap:"round" };
+  const H = { fill:C.hl };
 
-  const shapes={
-    P:(<g><path d="M 22.5 9 C 19.5 9 17.5 11.5 17.5 14.5 C 17.5 17.5 20 20 22.5 20 C 25 20 27.5 17.5 27.5 14.5 C 27.5 11.5 25.5 9 22.5 9 z M 22.5 20 C 19 20 15 22 15 25 C 15 28 17 31 17 31 L 28 31 C 28 31 30 28 30 25 C 30 22 26 20 22.5 20 z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/></g>),
-    N:(<g><path d="M 22 10 C 32 10 31 17 30 20 C 29 23 27 24 25 25 C 25 25 27 28 27 31 L 18 31 C 18 28 16 26 15 25 C 14 24 12 23 11 20 C 10 17 12 10 22 10 z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/> <circle cx="17" cy="16" r="1.5" fill={C.strk}/> <path d="M 23 14 L 27 18" fill="none" stroke={C.strk} strokeWidth="1.5"/></g>),
-    B:(<g><path d="M 22.5 6 C 21 6 20 7.5 20 9 C 20 10.5 21 12 22.5 12 C 24 12 25 10.5 25 9 C 25 7.5 24 6 22.5 6 z M 22.5 12 C 18 15 15 22 17 26 C 18 28 20 31 20 31 L 25 31 C 25 31 27 28 28 26 C 30 22 27 15 22.5 12 z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z M 22.5 16 L 22.5 22 M 19.5 19 L 25.5 19" {...P}/></g>),
-    R:(<g><path d="M 14 13 L 14 17 L 17 17 L 17 13 L 20 13 L 20 17 L 25 17 L 25 13 L 28 13 L 28 17 L 31 17 L 31 13 Z M 15 17 L 17 31 L 28 31 L 30 17 Z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/></g>),
-    Q:(<g><path d="M 10 12 L 14 26 L 19 10 L 22.5 26 L 26 10 L 31 26 L 35 12 L 31 31 L 14 31 Z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/> <circle cx="10" cy="11" r="2" {...H}/> <circle cx="19" cy="9" r="2" {...H}/> <circle cx="26" cy="9" r="2" {...H}/> <circle cx="35" cy="11" r="2" {...H}/></g>),
-    K:(<g><path d="M 22.5 6 L 22.5 14 M 19 10 L 26 10 M 15 17 C 15 17 18 14 22.5 14 C 27 14 30 17 30 17 L 30 31 L 15 31 Z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/></g>)
+  const shapes = {
+    P: (<g><path d="M 22.5 9 C 19.5 9 17.5 11.5 17.5 14.5 C 17.5 17.5 20 20 22.5 20 C 25 20 27.5 17.5 27.5 14.5 C 27.5 11.5 25.5 9 22.5 9 z M 22.5 20 C 19 20 15 22 15 25 C 15 28 17 31 17 31 L 28 31 C 28 31 30 28 30 25 C 30 22 26 20 22.5 20 z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/></g>),
+    N: (<g><path d="M 22 10 C 32 10 31 17 30 20 C 29 23 27 24 25 25 C 25 25 27 28 27 31 L 18 31 C 18 28 16 26 15 25 C 14 24 12 23 11 20 C 10 17 12 10 22 10 z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/> <circle cx="17" cy="16" r="1.5" fill={C.strk}/> <path d="M 23 14 L 27 18" fill="none" stroke={C.strk} strokeWidth="1.5"/></g>),
+    B: (<g><path d="M 22.5 6 C 21 6 20 7.5 20 9 C 20 10.5 21 12 22.5 12 C 24 12 25 10.5 25 9 C 25 7.5 24 6 22.5 6 z M 22.5 12 C 18 15 15 22 17 26 C 18 28 20 31 20 31 L 25 31 C 25 31 27 28 28 26 C 30 22 27 15 22.5 12 z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z M 22.5 16 L 22.5 22 M 19.5 19 L 25.5 19" {...P}/></g>),
+    R: (<g><path d="M 14 13 L 14 17 L 17 17 L 17 13 L 20 13 L 20 17 L 25 17 L 25 13 L 28 13 L 28 17 L 31 17 L 31 13 Z M 15 17 L 17 31 L 28 31 L 30 17 Z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/></g>),
+    Q: (<g><path d="M 10 12 L 14 26 L 19 10 L 22.5 26 L 26 10 L 31 26 L 35 12 L 31 31 L 14 31 Z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/> <circle cx="10" cy="11" r="2" {...H}/> <circle cx="19" cy="9" r="2" {...H}/> <circle cx="26" cy="9" r="2" {...H}/> <circle cx="35" cy="11" r="2" {...H}/></g>),
+    K: (<g><path d="M 22.5 6 L 22.5 14 M 19 10 L 26 10 M 15 17 C 15 17 18 14 22.5 14 C 27 14 30 17 30 17 L 30 31 L 15 31 Z M 14 31.5 L 31 31.5 L 31 34 L 14 34 L 14 31.5 z M 11 34.5 L 34 34.5 L 34 38 L 11 38 L 11 34.5 z" {...P}/></g>)
   };
 
   const dropShadow = pStyle !== "neo" ? `drop-shadow(0 ${isW?2:3}px ${isW?3:4}px rgba(0,0,0,${isW?0.35:0.6}))` : "none";
-  return <svg viewBox="0 0 45 45" style={{ width: size, height: size, display: "block", overflow: "visible", filter: dropShadow, pointerEvents: "none" }} xmlns="http://www.w3.org/2000/svg">{shapes[t]}</svg>;
+
+  return (
+    <svg viewBox="0 0 45 45" style={{ width: size, height: size, display: "block", overflow: "visible", filter: dropShadow, pointerEvents: "none" }} xmlns="http://www.w3.org/2000/svg">
+      {shapes[t]}
+    </svg>
+  );
 }
 
-const DEFAULT_SETTINGS={boardTheme:"classic",pieceStyle:"merida",sounds:true,showLegal:true,showCoords:true,autoQueen:false};
-function loadSettings(){try{const s=localStorage.getItem("ct_s");return s?{...DEFAULT_SETTINGS,...JSON.parse(s)}:DEFAULT_SETTINGS;}catch{return DEFAULT_SETTINGS;}}
-function saveSettings(s){try{localStorage.setItem("ct_s",JSON.stringify(s));}catch{}}
+const DEFAULT_SETTINGS = { boardTheme: "classic", pieceStyle: "merida", sounds: true, showLegal: true, showCoords: true, autoQueen: false };
+
+function loadSettings() {
+  try {
+    const s = localStorage.getItem("ct_s");
+    return s ? { ...DEFAULT_SETTINGS, ...JSON.parse(s) } : DEFAULT_SETTINGS;
+  } catch {
+    return DEFAULT_SETTINGS;
+  }
+}
+
+function saveSettings(s) {
+  try {
+    localStorage.setItem("ct_s", JSON.stringify(s));
+  } catch { }
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   9. UI COMPONENTS (Menu, Settings, Modals)
+   10. UI COMPONENTS (Settings & Intro)
    ═══════════════════════════════════════════════════════════════════════════ */
-function SettingsPanel({settings,onSave,onClose}){
-  const[s,setS]=useState({...settings});
-  const upd=(k,v)=>setS(p=>({...p,[k]:v}));
-  const pieceOpts=[
-    {id:"classic",name:"Classic / Staunton",desc:"Traditional tournament vectors"},
-    {id:"neo",name:"Neo Flat",desc:"Modern minimalist bold vectors"},
-    {id:"wood",name:"Wood / 3D",desc:"Warm textured visual style"}
+function SettingsPanel({ settings, onSave, onClose }) {
+  const [s, setS] = useState({...settings});
+  const upd = (k, v) => setS(p => ({...p, [k]: v}));
+  
+  const pieceOpts = [
+    {id:"classic", name:"Classic / Staunton", desc:"Traditional tournament vectors"},
+    {id:"neo",     name:"Neo Flat",           desc:"Modern minimalist bold vectors"},
+    {id:"wood",    name:"Wood / 3D",          desc:"Warm textured visual style"}
   ];
-  const themeList=Object.entries(BOARD_THEMES);
+  
+  const themeList = Object.entries(BOARD_THEMES);
   
   return(
-    <div style={{position:"fixed",inset:0,zIndex:3000,display:"flex",justifyContent:"flex-end"}}>
-      <div onClick={onClose} style={{position:"absolute",inset:0,background:"rgba(0,0,0,0.65)"}}/>
-      <div className="glass-panel" style={{position:"relative",width:"min(100vw,430px)",height:"100vh",borderLeft:"1px solid rgba(255,255,255,0.1)",display:"flex",flexDirection:"column",animation:"slideRight .28s ease"}}>
-        <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",padding:"16px 20px",borderBottom:"1px solid rgba(255,255,255,0.1)",flexShrink:0}}>
-          <span style={{fontFamily:"Cinzel,serif",fontSize:18,fontWeight:700,color:"#c8a84b",letterSpacing:"1px"}}>⚙ Settings</span>
-          <button onClick={onClose} style={{background:"none",border:"none",color:"#8a80a0",fontSize:22,cursor:"pointer"}}>✕</button>
+    <div style={{position:"fixed", inset:0, zIndex:3000, display:"flex", justifyContent:"flex-end"}}>
+      <div onClick={onClose} style={{position:"absolute", inset:0, background:"rgba(0,0,0,0.65)"}}/>
+      <div className="glass-panel" style={{position:"relative", width:"min(100vw,430px)", height:"100vh", borderLeft:"1px solid rgba(255,255,255,0.1)", display:"flex", flexDirection:"column", animation:"slideRight .28s ease"}}>
+        <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", padding:"16px 20px", borderBottom:"1px solid rgba(255,255,255,0.1)", flexShrink:0}}>
+          <span style={{fontFamily:"Cinzel,serif", fontSize:18, fontWeight:700, color:"#c8a84b", letterSpacing:"1px"}}>⚙ Settings</span>
+          <button onClick={onClose} style={{background:"none", border:"none", color:"#8a80a0", fontSize:22, cursor:"pointer"}}>✕</button>
         </div>
-        <div style={{flex:1,overflowY:"auto",padding:"20px"}}>
-          <p style={{fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"3px",textTransform:"uppercase",color:"#6a6478",marginBottom:12}}>Board Theme</p>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(5,1fr)",gap:10,marginBottom:30}}>
-            {themeList.map(([id,th])=>(
-              <div key={id} onClick={()=>upd("boardTheme",id)} style={{cursor:"pointer",borderRadius:10,overflow:"hidden",border:`2px solid ${s.boardTheme===id?"#c8a84b":"transparent"}`,boxShadow:s.boardTheme===id?"0 0 16px rgba(200,168,75,.4)":"none",transition:"all .2s"}}>
-                <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",aspectRatio:"1"}}>{[th.light,th.dark,th.dark,th.light].map((c,i)=><div key={i} style={{background:c,aspectRatio:"1"}}/>)}</div>
-                <div style={{background:"rgba(0,0,0,0.5)",padding:"4px 2px",textAlign:"center",fontFamily:"Crimson Pro,serif",fontSize:9,color:s.boardTheme===id?"#c8a84b":"#8a8498",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis"}}>{th.name}</div>
+        <div style={{flex:1, overflowY:"auto", padding:"20px"}}>
+          <p style={{fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"3px", textTransform:"uppercase", color:"#6a6478", marginBottom:12}}>Board Theme</p>
+          <div style={{display:"grid", gridTemplateColumns:"repeat(5,1fr)", gap:10, marginBottom:30}}>
+            {themeList.map(([id, th])=>(
+              <div key={id} onClick={()=>upd("boardTheme", id)} style={{cursor:"pointer", borderRadius:10, overflow:"hidden", border:`2px solid ${s.boardTheme===id?"#c8a84b":"transparent"}`, boxShadow:s.boardTheme===id?"0 0 16px rgba(200,168,75,.4)":"none", transition:"all .2s"}}>
+                <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", aspectRatio:"1"}}>{[th.light, th.dark, th.dark, th.light].map((c,i)=><div key={i} style={{background:c, aspectRatio:"1"}}/>)}</div>
+                <div style={{background:"rgba(0,0,0,0.5)", padding:"4px 2px", textAlign:"center", fontFamily:"Crimson Pro,serif", fontSize:9, color:s.boardTheme===id?"#c8a84b":"#8a8498", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis"}}>{th.name}</div>
               </div>
             ))}
           </div>
-          <p style={{fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"3px",textTransform:"uppercase",color:"#6a6478",marginBottom:12}}>Piece Style</p>
-          <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:30}}>
+          
+          <p style={{fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"3px", textTransform:"uppercase", color:"#6a6478", marginBottom:12}}>Piece Style</p>
+          <div style={{display:"flex", flexDirection:"column", gap:10, marginBottom:30}}>
             {pieceOpts.map(opt=>(
-              <div key={opt.id} onClick={()=>upd("pieceStyle",opt.id)} style={{display:"flex",alignItems:"center",gap:16,padding:"12px 16px",borderRadius:12,cursor:"pointer",background:s.pieceStyle===opt.id?"rgba(200,168,75,.12)":"rgba(255,255,255,.03)",border:`2px solid ${s.pieceStyle===opt.id?"#c8a84b":"rgba(255,255,255,.05)"}`,transition:"all .2s"}}>
-                <div style={{display:"flex",gap:4,flexShrink:0}}>
+              <div key={opt.id} onClick={()=>upd("pieceStyle", opt.id)} style={{display:"flex", alignItems:"center", gap:16, padding:"12px 16px", borderRadius:12, cursor:"pointer", background:s.pieceStyle===opt.id?"rgba(200,168,75,.12)":"rgba(255,255,255,.03)", border:`2px solid ${s.pieceStyle===opt.id?"#c8a84b":"rgba(255,255,255,.05)"}`, transition:"all .2s"}}>
+                <div style={{display:"flex", gap:4, flexShrink:0}}>
                   {["K","Q","N"].map(t=>(
-                    <div key={t} style={{width:34,height:34,display:"flex",alignItems:"center",justifyContent:"center",background:"rgba(255,255,255,.05)",borderRadius:6}}>
+                    <div key={t} style={{width:34, height:34, display:"flex", alignItems:"center", justifyContent:"center", background:"rgba(255,255,255,.05)", borderRadius:6}}>
                       <PieceSVG piece={"w"+t} pStyle={opt.id}/>
                     </div>
                   ))}
                 </div>
                 <div style={{flex:1}}>
-                  <div style={{fontFamily:"Cinzel,serif",fontSize:13,fontWeight:600,color:s.pieceStyle===opt.id?"#c8a84b":"#c0b8a0",marginBottom:2}}>{opt.name}</div>
-                  <div style={{fontFamily:"Crimson Pro,serif",fontSize:11,color:"#8a8498",fontStyle:"italic"}}>{opt.desc}</div>
+                  <div style={{fontFamily:"Cinzel,serif", fontSize:13, fontWeight:600, color:s.pieceStyle===opt.id?"#c8a84b":"#c0b8a0", marginBottom:2}}>{opt.name}</div>
+                  <div style={{fontFamily:"Crimson Pro,serif", fontSize:11, color:"#8a8498", fontStyle:"italic"}}>{opt.desc}</div>
                 </div>
-                {s.pieceStyle===opt.id&&<div style={{width:10,height:10,borderRadius:"50%",background:"#c8a84b"}}/>}
+                {s.pieceStyle===opt.id&&<div style={{width:10, height:10, borderRadius:"50%", background:"#c8a84b"}}/>}
               </div>
             ))}
           </div>
-          <p style={{fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"3px",textTransform:"uppercase",color:"#6a6478",marginBottom:12}}>Options</p>
-          {[["sounds","🔊 Sound Effects","Move, capture, check & game-end sounds"],["showLegal","💡 Legal Move Hints","Dots on valid destination squares"],["showCoords","🔢 Coordinates","Rank and file labels"],["autoQueen","♛ Auto-Queen","Skip promotion dialog"]].map(([key,label,desc])=>(
-            <div key={key} onClick={()=>upd(key,!s[key])} style={{display:"flex",alignItems:"center",gap:14,padding:"12px 16px",borderRadius:10,cursor:"pointer",marginBottom:8,background:"rgba(255,255,255,.03)",border:"1px solid rgba(255,255,255,.06)",transition:"background 0.2s"}}>
+          
+          <p style={{fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"3px", textTransform:"uppercase", color:"#6a6478", marginBottom:12}}>Options</p>
+          {[
+            ["sounds", "🔊 Sound Effects", "Move, capture, check & game-end sounds"],
+            ["showLegal", "💡 Legal Move Hints", "Dots on valid destination squares"],
+            ["showCoords", "🔢 Coordinates", "Rank and file labels"],
+            ["autoQueen", "♛ Auto-Queen", "Skip promotion dialog"]
+          ].map(([key, label, desc])=>(
+            <div key={key} onClick={()=>upd(key, !s[key])} style={{display:"flex", alignItems:"center", gap:14, padding:"12px 16px", borderRadius:10, cursor:"pointer", marginBottom:8, background:"rgba(255,255,255,.03)", border:"1px solid rgba(255,255,255,.06)", transition:"background 0.2s"}}>
               <div style={{flex:1}}>
-                <div style={{fontFamily:"Crimson Pro,serif",fontSize:14,color:"#e0d8c8",fontWeight:600}}>{label}</div>
-                <div style={{fontFamily:"Crimson Pro,serif",fontSize:11,color:"#8a8498",fontStyle:"italic"}}>{desc}</div>
+                <div style={{fontFamily:"Crimson Pro,serif", fontSize:14, color:"#e0d8c8", fontWeight:600}}>{label}</div>
+                <div style={{fontFamily:"Crimson Pro,serif", fontSize:11, color:"#8a8498", fontStyle:"italic"}}>{desc}</div>
               </div>
-              <div style={{width:46,height:24,borderRadius:12,background:s[key]?"#c8a84b":"#2a2838",position:"relative",transition:"background .3s",flexShrink:0}}>
-                <div style={{position:"absolute",top:3,left:s[key]?25:3,width:18,height:18,borderRadius:"50%",background:"#fff",transition:"left .3s cubic-bezier(0.4, 0, 0.2, 1)"}}/>
+              <div style={{width:46, height:24, borderRadius:12, background:s[key]?"#c8a84b":"#2a2838", position:"relative", transition:"background .3s", flexShrink:0}}>
+                <div style={{position:"absolute", top:3, left:s[key]?25:3, width:18, height:18, borderRadius:"50%", background:"#fff", transition:"left .3s cubic-bezier(0.4, 0, 0.2, 1)"}}/>
               </div>
             </div>
           ))}
         </div>
-        <div style={{padding:"20px",borderTop:"1px solid rgba(255,255,255,0.1)",flexShrink:0}}>
-          <button onClick={()=>{saveSettings(s);onSave(s);onClose();}} style={{width:"100%",background:"linear-gradient(135deg,#c8a84b,#8a6820)",color:"#0d0900",border:"none",borderRadius:10,padding:"14px",fontFamily:"Cinzel,serif",fontSize:14,fontWeight:900,cursor:"pointer",letterSpacing:"2px",textTransform:"uppercase",boxShadow:"0 8px 24px rgba(200,168,75,0.3)"}}>Save & Apply</button>
+        <div style={{padding:"20px", borderTop:"1px solid rgba(255,255,255,0.1)", flexShrink:0}}>
+          <button onClick={()=>{saveSettings(s); onSave(s); onClose();}} style={{width:"100%", background:"linear-gradient(135deg,#c8a84b,#8a6820)", color:"#0d0900", border:"none", borderRadius:10, padding:"14px", fontFamily:"Cinzel,serif", fontSize:14, fontWeight:900, cursor:"pointer", letterSpacing:"2px", textTransform:"uppercase", boxShadow:"0 8px 24px rgba(200,168,75,0.3)"}}>Save & Apply</button>
         </div>
       </div>
     </div>
   );
 }
 
-function IntroScreen({onEnter}){
-  const[ph,setPh]=useState(0);
-  useEffect(()=>{const ts=[200,900,1600].map((ms,i)=>setTimeout(()=>setPh(i+1),ms));return()=>ts.forEach(clearTimeout);},[]);
-  const T="CHESS TRAINER";
+function IntroScreen({ onEnter }) {
+  const [ph, setPh] = useState(0);
+  
+  useEffect(() => {
+    const ts = [200, 900, 1600].map((ms, i) => setTimeout(() => setPh(i + 1), ms));
+    return () => ts.forEach(clearTimeout);
+  }, []);
+  
+  const T = "CHESS TRAINER";
   
   return(
-    <div style={{height:"100vh",background:"#07090f",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",overflow:"hidden",position:"relative"}}>
-      <div style={{position:"absolute",inset:0,backgroundImage:"linear-gradient(rgba(200,168,75,.04)1px,transparent 1px),linear-gradient(90deg,rgba(200,168,75,.04)1px,transparent 1px)",backgroundSize:"60px 60px",animation:"fadeIn 2.5s ease"}}/>
-      <div style={{position:"absolute",top:"50%",left:"50%",transform:"translate(-50%,-50%)",width:600,height:600,background:"radial-gradient(circle,rgba(200,168,75,.08)0%,transparent 70%)",pointerEvents:"none"}}/>
+    <div style={{height:"100vh", background:"#07090f", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", overflow:"hidden", position:"relative"}}>
+      <div style={{position:"absolute", inset:0, backgroundImage:"linear-gradient(rgba(200,168,75,.04)1px,transparent 1px),linear-gradient(90deg,rgba(200,168,75,.04)1px,transparent 1px)", backgroundSize:"60px 60px", animation:"fadeIn 2.5s ease"}}/>
+      <div style={{position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:600, height:600, background:"radial-gradient(circle,rgba(200,168,75,.08)0%,transparent 70%)", pointerEvents:"none"}}/>
       
-      <div style={{fontSize:90,marginBottom:16,opacity:ph>=1?1:0,animation:ph>=1?"introK .9s cubic-bezier(.34,1.56,.64,1) forwards":"none",filter:"drop-shadow(0 0 35px rgba(200,168,75,.7))",color:"#c8a84b"}}>♞</div>
-      <div style={{display:"flex",gap:2,marginBottom:12}}>
-        {T.split("").map((ch,i)=>(
-          <span key={i} style={{fontFamily:"Cinzel,serif",fontSize:"clamp(22px,5vw,50px)",fontWeight:900,color:i<5?"#c8a84b":"#e8dfc8",opacity:ph>=2?1:0,transform:ph>=2?"none":"translateY(20px)",transition:`opacity .4s ease ${i*.06}s,transform .45s cubic-bezier(.34,1.56,.64,1) ${i*.06}s`,textShadow:i<5?"0 0 20px rgba(200,168,75,.6)":"none"}}>{ch===" "?"\u00A0":ch}</span>
+      <div style={{fontSize:90, marginBottom:16, opacity:ph>=1?1:0, animation:ph>=1?"introK .9s cubic-bezier(.34,1.56,.64,1) forwards":"none", filter:"drop-shadow(0 0 35px rgba(200,168,75,.7))", color:"#c8a84b"}}>♞</div>
+      <div style={{display:"flex", gap:2, marginBottom:12}}>
+        {T.split("").map((ch, i) => (
+          <span key={i} style={{fontFamily:"Cinzel,serif", fontSize:"clamp(22px,5vw,50px)", fontWeight:900, color:i<5?"#c8a84b":"#e8dfc8", opacity:ph>=2?1:0, transform:ph>=2?"none":"translateY(20px)", transition:`opacity .4s ease ${i*.06}s,transform .45s cubic-bezier(.34,1.56,.64,1) ${i*.06}s`, textShadow:i<5?"0 0 20px rgba(200,168,75,.6)":"none"}}>{ch===" "?"\u00A0":ch}</span>
         ))}
       </div>
-      <p style={{fontFamily:"Crimson Pro,serif",fontSize:"clamp(11px,2vw,16px)",color:"#6a6070",letterSpacing:"6px",textTransform:"uppercase",marginBottom:40,opacity:ph>=2?1:0,transition:"opacity .6s ease .8s"}}>25 Bots · QS Engine · Coach Review</p>
-      <div style={{width:"min(300px,60vw)",height:1,background:"linear-gradient(90deg,transparent,#c8a84b,transparent)",marginBottom:40,opacity:ph>=2?1:0,transition:"opacity .4s ease .7s"}}/>
+      
+      <p style={{fontFamily:"Crimson Pro,serif", fontSize:"clamp(11px,2vw,16px)", color:"#6a6070", letterSpacing:"6px", textTransform:"uppercase", marginBottom:40, opacity:ph>=2?1:0, transition:"opacity .6s ease .8s"}}>25 Bots · QS Engine · Coach Review</p>
+      <div style={{width:"min(300px,60vw)", height:1, background:"linear-gradient(90deg,transparent,#c8a84b,transparent)", marginBottom:40, opacity:ph>=2?1:0, transition:"opacity .4s ease .7s"}}/>
       
       <button 
         onClick={(e) => { e.preventDefault(); onEnter(); }} 
@@ -727,7 +1322,7 @@ function IntroScreen({onEnter}){
         Enter the Board
       </button>
 
-      {[[{top:0,left:0},{borderTop:"2px solid #c8a84b",borderLeft:"2px solid #c8a84b"}],[{top:0,right:0},{borderTop:"2px solid #c8a84b",borderRight:"2px solid #c8a84b"}],[{bottom:0,left:0},{borderBottom:"2px solid #c8a84b",borderLeft:"2px solid #c8a84b"}],[{bottom:0,right:0},{borderBottom:"2px solid #c8a84b",borderRight:"2px solid #c8a84b"}]].map(([pos,brd],i)=>(
+      {[[{top:0,left:0},{borderTop:"2px solid #c8a84b",borderLeft:"2px solid #c8a84b"}], [{top:0,right:0},{borderTop:"2px solid #c8a84b",borderRight:"2px solid #c8a84b"}], [{bottom:0,left:0},{borderBottom:"2px solid #c8a84b",borderLeft:"2px solid #c8a84b"}], [{bottom:0,right:0},{borderBottom:"2px solid #c8a84b",borderRight:"2px solid #c8a84b"}]].map(([pos,brd],i)=>(
         <div key={i} style={{position:"absolute",...pos,width:50,height:50,...brd,margin:16,opacity:.25}}/>
       ))}
     </div>
@@ -735,191 +1330,237 @@ function IntroScreen({onEnter}){
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   10. MAIN APP COMPONENT
+   11. MAIN APP COMPONENT
    ═══════════════════════════════════════════════════════════════════════════ */
-function ChessApp(){
-  const[screen,setScreen]=useState("intro");
-  const[board,setBoard]=useState(INIT_BOARD());
-  const[turn,setTurn]=useState("w");
-  const[selSq,setSelSq]=useState(null);
-  const[legal,setLegal]=useState([]);
-  const[ep,setEp]=useState(null);
-  const[castling,setCastling]=useState(INIT_CAST());
-  const[lastMove,setLastMove]=useState(null);
-  const[result,setResult]=useState(null);
-  const[chkFlag,setChkFlag]=useState(false);
+function ChessApp() {
+  const [screen, setScreen] = useState("intro");
+  const [board, setBoard] = useState(INIT_BOARD());
+  const [turn, setTurn] = useState("w");
+  const [selSq, setSelSq] = useState(null);
+  const [legal, setLegal] = useState([]);
+  const [ep, setEp] = useState(null);
+  const [castling, setCastling] = useState(INIT_CAST());
+  const [lastMove, setLastMove] = useState(null);
+  const [result, setResult] = useState(null);
+  const [chkFlag, setChkFlag] = useState(false);
   
-  const[thinking,setThinking]=useState(false);
-  const[history,setHistory]=useState([]);
-  const[evalHist,setEvalHist]=useState([0]);
-  const[bot,setBot]=useState(BOTS[9]); 
-  const[pColor,setPColor]=useState("w");
-  const[showPromo,setShowPromo]=useState(null);
-  const[gameTab,setGameTab]=useState("moves");
-  const[timeMode,setTimeMode]=useState(TIME_MODES[0]);
-  const[wTime,setWTime]=useState(0);
-  const[bTime,setBTime]=useState(0);
-  const[timerOn,setTimerOn]=useState(false);
-  const[landSq,setLandSq]=useState(null);
-  const[posHist,setPosHist]=useState([]);
-  const[halfClock,setHalfClock]=useState(0);
+  const [thinking, setThinking] = useState(false);
+  const [history, setHistory] = useState([]);
+  const [evalHist, setEvalHist] = useState([0]);
+  const [bot, setBot] = useState(BOTS[9]); // Intermediate bot
+  const [pColor, setPColor] = useState("w");
+  const [showPromo, setShowPromo] = useState(null);
+  const [gameTab, setGameTab] = useState("moves");
   
-  const[settings,setSettings]=useState(loadSettings);
-  const[showSet,setShowSet]=useState(false);
-  const[revIdx,setRevIdx]=useState(-1);
-  const[vw,setVw]=useState(window.innerWidth);
-  const[coachMsg,setCoachMsg]=useState(null);
-  const mlRef=useRef(null);
-  const boardRef = useRef(null);
+  const [timeMode, setTimeMode] = useState(TIME_MODES[0]);
+  const [wTime, setWTime] = useState(0);
+  const [bTime, setBTime] = useState(0);
+  const [timerOn, setTimerOn] = useState(false);
+  
+  const [landSq, setLandSq] = useState(null);
+  const [posHist, setPosHist] = useState([]);
+  const [halfClock, setHalfClock] = useState(0);
+  
+  const [settings, setSettings] = useState(loadSettings);
+  const [showSet, setShowSet] = useState(false);
+  const [revIdx, setRevIdx] = useState(-1);
+  const [vw, setVw] = useState(window.innerWidth);
+  const [coachMsg, setCoachMsg] = useState(null);
+  
+  const mlRef = useRef(null);
 
-  useEffect(()=>{const f=()=>setVw(window.innerWidth);window.addEventListener("resize",f);return()=>window.removeEventListener("resize",f);},[]);
-  const mob=vw<700;
-  const playSound=useSound(settings.sounds);
-  const th=BOARD_THEMES[settings.boardTheme]||BOARD_THEMES.classic;
+  useEffect(() => {
+    const handleResize = () => setVw(window.innerWidth);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  
+  const mob = vw < 700;
+  const playSound = useSound(settings.sounds);
+  const th = BOARD_THEMES[settings.boardTheme] || BOARD_THEMES.classic;
 
-  useEffect(()=>{
-    if(!timerOn||!timeMode.secs||result)return;
-    const t=setInterval(()=>{
-      if(turn==="w")setWTime(p=>{if(p<=1){setResult("Black wins on time! ⏱");setTimerOn(false);playSound("gameover");return 0;}return p-1;});
-      else setBTime(p=>{if(p<=1){setResult("White wins on time! ⏱");setTimerOn(false);playSound("gameover");return 0;}return p-1;});
-    },1000);
-    return()=>clearInterval(t);
-  },[timerOn,turn,result,timeMode,playSound]);
+  useEffect(() => {
+    if (!timerOn || !timeMode.secs || result) return;
+    const t = setInterval(() => {
+      if (turn === "w") {
+        setWTime(p => {
+          if (p <= 1) { setResult("Black wins on time! ⏱"); setTimerOn(false); playSound("gameover"); return 0; }
+          return p - 1;
+        });
+      } else {
+        setBTime(p => {
+          if (p <= 1) { setResult("White wins on time! ⏱"); setTimerOn(false); playSound("gameover"); return 0; }
+          return p - 1;
+        });
+      }
+    }, 1000);
+    return () => clearInterval(t);
+  }, [timerOn, turn, result, timeMode, playSound]);
 
-  function startGame(b,pc,tm){
-    const ib=INIT_BOARD(),ic=INIT_CAST();
-    setBoard(ib);setTurn("w");setSelSq(null);setLegal([]);setEp(null);setCastling(ic);
-    setLastMove(null);setResult(null);setChkFlag(false);setThinking(false);
-    setHistory([]);setEvalHist([0]);setBot(b);setPColor(pc);
-    setTimeMode(tm);setWTime(tm.secs);setBTime(tm.secs);setTimerOn(!!tm.secs);
-    setPosHist([posHash(ib,"w",ic,null)]);setHalfClock(0);
+  function startGame(b, pc, tm) {
+    const ib = INIT_BOARD(), ic = INIT_CAST();
+    setBoard(ib); setTurn("w"); setSelSq(null); setLegal([]); setEp(null); setCastling(ic);
+    setLastMove(null); setResult(null); setChkFlag(false); setThinking(false);
+    setHistory([]); setEvalHist([0]); setBot(b); setPColor(pc);
+    setTimeMode(tm); setWTime(tm.secs); setBTime(tm.secs); setTimerOn(!!tm.secs);
+    setPosHist([posHash(ib, "w", ic, null)]); setHalfClock(0);
     setCoachMsg(null);
-    setScreen("game");setGameTab("moves");setLandSq(null);
+    setScreen("game"); setGameTab("moves"); setLandSq(null);
   }
 
-  useEffect(()=>{
-    if(screen!=="game"||turn===pColor||result)return;
+  useEffect(() => {
+    if (screen !== "game" || turn === pColor || result) return;
+    
     setThinking(true);
-    const delay = bot.elo < 1200 ? 1600 : 900 + Math.random() * 600; 
-    const t=setTimeout(()=>{
-      const historyStr = history.map(h => sqN(h.fr,h.fc) + sqN(h.tr,h.tc)).join(" ");
+    // Added intentional coach-read delay
+    const delay = bot.elo < 1200 ? 1800 : 1000 + Math.random() * 600; 
+    
+    const t = setTimeout(() => {
+      const historyStr = history.map(h => sqN(h.fr, h.fc) + sqN(h.tr, h.tc)).join(" ");
       const m = chooseBotMove(board, turn, ep, castling, bot.elo, historyStr);
-      if(m) execMove(m[0], m[1], m[2], m[3], m[4]);
+      if (m) execMove(m[0], m[1], m[2], m[3], m[4]);
       setThinking(false);
     }, delay);
-    return()=>clearTimeout(t);
-  },[turn,screen,result,board]);
-
-  function execMove(fr,fc,tr,tc,promo){
-    const mc=cl(board[fr][fc]);
-    const cpl=calcCPL(board,fr,fc,tr,tc,ep,castling,promo,mc);
-    const prevEval=evalFull(board);
-
-    const{board:nb,ep:nep,castling:nc,captured}=applyMove(board,fr,fc,tr,tc,ep,castling,promo);
-    const ne=evalFull(nb);
-
-    const capVal=captured?PVAL[tp(captured)]||0:0;
-    const evalSwing=mc==="w"?(ne-prevEval):(prevEval-ne);
-    const isBrill=cpl<=5&&capVal>=300&&evalSwing>=150&&!!captured;
     
-    const cls=classifyMove(cpl,isBrill);
-    const notation=buildNotation(board,fr,fc,tr,tc,captured,nb,promo);
-    const isCastle=tp(board[fr][fc])==="K"&&Math.abs(tc-fc)===2;
-    const isPawn=tp(board[fr][fc])==="P";
-    const newHalf=(captured||isPawn)?0:halfClock+1;
-    const newPos=posHash(nb,opp(mc),nc,nep);
-    const newPosHist=[...posHist,newPos];
+    return () => clearTimeout(t);
+  }, [turn, screen, result, board]);
 
-    if(mc===pColor) {
+  function execMove(fr, fc, tr, tc, promo) {
+    const mc = cl(board[fr][fc]);
+    const cpl = calcCPL(board, fr, fc, tr, tc, ep, castling, promo, mc);
+    const prevEval = evalFull(board);
+
+    const { board: nb, ep: nep, castling: nc, captured } = applyMove(board, fr, fc, tr, tc, ep, castling, promo);
+    const ne = evalFull(nb);
+
+    const capVal = captured ? PVAL[tp(captured)] || 0 : 0;
+    const evalSwing = mc === "w" ? (ne - prevEval) : (prevEval - ne);
+    const isBrill = cpl <= 5 && capVal >= 300 && evalSwing >= 150 && !!captured;
+    
+    const cls = classifyMove(cpl, isBrill);
+    const notation = buildNotation(board, fr, fc, tr, tc, captured, nb, promo);
+    const isCastle = tp(board[fr][fc]) === "K" && Math.abs(tc - fc) === 2;
+    const isPawn = tp(board[fr][fc]) === "P";
+    
+    const newHalf = (captured || isPawn) ? 0 : halfClock + 1;
+    const newPos = posHash(nb, opp(mc), nc, nep);
+    const newPosHist = [...posHist, newPos];
+
+    if (mc === pColor) {
       setCoachMsg({ text: getCoachFeedback(cls, board[fr][fc], !!captured), clr: cls.clr, sym: cls.sym });
     }
 
-    if(captured)playSound("capture");
-    else if(isCastle)playSound("castle");
+    if (captured) playSound("capture");
+    else if (isCastle) playSound("castle");
     else playSound("move");
 
-    const rec={fr,fc,tr,tc,piece:board[fr][fc],captured,notation,classification:cls,eval:ne,cpl,board:nb,ep:nep,castling:nc};
-    setBoard(nb);setEp(nep);setCastling(nc);setLastMove([fr,fc,tr,tc]);
-    setLandSq(`${tr}-${tc}`);setSelSq(null);setLegal([]);
-    setHistory(h=>[...h,rec]);setEvalHist(e=>[...e,ne]);
-    setHalfClock(newHalf);setPosHist(newPosHist);
+    const rec = { fr, fc, tr, tc, piece: board[fr][fc], captured, notation, classification: cls, eval: ne, cpl, board: nb, ep: nep, castling: nc };
+    setBoard(nb); setEp(nep); setCastling(nc); setLastMove([fr, fc, tr, tc]);
+    setLandSq(`${tr}-${tc}`); setSelSq(null); setLegal([]);
+    setHistory(h => [...h, rec]); setEvalHist(e => [...e, ne]);
+    setHalfClock(newHalf); setPosHist(newPosHist);
 
     if (isInsufficientMaterial(nb)) { setResult("Draw by insufficient material! 🤝"); setTimerOn(false); playSound("gameover"); return; }
-    if(newHalf>=100){setResult("Draw by 50-move rule! 🤝");setTimerOn(false); playSound("gameover"); return;}
-    if(newPosHist.filter(p=>p===newPos).length>=3){setResult("Draw by threefold repetition! 🤝");setTimerOn(false); playSound("gameover"); return;}
+    if (newHalf >= 100) { setResult("Draw by 50-move rule! 🤝"); setTimerOn(false); playSound("gameover"); return; }
+    if (newPosHist.filter(p => p === newPos).length >= 3) { setResult("Draw by threefold repetition! 🤝"); setTimerOn(false); playSound("gameover"); return; }
     
-    const nt=opp(mc),nm=allLegal(nb,nt,nep,nc);
-    if(!nm.length){
-      const chk=inCheck(nb,nt);
-      setResult(chk?`${mc==="w"?"White":"Black"} wins by checkmate! 🏆`:"Draw by stalemate! 🤝");
-      setTimerOn(false);setChkFlag(false);playSound("gameover");
-    }else{const chk=inCheck(nb,nt);setChkFlag(chk);setTurn(nt);}
-  }
-
-  function handleSq(r,c){
-    if(thinking||result||screen!=="game"||turn!==pColor)return;
-    const piece=board[r][c];
-    if(selSq){
-      if(legal.some(m=>m[2]===r&&m[3]===c)){
-        const here=legal.filter(m=>m[2]===r&&m[3]===c);
-        if(here[0][4]!==null&&!settings.autoQueen){setShowPromo({fr:selSq[0],fc:selSq[1],tr:r,tc:c});return;}
-        execMove(selSq[0],selSq[1],r,c,settings.autoQueen?"Q":here[0][4]);return;
-      }
-      if(piece&&cl(piece)===pColor){setSelSq([r,c]);setLegal(legalMovesFor(board,r,c,ep,castling));return;}
-      setSelSq(null);setLegal([]);return;
+    const nt = opp(mc), nm = allLegal(nb, nt, nep, nc);
+    if (!nm.length) {
+      const chk = inCheck(nb, nt);
+      setResult(chk ? `${mc === "w" ? "White" : "Black"} wins by checkmate! 🏆` : "Draw by stalemate! 🤝");
+      setTimerOn(false); setChkFlag(false); playSound("gameover");
+    } else {
+      const chk = inCheck(nb, nt);
+      setChkFlag(chk);
+      setTurn(nt);
     }
-    if(piece&&cl(piece)===pColor){setSelSq([r,c]);setLegal(legalMovesFor(board,r,c,ep,castling));}
   }
 
-  function takeback(){
-    if(history.length<1||result)return;
-    const steps=turn===pColor?Math.min(2,history.length):Math.min(1,history.length);
-    const nh=history.slice(0,-steps),neh=evalHist.slice(0,-steps);
-    if(!nh.length){const ib=INIT_BOARD(),ic=INIT_CAST();setBoard(ib);setEp(null);setCastling(ic);setTurn("w");setLastMove(null);setChkFlag(false);setPosHist([posHash(ib,"w",ic,null)]);setHalfClock(0);}
-    else{const last=nh[nh.length-1];setBoard(last.board);setEp(last.ep);setCastling(last.castling);setTurn(opp(cl(last.piece)));setLastMove([last.fr,last.fc,last.tr,last.tc]);setChkFlag(inCheck(last.board,opp(cl(last.piece))));}
-    setHistory(nh);setEvalHist(neh);setSelSq(null);setLegal([]);setResult(null);setLandSq(null);setCoachMsg(null);playSound("move");
+  function handleSq(r, c) {
+    if (thinking || result || screen !== "game" || turn !== pColor) return;
+    const piece = board[r][c];
+    if (selSq) {
+      if (legal.some(m => m[2] === r && m[3] === c)) {
+        const here = legal.filter(m => m[2] === r && m[3] === c);
+        if (here[0][4] !== null && !settings.autoQueen) { 
+          setShowPromo({ fr: selSq[0], fc: selSq[1], tr: r, tc: c }); 
+          return; 
+        }
+        execMove(selSq[0], selSq[1], r, c, settings.autoQueen ? "Q" : here[0][4]); 
+        return;
+      }
+      if (piece && cl(piece) === pColor) { 
+        setSelSq([r, c]); 
+        setLegal(legalMovesFor(board, r, c, ep, castling)); 
+        return; 
+      }
+      setSelSq(null); setLegal([]); return;
+    }
+    if (piece && cl(piece) === pColor) { 
+      setSelSq([r, c]); 
+      setLegal(legalMovesFor(board, r, c, ep, castling)); 
+    }
   }
 
-  useEffect(()=>{if(mlRef.current)mlRef.current.scrollTop=mlRef.current.scrollHeight;},[history]);
+  function takeback() {
+    if (history.length < 1 || result) return;
+    const steps = turn === pColor ? Math.min(2, history.length) : Math.min(1, history.length);
+    const nh = history.slice(0, -steps), neh = evalHist.slice(0, -steps);
+    if (!nh.length) {
+      const ib = INIT_BOARD(), ic = INIT_CAST();
+      setBoard(ib); setEp(null); setCastling(ic); setTurn("w");
+      setLastMove(null); setChkFlag(false); setPosHist([posHash(ib, "w", ic, null)]); setHalfClock(0);
+    } else {
+      const last = nh[nh.length - 1];
+      setBoard(last.board); setEp(last.ep); setCastling(last.castling);
+      setTurn(opp(cl(last.piece))); setLastMove([last.fr, last.fc, last.tr, last.tc]);
+      setChkFlag(inCheck(last.board, opp(cl(last.piece))));
+    }
+    setHistory(nh); setEvalHist(neh); setSelSq(null); setLegal([]); setResult(null); setLandSq(null); setCoachMsg(null); playSound("move");
+  }
 
-  const curEval=evalHist[evalHist.length-1];
-  const winPct=eToW(curEval);
-  const flipped=pColor==="b";
+  useEffect(() => { if (mlRef.current) mlRef.current.scrollTop = mlRef.current.scrollHeight; }, [history]);
+
+  const curEval = evalHist[evalHist.length - 1];
+  const winPct = evalToW(curEval);
+  const flipped = pColor === "b";
   
-  const wAcc=history.length?calcAccuracy(history,"w"):null;
-  const bAcc=history.length?calcAccuracy(history,"b"):null;
-  const myAcc=pColor==="w"?wAcc:bAcc;
-  const botAcc=pColor==="w"?bAcc:wAcc; 
+  const wAcc = history.length ? calcAccuracy(history, "w") : null;
+  const bAcc = history.length ? calcAccuracy(history, "b") : null;
+  const myAcc = pColor === "w" ? wAcc : bAcc;
+  const botAcc = pColor === "w" ? bAcc : wAcc; 
 
-  const lastCls=history.length?history[history.length-1].classification:null;
-  const botSide=opp(pColor);
-  const matTracker=getMaterialDiff(board);
+  const lastCls = history.length ? history[history.length - 1].classification : null;
+  const botSide = opp(pColor);
+  const matTracker = getMaterialDiff(board);
 
-  function Board({brd,lm,clickable,legalMoves,sel,chk,curTurn,anim}){
-    const rows=flipped?[7,6,5,4,3,2,1,0]:[0,1,2,3,4,5,6,7];
-    const cols=flipped?[7,6,5,4,3,2,1,0]:[0,1,2,3,4,5,6,7];
+  // ── REUSABLE BOARD COMPONENT ──────────────────────────────────────────
+  function Board({ brd, lm, clickable, legalMoves, sel, chk, curTurn, anim }) {
+    const rows = flipped ? [7,6,5,4,3,2,1,0] : [0,1,2,3,4,5,6,7];
+    const cols = flipped ? [7,6,5,4,3,2,1,0] : [0,1,2,3,4,5,6,7];
 
     return(
-      <div ref={boardRef} style={{display:"grid",gridTemplateColumns:"repeat(8,1fr)",gridTemplateRows:"repeat(8,1fr)",width:"100%",aspectRatio:"1/1",overflow:"hidden",borderRadius:6}}>
-        {rows.flatMap(r=>cols.map(c=>{
-          const piece=brd[r][c],light=(r+c)%2===1;
-          const isSel=sel&&sel[0]===r&&sel[1]===c;
-          const isLM=lm&&(lm[0]===r&&lm[1]===c||lm[2]===r&&lm[3]===c);
-          const isDot=settings.showLegal&&legalMoves&&legalMoves.some(m=>m[2]===r&&m[3]===c);
-          const kChk=chk&&piece===curTurn+"K";
-          const isAnim=anim===`${r}-${c}`;
-          let bg=light?th.light:th.dark;
-          if(isLM)bg=light?th.lm:th.dmLM;
-          if(isSel)bg=light?th.sel:th.selD;
+      <div style={{display:"grid", gridTemplateColumns:"repeat(8,1fr)", gridTemplateRows:"repeat(8,1fr)", width:"100%", aspectRatio:"1/1", overflow:"hidden", borderRadius:6}}>
+        {rows.flatMap(r => cols.map(c => {
+          const piece = brd[r][c], light = (r + c) % 2 === 1;
+          const isSel = sel && sel[0] === r && sel[1] === c;
+          const isLM = lm && ((lm[0] === r && lm[1] === c) || (lm[2] === r && lm[3] === c));
+          const isDot = settings.showLegal && legalMoves && legalMoves.some(m => m[2] === r && m[3] === c);
+          const kChk = chk && piece === curTurn + "K";
+          const isAnim = anim === `${r}-${c}`;
+          
+          let bg = light ? th.light : th.dark;
+          if (isLM) bg = light ? th.lm : th.dmLM;
+          if (isSel) bg = light ? th.sel : th.selD;
 
           const canDrag = clickable && piece && cl(piece) === curTurn && curTurn === pColor;
 
           return(
             <div key={`${r}-${c}`} 
-              onClick={clickable?()=>handleSq(r,c):undefined}
+              onClick={clickable ? () => handleSq(r, c) : undefined}
               draggable={canDrag}
               onDragStart={(e) => {
-                if(clickable) {
+                if (clickable) {
                   e.dataTransfer.setData("text/plain", `${r},${c}`);
                   const img = new Image(); img.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
                   e.dataTransfer.setDragImage(img, 0, 0);
@@ -929,7 +1570,7 @@ function ChessApp(){
               onDragOver={(e) => { e.preventDefault(); e.dataTransfer.dropEffect = "move"; }}
               onDrop={(e) => {
                 e.preventDefault();
-                if(clickable) {
+                if (clickable) {
                   const data = e.dataTransfer.getData("text/plain");
                   if (data) {
                     const [fr, fc] = data.split(",").map(Number);
@@ -937,19 +1578,29 @@ function ChessApp(){
                   }
                 }
               }}
-              style={{background:bg,aspectRatio:"1/1",position:"relative",display:"flex",alignItems:"center",justifyContent:"center",cursor:canDrag?"grab":(clickable?"pointer":"default"),animation:kChk?"checkRing .9s infinite":"none"}}>
+              style={{
+                background: bg, aspectRatio: "1/1", position: "relative", display: "flex", alignItems: "center", justifyContent: "center",
+                cursor: canDrag ? "grab" : (clickable ? "pointer" : "default"),
+                animation: kChk ? "checkRing .9s infinite" : "none"
+              }}>
               
-              {isDot&&(piece?<div style={{position:"absolute",inset:3,border:"3px solid rgba(0,0,0,0.22)",borderRadius:3,pointerEvents:"none",zIndex:1}}/>:<div style={{width:"30%",height:"30%",borderRadius:"50%",background:th.dot,pointerEvents:"none",zIndex:1}}/>)}
-              {piece&&(
-                <div style={{position:"relative",zIndex:2,width:"100%",height:"100%",display:"flex",alignItems:"center",justifyContent:"center",
-                  transform:isSel?"scale(1.15) translateY(-4px)":"scale(1)",transition:"transform .15s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                  animation:isAnim?"pieceDrop .35s cubic-bezier(0.34,1.56,0.64,1) forwards":"none",
+              {isDot && (
+                piece ? <div style={{position:"absolute", inset:3, border:"3px solid rgba(0,0,0,0.22)", borderRadius:3, pointerEvents:"none", zIndex:1}}/>
+                      : <div style={{width:"30%", height:"30%", borderRadius:"50%", background:th.dot, pointerEvents:"none", zIndex:1}}/>
+              )}
+              
+              {piece && (
+                <div style={{
+                  position:"relative", zIndex:2, width:"100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center",
+                  transform: isSel ? "scale(1.15) translateY(-4px)" : "scale(1)", transition: "transform .15s cubic-bezier(0.34, 1.56, 0.64, 1)",
+                  animation: isAnim ? "pieceDrop .35s cubic-bezier(0.34,1.56,0.64,1) forwards" : "none",
                 }}>
                   <PieceSVG piece={piece} pStyle={settings.pieceStyle}/>
                 </div>
               )}
-              {settings.showCoords&&c===(flipped?7:0)&&<span style={{position:"absolute",top:1,left:2,fontSize:10,fontWeight:800,color:light?th.dark:th.light,fontFamily:"monospace",pointerEvents:"none",opacity:.7}}>{8-r}</span>}
-              {settings.showCoords&&r===(flipped?0:7)&&<span style={{position:"absolute",bottom:1,right:2,fontSize:10,fontWeight:800,color:light?th.dark:th.light,fontFamily:"monospace",pointerEvents:"none",opacity:.7}}>{String.fromCharCode(97+c)}</span>}
+              
+              {settings.showCoords && c === (flipped ? 7 : 0) && <span style={{position:"absolute", top:1, left:2, fontSize:10, fontWeight:800, color:light ? th.dark : th.light, fontFamily:"monospace", pointerEvents:"none", opacity:0.7}}>{8 - r}</span>}
+              {settings.showCoords && r === (flipped ? 0 : 7) && <span style={{position:"absolute", bottom:1, right:2, fontSize:10, fontWeight:800, color:light ? th.dark : th.light, fontFamily:"monospace", pointerEvents:"none", opacity:0.7}}>{String.fromCharCode(97 + c)}</span>}
             </div>
           );
         }))}
@@ -957,43 +1608,43 @@ function ChessApp(){
     );
   }
 
-  function EvalBar({wp,ev}){
+  function EvalBar({ wp, ev }) {
     return(
-      <div style={{width:"100%",marginBottom:8}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:4,padding:"0 2px"}}>
-          <span style={{fontFamily:"Crimson Pro,serif",fontSize:12,color:"#c0b8a0"}}>♔ <b style={{color:"#e8dfc8"}}>{wp}%</b></span>
-          <span style={{fontFamily:"Cinzel,monospace",fontSize:14,fontWeight:900,color:ev>50?"#f0ead0":ev<-50?"#6080b0":"#c8a84b",background:"rgba(255,255,255,0.05)",padding:"2px 12px",borderRadius:6,border:"1px solid rgba(255,255,255,0.08)"}}>{fmtEval(ev)}</span>
-          <span style={{fontFamily:"Crimson Pro,serif",fontSize:12,color:"#6a7090"}}><b style={{color:"#8a90b0"}}>{100-wp}%</b> ♚</span>
+      <div style={{width:"100%", marginBottom:8}}>
+        <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:4, padding:"0 2px"}}>
+          <span style={{fontFamily:"Crimson Pro,serif", fontSize:12, color:"#c0b8a0"}}>♔ <b style={{color:"#e8dfc8"}}>{wp}%</b></span>
+          <span style={{fontFamily:"Cinzel,monospace", fontSize:14, fontWeight:900, color:ev>50?"#f0ead0":ev<-50?"#6080b0":"#c8a84b", background:"rgba(255,255,255,0.05)", padding:"2px 12px", borderRadius:6, border:"1px solid rgba(255,255,255,0.08)"}}>{formatEval(ev)}</span>
+          <span style={{fontFamily:"Crimson Pro,serif", fontSize:12, color:"#6a7090"}}><b style={{color:"#8a90b0"}}>{100 - wp}%</b> ♚</span>
         </div>
-        <div style={{width:"100%",height:14,borderRadius:7,overflow:"hidden",background:"#0a0c14",border:"1px solid rgba(255,255,255,0.1)",position:"relative",boxShadow:"inset 0 2px 8px rgba(0,0,0,0.8)"}}>
-          <div style={{position:"absolute",left:0,top:0,bottom:0,width:`${wp}%`,background:"linear-gradient(90deg,#a88020,#e8d888,#c8a84b)",transition:"width .6s cubic-bezier(.4,0,.2,1)",borderRadius:"7px 0 0 7px",boxShadow:"2px 0 10px rgba(200,168,75,0.4)"}}/>
-          <div style={{position:"absolute",right:0,top:0,bottom:0,width:`${100-wp}%`,background:"linear-gradient(90deg,#1a2030,#0d1020)",transition:"width .6s cubic-bezier(.4,0,.2,1)",borderRadius:"0 7px 7px 0"}}/>
-          <div style={{position:"absolute",left:"50%",top:0,bottom:0,width:2,background:"rgba(255,255,255,0.3)",zIndex:2}}/>
+        <div style={{width:"100%", height:14, borderRadius:7, overflow:"hidden", background:"#0a0c14", border:"1px solid rgba(255,255,255,0.1)", position:"relative", boxShadow:"inset 0 2px 8px rgba(0,0,0,0.8)"}}>
+          <div style={{position:"absolute", left:0, top:0, bottom:0, width:`${wp}%`, background:"linear-gradient(90deg,#a88020,#e8d888,#c8a84b)", transition:"width .6s cubic-bezier(.4,0,.2,1)", borderRadius:"7px 0 0 7px", boxShadow:"2px 0 10px rgba(200,168,75,0.4)"}}/>
+          <div style={{position:"absolute", right:0, top:0, bottom:0, width:`${100-wp}%`, background:"linear-gradient(90deg,#1a2030,#0d1020)", transition:"width .6s cubic-bezier(.4,0,.2,1)", borderRadius:"0 7px 7px 0"}}/>
+          <div style={{position:"absolute", left:"50%", top:0, bottom:0, width:2, background:"rgba(255,255,255,0.3)", zIndex:2}}/>
         </div>
       </div>
     );
   }
 
-  function Clock({secs,active,low}){
-    if(!timeMode.secs)return null;
-    return<div style={{fontFamily:"Cinzel,monospace",fontSize:18,fontWeight:900,padding:"4px 14px",borderRadius:8,border:`1px solid ${active?"rgba(200,168,75,0.5)":"rgba(255,255,255,0.08)"}`,background:active?"rgba(200,168,75,0.12)":"rgba(0,0,0,0.4)",color:low?"#f44336":active?"#c8a84b":"#6a6078",animation:low&&active?"clockLow .5s infinite":"none",letterSpacing:"2px",flexShrink:0,boxShadow:active?"0 0 15px rgba(200,168,75,0.15)":"none"}}>{fmtTime(secs)}</div>;
+  function Clock({ secs, active, low }) {
+    if (!timeMode.secs) return null;
+    return <div style={{fontFamily:"Cinzel,monospace", fontSize:18, fontWeight:900, padding:"4px 14px", borderRadius:8, border:`1px solid ${active?"rgba(200,168,75,0.5)":"rgba(255,255,255,0.08)"}`, background:active?"rgba(200,168,75,0.12)":"rgba(0,0,0,0.4)", color:low?"#f44336":active?"#c8a84b":"#6a6078", animation:low&&active?"clockLow .5s infinite":"none", letterSpacing:"2px", flexShrink:0, boxShadow:active?"0 0 15px rgba(200,168,75,0.15)":"none"}}>{fmtTime(secs)}</div>;
   }
 
-  function MoveList({hist,active,onNav}){
+  function MoveList({ hist, active, onNav }) {
     return(
-      <div style={{flex:1,overflowY:"auto",padding:"5px 6px"}}>
-        {Array.from({length:Math.ceil(hist.length/2)},(_,i)=>{
-          const wm=hist[i*2],bm=hist[i*2+1];
+      <div style={{flex:1, overflowY:"auto", padding:"5px 6px"}}>
+        {Array.from({length: Math.ceil(hist.length / 2)}, (_, i) => {
+          const wm = hist[i * 2], bm = hist[i * 2 + 1];
           return(
-            <div key={i} style={{display:"flex",alignItems:"center",marginBottom:4}}>
-              <span style={{width:24,fontSize:11,color:"#4a4060",textAlign:"right",paddingRight:6,flexShrink:0,fontFamily:"Cinzel,monospace"}}>{i+1}.</span>
-              {[wm,bm].map((mv,j)=>mv?(
-                <div key={j} onClick={onNav?()=>onNav(i*2+j):undefined}
-                  style={{flex:1,padding:"4px 8px",borderRadius:6,cursor:onNav?"pointer":"default",display:"flex",alignItems:"center",justifyContent:"space-between",background:active===i*2+j?`${mv.classification?.clr||"#c8a84b"}28`:"rgba(255,255,255,0.02)",border:`1px solid ${active===i*2+j?`${mv.classification?.clr||"#c8a84b"}66`:"transparent"}`,margin:"0 2px",transition:"all .2s"}}>
-                  <span style={{fontSize:13,color:active===i*2+j?(mv.classification?.clr||"#e8dfc8"):"#a09888",fontFamily:"Crimson Pro,monospace",fontWeight:active===i*2+j?700:400}}>{mv.notation}</span>
-                  {mv.classification?.sym&&<span style={{fontSize:11,color:mv.classification.clr,fontWeight:900,marginLeft:4}}>{mv.classification.sym}</span>}
+            <div key={i} style={{display:"flex", alignItems:"center", marginBottom:4}}>
+              <span style={{width:24, fontSize:11, color:"#4a4060", textAlign:"right", paddingRight:6, flexShrink:0, fontFamily:"Cinzel,monospace"}}>{i + 1}.</span>
+              {[wm, bm].map((mv, j) => mv ? (
+                <div key={j} onClick={onNav ? () => onNav(i * 2 + j) : undefined}
+                  style={{flex:1, padding:"4px 8px", borderRadius:6, cursor:onNav?"pointer":"default", display:"flex", alignItems:"center", justifyContent:"space-between", background:active===(i*2+j)?`${mv.classification?.clr||"#c8a84b"}28`:"rgba(255,255,255,0.02)", border:`1px solid ${active===(i*2+j)?`${mv.classification?.clr||"#c8a84b"}66`:"transparent"}`, margin:"0 2px", transition:"all .2s"}}>
+                  <span style={{fontSize:13, color:active===(i*2+j)?(mv.classification?.clr||"#e8dfc8"):"#a09888", fontFamily:"Crimson Pro,monospace", fontWeight:active===(i*2+j)?700:400}}>{mv.notation}</span>
+                  {mv.classification?.sym && <span style={{fontSize:11, color:mv.classification.clr, fontWeight:900, marginLeft:4}}>{mv.classification.sym}</span>}
                 </div>
-              ):<div key={j} style={{flex:1}}/>)}
+              ) : <div key={j} style={{flex:1}}/>)}
             </div>
           );
         })}
@@ -1001,129 +1652,156 @@ function ChessApp(){
     );
   }
 
-  function PCard({side,active}){
-    const isBot=side===botSide,acc=side==="w"?wAcc:bAcc;
-    const secs=side==="w"?wTime:bTime,low=timeMode.secs&&secs<10;
-    const cap=side==="w"?matTracker.wPieces:matTracker.bPieces;
-    const adv=side==="w"?matTracker.score:-matTracker.score;
+  function PCard({ side, active }) {
+    const isBot = side === botSide;
+    const acc = side === "w" ? wAcc : bAcc;
+    const secs = side === "w" ? wTime : bTime;
+    const low = timeMode.secs && secs < 10;
+    const cap = side === "w" ? matTracker.wPieces : matTracker.bPieces;
+    const adv = side === "w" ? matTracker.score : -matTracker.score;
+    
     return(
-      <div className={active?"glass-panel":""} style={{display:"flex",alignItems:"center",gap:12,padding:"10px 14px",background:active?"rgba(200,168,75,0.08)":"rgba(255,255,255,0.02)",border:`1px solid ${active?"rgba(200,168,75,0.3)":"rgba(255,255,255,0.05)"}`,borderRadius:12,transition:"all .3s",flexShrink:0}}>
-        <div style={{fontSize:24,flexShrink:0,filter:active?"drop-shadow(0 0 8px rgba(255,255,255,0.4))":"none"}}>{isBot?bot.em:(side==="w"?"♔":"♚")}</div>
-        <div style={{flex:1,minWidth:0}}>
-          <div style={{fontFamily:"Cinzel,serif",fontSize:13,fontWeight:900,color:isBot?bot.clr:"#e8dfc8",whiteSpace:"nowrap",overflow:"hidden",textOverflow:"ellipsis",letterSpacing:"1px"}}>{isBot?bot.name:"You"}</div>
-          <div style={{fontSize:10,color:"#8a80a0",fontFamily:"Crimson Pro,serif",display:"flex",alignItems:"center",gap:6,marginTop:2}}>
-            {isBot?`ELO ${bot.elo} · ${bot.tier}`:(side==="w"?"White":"Black")}
-            {cap.length>0&&<span style={{display:"flex",alignItems:"center",marginLeft:6,background:"rgba(0,0,0,0.3)",padding:"2px 6px",borderRadius:4}}>
-              {cap.map((p,i)=><div key={i} style={{width:14,height:14}}><PieceSVG piece={p} pStyle={settings.pieceStyle} size="100%"/></div>)}
-              {adv>0&&<span style={{color:"#c8a84b",fontSize:10,marginLeft:4,fontWeight:900}}>+{adv}</span>}
+      <div className={active ? "glass-panel" : ""} style={{display:"flex", alignItems:"center", gap:12, padding:"10px 14px", background:active?"rgba(200,168,75,0.08)":"rgba(255,255,255,0.02)", border:`1px solid ${active?"rgba(200,168,75,0.3)":"rgba(255,255,255,0.05)"}`, borderRadius:12, transition:"all .3s", flexShrink:0}}>
+        <div style={{fontSize:24, flexShrink:0, filter:active?"drop-shadow(0 0 8px rgba(255,255,255,0.4))":"none"}}>{isBot ? bot.em : (side==="w"?"♔":"♚")}</div>
+        <div style={{flex:1, minWidth:0}}>
+          <div style={{fontFamily:"Cinzel,serif", fontSize:13, fontWeight:900, color:isBot?bot.clr:"#e8dfc8", whiteSpace:"nowrap", overflow:"hidden", textOverflow:"ellipsis", letterSpacing:"1px"}}>{isBot ? bot.name : "You"}</div>
+          <div style={{fontSize:10, color:"#8a80a0", fontFamily:"Crimson Pro,serif", display:"flex", alignItems:"center", gap:6, marginTop:2}}>
+            {isBot ? `ELO ${bot.elo} · ${bot.tier}` : (side === "w" ? "White" : "Black")}
+            {cap.length > 0 && <span style={{display:"flex", alignItems:"center", marginLeft:6, background:"rgba(0,0,0,0.3)", padding:"2px 6px", borderRadius:4}}>
+              {cap.map((p, i) => <div key={i} style={{width:14, height:14}}><PieceSVG piece={p} pStyle={settings.pieceStyle} size="100%"/></div>)}
+              {adv > 0 && <span style={{color:"#c8a84b", fontSize:10, marginLeft:4, fontWeight:900}}>+{adv}</span>}
             </span>}
           </div>
         </div>
-        {acc!==null&&<div style={{fontSize:14,fontWeight:900,fontFamily:"Cinzel,serif",color:acc>=80?"#4CAF50":acc>=60?"#FF9800":"#f44336",flexShrink:0,background:"rgba(0,0,0,0.3)",padding:"4px 8px",borderRadius:6}}>{acc}%</div>}
-        {timeMode.secs>0&&<Clock secs={secs} active={active} low={low}/>}
-        {active&&<div style={{width:8,height:8,borderRadius:"50%",background:"#c8a84b",flexShrink:0,boxShadow:"0 0 12px #c8a84b",animation:thinking&&isBot?"pulse .6s infinite":"none"}}/>}
+        {acc !== null && <div style={{fontSize:14, fontWeight:900, fontFamily:"Cinzel,serif", color:acc>=80?"#4CAF50":acc>=60?"#FF9800":"#f44336", flexShrink:0, background:"rgba(0,0,0,0.3)", padding:"4px 8px", borderRadius:6}}>{acc}%</div>}
+        {timeMode.secs > 0 && <Clock secs={secs} active={active} low={low}/>}
+        {active && <div style={{width:8, height:8, borderRadius:"50%", background:"#c8a84b", flexShrink:0, boxShadow:"0 0 12px #c8a84b", animation:thinking&&isBot?"pulse .6s infinite":"none"}}/>}
       </div>
     );
   }
 
-  // ── MENU STATE ──────────────────────────────────────────────────────────
-  const[menuBot,setMenuBot]=useState(BOTS[9]); 
-  const[menuColor,setMenuColor]=useState("w");
-  const[menuTime,setMenuTime]=useState(TIME_MODES[0]);
-  const[filterTier,setFilterTier]=useState(null);
-  const tiers=[...new Set(BOTS.map(b=>b.tier))];
-
-  if(screen==="intro")return(<IntroScreen onEnter={()=>setScreen("menu")}/>);
-
   // ── MENU ────────────────────────────────────────────────────────────────
-  if(screen==="menu")return(
-    <div style={{minHeight:"100vh",background:"linear-gradient(160deg,#080a12 0%,#0f1420 55%,#0c1018 100%)",display:"flex",flexDirection:"column",alignItems:"center",padding:"20px 12px 40px",fontFamily:"Cinzel,Georgia,serif",color:"#e0d8c8",overflowY:"auto"}}>
-      {showSet&&<SettingsPanel settings={settings} onSave={s=>{setSettings(s);}} onClose={()=>setShowSet(false)}/>}
-      <div style={{width:"100%",maxWidth:700,display:"flex",justifyContent:"flex-end",marginBottom:10}}>
-        <button onClick={()=>setShowSet(true)} className="glass-panel" style={{borderRadius:8,color:"#a098b0",padding:"8px 16px",cursor:"pointer",fontFamily:"Cinzel,serif",fontSize:11,transition:"all .2s",fontWeight:700}}
-          onMouseEnter={e=>{e.currentTarget.style.color="#c8a84b";e.currentTarget.style.borderColor="rgba(200,168,75,0.4)";}}
-          onMouseLeave={e=>{e.currentTarget.style.color="#a098b0";e.currentTarget.style.borderColor="rgba(255,255,255,0.08)";}}>⚙ Settings</button>
-      </div>
-      <div style={{textAlign:"center",marginBottom:30,animation:"fadeUp .65s cubic-bezier(0.34, 1.56, 0.64, 1)"}}>
-        <div style={{fontSize:52,animation:"bob 3.5s ease-in-out infinite",display:"inline-block",marginBottom:6,filter:"drop-shadow(0 0 25px rgba(200,168,75,0.6))",color:"#c8a84b"}}>♞</div>
-        <h1 style={{fontFamily:"Cinzel,serif",fontSize:"clamp(24px,5vw,42px)",fontWeight:900,color:"#e8dfc8",textShadow:"0 0 40px rgba(200,168,75,0.3)",letterSpacing:"3px"}}>CHESS TRAINER</h1>
-        <div style={{width:120,height:2,background:"linear-gradient(90deg,transparent,#c8a84b,transparent)",margin:"12px auto"}}/>
-        <p style={{fontFamily:"Crimson Pro,serif",fontSize:13,color:"#6a6478",letterSpacing:"5px",textTransform:"uppercase"}}>25 Bots · QS Engine · CPL Analysis</p>
+  const [menuBot, setMenuBot] = useState(BOTS[9]); 
+  const [menuColor, setMenuColor] = useState("w");
+  const [menuTime, setMenuTime] = useState(TIME_MODES[0]);
+  const [filterTier, setFilterTier] = useState(null);
+  const tiers = [...new Set(BOTS.map(b => b.tier))];
+
+  if (screen === "menu") return(
+    <div style={{minHeight:"100vh", background:"linear-gradient(160deg,#080a12 0%,#0f1420 55%,#0c1018 100%)", display:"flex", flexDirection:"column", alignItems:"center", padding:"20px 12px 40px", fontFamily:"Cinzel,Georgia,serif", color:"#e0d8c8", overflowY:"auto"}}>
+      {showSet && <SettingsPanel settings={settings} onSave={s => { setSettings(s); }} onClose={() => setShowSet(false)} />}
+      
+      <div style={{width:"100%", maxWidth:700, display:"flex", justifyContent:"flex-end", marginBottom:10}}>
+        <button onClick={() => setShowSet(true)} className="glass-panel" style={{borderRadius:8, color:"#a098b0", padding:"8px 16px", cursor:"pointer", fontFamily:"Cinzel,serif", fontSize:11, transition:"all .2s", fontWeight:700}}
+          onMouseEnter={e => { e.currentTarget.style.color = "#c8a84b"; e.currentTarget.style.borderColor = "rgba(200,168,75,0.4)"; }}
+          onMouseLeave={e => { e.currentTarget.style.color = "#a098b0"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}>⚙ Settings</button>
       </div>
       
-      <div style={{width:"100%",maxWidth:700,marginBottom:16,animation:"fadeUp .65s ease .05s both"}}>
-        <p style={{fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"4px",textTransform:"uppercase",color:"#6a6478",marginBottom:10}}>Filter by Level</p>
-        <div style={{display:"flex",flexWrap:"wrap",gap:8}}>
-          {[null,...tiers].map(t=><div key={t||"all"} onClick={()=>setFilterTier(t)} style={{padding:"6px 14px",borderRadius:24,cursor:"pointer",fontSize:11,fontWeight:700,fontFamily:"Cinzel,serif",background:filterTier===t?"rgba(200,168,75,.2)":"rgba(255,255,255,.03)",border:`1px solid ${filterTier===t?"#c8a84b":"rgba(255,255,255,.08)"}`,color:filterTier===t?"#c8a84b":"#8a8498",transition:"all .2s",boxShadow:filterTier===t?"0 0 12px rgba(200,168,75,0.2)":"none"}}>{t||"All Levels"}</div>)}
-        </div>
+      <div style={{textAlign:"center", marginBottom:30, animation:"fadeUp .65s cubic-bezier(0.34, 1.56, 0.64, 1)"}}>
+        <div style={{fontSize:52, animation:"bob 3.5s ease-in-out infinite", display:"inline-block", marginBottom:6, filter:"drop-shadow(0 0 25px rgba(200,168,75,0.6))", color:"#c8a84b"}}>♞</div>
+        <h1 style={{fontFamily:"Cinzel,serif", fontSize:"clamp(24px,5vw,42px)", fontWeight:900, color:"#e8dfc8", textShadow:"0 0 40px rgba(200,168,75,0.3)", letterSpacing:"3px"}}>CHESS TRAINER</h1>
+        <div style={{width:120, height:2, background:"linear-gradient(90deg,transparent,#c8a84b,transparent)", margin:"12px auto"}}/>
+        <p style={{fontFamily:"Crimson Pro,serif", fontSize:13, color:"#6a6478", letterSpacing:"5px", textTransform:"uppercase"}}>25 Bots · QS Engine · CPL Analysis</p>
       </div>
-
-      <div className="glass-panel" style={{width:"100%",maxWidth:700,borderRadius:16,padding:"20px",marginBottom:20,animation:"fadeUp .65s ease .1s both"}}>
-        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(135px,1fr))",gap:10}}>
-          {(filterTier?BOTS.filter(b=>b.tier===filterTier):BOTS).map(b=>(
-            <div key={b.id} onClick={()=>setMenuBot(b)} style={{padding:"14px 10px",borderRadius:12,cursor:"pointer",textAlign:"center",background:menuBot.id===b.id?`linear-gradient(135deg,${b.clr}2a,${b.clr}0f)`:"rgba(0,0,0,0.3)",border:`2px solid ${menuBot.id===b.id?b.clr:"rgba(255,255,255,.05)"}`,transition:"all .2s",boxShadow:menuBot.id===b.id?`0 6px 20px ${b.clr}35`:"none"}}
-              onMouseEnter={e=>{if(menuBot.id!==b.id)e.currentTarget.style.borderColor="rgba(255,255,255,0.2)";}}
-              onMouseLeave={e=>{if(menuBot.id!==b.id)e.currentTarget.style.borderColor="rgba(255,255,255,.05)";}}>
-              <div style={{fontSize:24,marginBottom:6,filter:menuBot.id===b.id?`drop-shadow(0 0 8px ${b.clr})`:"none"}}>{b.em}</div>
-              <div style={{fontFamily:"Cinzel,serif",fontSize:12,fontWeight:900,color:menuBot.id===b.id?b.clr:"#c0b8a0",marginBottom:2}}>{b.name}</div>
-              <div style={{fontSize:10,color:menuBot.id===b.id?b.clr+"bb":"#6a6478",fontFamily:"Crimson Pro,monospace",fontWeight:600}}>ELO {b.elo}</div>
+      
+      <div style={{width:"100%", maxWidth:700, marginBottom:16, animation:"fadeUp .65s ease .05s both"}}>
+        <p style={{fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"4px", textTransform:"uppercase", color:"#6a6478", marginBottom:10}}>Filter by Level</p>
+        <div style={{display:"flex", flexWrap:"wrap", gap:8}}>
+          {[null, ...tiers].map(t => (
+            <div key={t || "all"} onClick={() => setFilterTier(t)} style={{padding:"6px 14px", borderRadius:24, cursor:"pointer", fontSize:11, fontWeight:700, fontFamily:"Cinzel,serif", background:filterTier===t?"rgba(200,168,75,.2)":"rgba(255,255,255,.03)", border:`1px solid ${filterTier===t?"#c8a84b":"rgba(255,255,255,.08)"}`, color:filterTier===t?"#c8a84b":"#8a8498", transition:"all .2s", boxShadow:filterTier===t?"0 0 12px rgba(200,168,75,0.2)":"none"}}>
+              {t || "All Levels"}
             </div>
           ))}
         </div>
-        {menuBot&&<div style={{marginTop:16,padding:"12px 16px",background:"rgba(0,0,0,0.4)",borderRadius:10,borderLeft:`4px solid ${menuBot.clr}`,fontFamily:"Crimson Pro,serif",fontSize:13,color:"#a098b0",fontStyle:"italic",display:"flex",alignItems:"center",gap:12}}>
-          <span style={{fontSize:28}}>{menuBot.em}</span>
-          <span>{menuBot.desc}</span>
-        </div>}
-        {menuBot&&(()=>{
-            const bp=eloToParams(menuBot.elo);
-            return (<div style={{marginTop:12,display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
-              {[["Search Depth",bp.depth+" ply"],["Blunder Rate",Math.round(bp.blunder*100)+"%"],["Book Knowledge",Math.round(bp.book*100)+"%"]].map(([k,v])=>(
-                <div key={k} style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,0.05)",borderRadius:8,padding:"6px 14px",textAlign:"center"}}>
-                  <div style={{fontFamily:"Crimson Pro,serif",fontSize:10,color:"#6a6478",textTransform:"uppercase",letterSpacing:"1px",marginBottom:2}}>{k}</div>
-                  <div style={{fontFamily:"Cinzel,serif",fontSize:14,fontWeight:900,color:"#c8a84b"}}>{v}</div>
-                </div>
-              ))}
-            </div>);
+      </div>
+
+      <div className="glass-panel" style={{width:"100%", maxWidth:700, borderRadius:16, padding:"20px", marginBottom:20, animation:"fadeUp .65s ease .1s both"}}>
+        <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(135px,1fr))", gap:10}}>
+          {(filterTier ? BOTS.filter(b => b.tier === filterTier) : BOTS).map(b => (
+            <div key={b.id} onClick={() => setMenuBot(b)} style={{padding:"14px 10px", borderRadius:12, cursor:"pointer", textAlign:"center", background:menuBot.id===b.id?`linear-gradient(135deg,${b.clr}2a,${b.clr}0f)`:"rgba(0,0,0,0.3)", border:`2px solid ${menuBot.id===b.id?b.clr:"rgba(255,255,255,.05)"}`, transition:"all .2s", boxShadow:menuBot.id===b.id?`0 6px 20px ${b.clr}35`:"none"}}
+              onMouseEnter={e => { if (menuBot.id !== b.id) e.currentTarget.style.borderColor = "rgba(255,255,255,0.2)"; }}
+              onMouseLeave={e => { if (menuBot.id !== b.id) e.currentTarget.style.borderColor = "rgba(255,255,255,.05)"; }}>
+              <div style={{fontSize:24, marginBottom:6, filter:menuBot.id===b.id?`drop-shadow(0 0 8px ${b.clr})`:"none"}}>{b.em}</div>
+              <div style={{fontFamily:"Cinzel,serif", fontSize:12, fontWeight:900, color:menuBot.id===b.id?b.clr:"#c0b8a0", marginBottom:2}}>{b.name}</div>
+              <div style={{fontSize:10, color:menuBot.id===b.id?b.clr+"bb":"#6a6478", fontFamily:"Crimson Pro,monospace", fontWeight:600}}>ELO {b.elo}</div>
+            </div>
+          ))}
+        </div>
+        
+        {menuBot && (
+          <div style={{marginTop:16, padding:"12px 16px", background:"rgba(0,0,0,0.4)", borderRadius:10, borderLeft:`4px solid ${menuBot.clr}`, fontFamily:"Crimson Pro,serif", fontSize:13, color:"#a098b0", fontStyle:"italic", display:"flex", alignItems:"center", gap:12}}>
+            <span style={{fontSize:28}}>{menuBot.em}</span>
+            <span>{menuBot.desc}</span>
+          </div>
+        )}
+        
+        {menuBot && (() => {
+            const bp = eloToParams(menuBot.elo);
+            return (
+              <div style={{marginTop:12, display:"flex", gap:10, justifyContent:"center", flexWrap:"wrap"}}>
+                {[["Search Depth", bp.depth+" ply"], ["Blunder Rate", Math.round(bp.blunder*100)+"%"], ["Book Knowledge", Math.round(bp.book*100)+"%"]].map(([k, v]) => (
+                  <div key={k} style={{background:"rgba(255,255,255,.04)", border:"1px solid rgba(255,255,255,0.05)", borderRadius:8, padding:"6px 14px", textAlign:"center"}}>
+                    <div style={{fontFamily:"Crimson Pro,serif", fontSize:10, color:"#6a6478", textTransform:"uppercase", letterSpacing:"1px", marginBottom:2}}>{k}</div>
+                    <div style={{fontFamily:"Cinzel,serif", fontSize:14, fontWeight:900, color:"#c8a84b"}}>{v}</div>
+                  </div>
+                ))}
+              </div>
+            );
         })()}
       </div>
 
-      <div style={{display:"flex",gap:20,width:"100%",maxWidth:700,flexWrap:mob?"wrap":"nowrap",animation:"fadeUp .65s ease .15s both"}}>
-        <div className="glass-panel" style={{flex:1,borderRadius:16,padding:"20px",minWidth:300}}>
-          <p style={{fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"3px",textTransform:"uppercase",color:"#6a6478",marginBottom:12}}>Time Control</p>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(110px,1fr))",gap:8}}>
-            {TIME_MODES.map(tm=><div key={tm.id} onClick={()=>setMenuTime(tm)} style={{padding:"10px 8px",borderRadius:10,cursor:"pointer",textAlign:"center",background:menuTime.id===tm.id?"rgba(200,168,75,.15)":"rgba(0,0,0,0.3)",border:`2px solid ${menuTime.id===tm.id?"#c8a84b":"rgba(255,255,255,.05)"}`,transition:"all .2s"}}><div style={{fontFamily:"Cinzel,serif",fontSize:12,fontWeight:700,color:menuTime.id===tm.id?"#c8a84b":"#8a8498"}}>{tm.label}</div></div>)}
+      <div style={{display:"flex", gap:20, width:"100%", maxWidth:700, flexWrap:mob?"wrap":"nowrap", animation:"fadeUp .65s ease .15s both"}}>
+        <div className="glass-panel" style={{flex:1, borderRadius:16, padding:"20px", minWidth:300}}>
+          <p style={{fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"3px", textTransform:"uppercase", color:"#6a6478", marginBottom:12}}>Time Control</p>
+          <div style={{display:"grid", gridTemplateColumns:"repeat(auto-fill,minmax(110px,1fr))", gap:8}}>
+            {TIME_MODES.map(tm => (
+              <div key={tm.id} onClick={() => setMenuTime(tm)} style={{padding:"10px 8px", borderRadius:10, cursor:"pointer", textAlign:"center", background:menuTime.id===tm.id?"rgba(200,168,75,.15)":"rgba(0,0,0,0.3)", border:`2px solid ${menuTime.id===tm.id?"#c8a84b":"rgba(255,255,255,.05)"}`, transition:"all .2s"}}>
+                <div style={{fontFamily:"Cinzel,serif", fontSize:12, fontWeight:700, color:menuTime.id===tm.id?"#c8a84b":"#8a8498"}}>{tm.label}</div>
+              </div>
+            ))}
           </div>
         </div>
-        <div className="glass-panel" style={{flex:1,borderRadius:16,padding:"20px",minWidth:300}}>
-          <p style={{fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"3px",textTransform:"uppercase",color:"#6a6478",marginBottom:12}}>Play As</p>
-          <div style={{display:"flex",gap:10}}>
-            {[{v:"w",l:"White",s:"♔"},{v:"b",l:"Black",s:"♚"},{v:"r",l:"Random",s:"🎲"}].map(o=>(
-              <div key={o.v} onClick={()=>setMenuColor(o.v)} style={{flex:1,padding:"16px 8px",borderRadius:10,cursor:"pointer",textAlign:"center",background:menuColor===o.v?"rgba(200,168,75,.15)":"rgba(0,0,0,0.3)",border:`2px solid ${menuColor===o.v?"#c8a84b":"rgba(255,255,255,.05)"}`,transition:"all .2s"}}>
-                <div style={{fontSize:28,marginBottom:6,filter:menuColor===o.v?"drop-shadow(0 0 6px #c8a84b)":"none"}}>{o.s}</div>
-                <div style={{fontFamily:"Cinzel,serif",fontSize:12,color:menuColor===o.v?"#c8a84b":"#8a8498",fontWeight:900,letterSpacing:"1px",textTransform:"uppercase"}}>{o.l}</div>
+        <div className="glass-panel" style={{flex:1, borderRadius:16, padding:"20px", minWidth:300}}>
+          <p style={{fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"3px", textTransform:"uppercase", color:"#6a6478", marginBottom:12}}>Play As</p>
+          <div style={{display:"flex", gap:10}}>
+            {[{v:"w", l:"White", s:"♔"}, {v:"b", l:"Black", s:"♚"}, {v:"r", l:"Random", s:"🎲"}].map(o => (
+              <div key={o.v} onClick={() => setMenuColor(o.v)} style={{flex:1, padding:"16px 8px", borderRadius:10, cursor:"pointer", textAlign:"center", background:menuColor===o.v?"rgba(200,168,75,.15)":"rgba(0,0,0,0.3)", border:`2px solid ${menuColor===o.v?"#c8a84b":"rgba(255,255,255,.05)"}`, transition:"all .2s"}}>
+                <div style={{fontSize:28, marginBottom:6, filter:menuColor===o.v?"drop-shadow(0 0 6px #c8a84b)":"none"}}>{o.s}</div>
+                <div style={{fontFamily:"Cinzel,serif", fontSize:12, color:menuColor===o.v?"#c8a84b":"#8a8498", fontWeight:900, letterSpacing:"1px", textTransform:"uppercase"}}>{o.l}</div>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <button onClick={()=>{const pc=menuColor==="r"?(Math.random()<.5?"w":"b"):menuColor;startGame(menuBot,pc,menuTime);}}
-        style={{marginTop:30,background:"linear-gradient(135deg,#c8a84b,#8a6820)",color:"#0d0900",border:"none",borderRadius:12,padding:"18px 60px",fontFamily:"Cinzel,serif",fontSize:16,fontWeight:900,cursor:"pointer",letterSpacing:"4px",textTransform:"uppercase",boxShadow:"0 10px 30px rgba(200,168,75,0.4)",transition:"all .2s",animation:"fadeUp .65s ease .25s both"}}
-        onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-4px) scale(1.02)";e.currentTarget.style.boxShadow="0 15px 45px rgba(200,168,75,0.6)";}}
-        onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="0 10px 30px rgba(200,168,75,0.4)";}}>
+      <button 
+        onClick={() => { const pc = menuColor === "r" ? (Math.random() < 0.5 ? "w" : "b") : menuColor; startGame(menuBot, pc, menuTime); }}
+        style={{marginTop:30, background:"linear-gradient(135deg,#c8a84b,#8a6820)", color:"#0d0900", border:"none", borderRadius:12, padding:"18px 60px", fontFamily:"Cinzel,serif", fontSize:16, fontWeight:900, cursor:"pointer", letterSpacing:"4px", textTransform:"uppercase", boxShadow:"0 10px 30px rgba(200,168,75,0.4)", transition:"all .2s", animation:"fadeUp .65s ease .25s both"}}
+        onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-4px) scale(1.02)"; e.currentTarget.style.boxShadow = "0 15px 45px rgba(200,168,75,0.6)"; }}
+        onMouseLeave={e => { e.currentTarget.style.transform = "none"; e.currentTarget.style.boxShadow = "0 10px 30px rgba(200,168,75,0.4)"; }}>
         Begin Game
       </button>
     </div>
   );
 
   // ── REVIEW SCREEN ────────────────────────────────────────────────────────
-  if(screen==="review"){
-    const rBoard=revIdx<0?INIT_BOARD():history[revIdx]?.board||INIT_BOARD();
-    const rLM=revIdx>=0?[history[revIdx]?.fr,history[revIdx]?.fc,history[revIdx]?.tr,history[revIdx]?.tc]:null;
-    const rEval=revIdx<0?0:evalHist[revIdx+1]||0,rWp=eToW(rEval);
-    const maxE=Math.max(...evalHist.map(Math.abs),200);
-    const pts=evalHist.map((e,i)=>{const x=(i/(evalHist.length-1||1))*100,y=50-((Math.max(-maxE,Math.min(maxE,e))/maxE)*44);return[x,y];});
-    const CATS=[["💎","Brilliant","#00BCD4"],["✦","Best","#4CAF50"],["✨","Excellent","#8BC34A"],["⚠️","Inaccuracy","#FF9800"],["❗","Mistake","#FF5722"],["💥","Blunder","#F44336"]];
+  if (screen === "review") {
+    const rBoard = revIdx < 0 ? INIT_BOARD() : history[revIdx]?.board || INIT_BOARD();
+    const rLM = revIdx >= 0 ? [history[revIdx]?.fr, history[revIdx]?.fc, history[revIdx]?.tr, history[revIdx]?.tc] : null;
+    const rEval = revIdx < 0 ? 0 : evalHist[revIdx + 1] || 0;
+    const rWp = evalToW(rEval);
+    const maxE = Math.max(...evalHist.map(Math.abs), 200);
+    const pts = evalHist.map((e, i) => { 
+      const x = (i / (evalHist.length - 1 || 1)) * 100;
+      const y = 50 - ((Math.max(-maxE, Math.min(maxE, e)) / maxE) * 44); 
+      return [x, y]; 
+    });
+    
+    const CATS = [
+      ["💎","Brilliant","#00BCD4"], ["✦","Best","#4CAF50"], 
+      ["✨","Excellent","#8BC34A"], ["⚠️","Inaccuracy","#FF9800"], 
+      ["❗","Mistake","#FF5722"], ["💥","Blunder","#F44336"]
+    ];
     
     useEffect(() => {
       const handleKey = (e) => {
@@ -1135,49 +1813,73 @@ function ChessApp(){
     }, [history.length]);
 
     return(
-      <div style={{height:"100vh",background:"#080a12",color:"#e0d8c8",fontFamily:"Cinzel,Georgia,serif",display:"flex",flexDirection:"column",overflow:"hidden"}}>
-        {showSet&&<SettingsPanel settings={settings} onSave={setSettings} onClose={()=>setShowSet(false)}/>}
-        <div style={{background:"#0d0f1a",borderBottom:"1px solid #1c1e2c",padding:"10px 18px",display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
-          <div style={{display:"flex",alignItems:"center",gap:12}}>
-            <span style={{fontSize:20,color:"#c8a84b"}}>♞</span>
-            <span style={{fontFamily:"Cinzel,serif",fontWeight:900,fontSize:14,color:"#c8a84b",letterSpacing:"1px"}}>Game Review</span>
-            {result&&<span style={{fontFamily:"Crimson Pro,serif",fontSize:11,color:"#6a6478",borderLeft:"1px solid #1c1e2c",paddingLeft:12}}>{result.replace(/[🤝♟🏆⏱]/g, '')}</span>}
+      <div style={{height:"100vh", background:"#080a12", color:"#e0d8c8", fontFamily:"Cinzel,Georgia,serif", display:"flex", flexDirection:"column", overflow:"hidden"}}>
+        {showSet && <SettingsPanel settings={settings} onSave={setSettings} onClose={() => setShowSet(false)}/>}
+        <div style={{background:"#0d0f1a", borderBottom:"1px solid #1c1e2c", padding:"10px 18px", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0}}>
+          <div style={{display:"flex", alignItems:"center", gap:12}}>
+            <span style={{fontSize:20, color:"#c8a84b"}}>♞</span>
+            <span style={{fontFamily:"Cinzel,serif", fontWeight:900, fontSize:14, color:"#c8a84b", letterSpacing:"1px"}}>Game Review</span>
+            {result && <span style={{fontFamily:"Crimson Pro,serif", fontSize:11, color:"#6a6478", borderLeft:"1px solid #1c1e2c", paddingLeft:12}}>{result.replace(/[🤝♟🏆⏱]/g, '')}</span>}
           </div>
-          <div style={{display:"flex",gap:8}}>
-            <button onClick={()=>setShowSet(true)} style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:8,color:"#a098b0",padding:"6px 12px",cursor:"pointer",fontFamily:"Cinzel,serif",fontSize:12}}>⚙</button>
-            <button onClick={()=>setScreen("menu")} style={{background:"linear-gradient(135deg,#c8a84b,#8a6820)",color:"#0d0900",border:"none",borderRadius:8,padding:"8px 18px",cursor:"pointer",fontFamily:"Cinzel,serif",fontSize:11,fontWeight:900,letterSpacing:"1px"}}>New Game</button>
+          <div style={{display:"flex", gap:8}}>
+            <button onClick={() => setShowSet(true)} style={{background:"rgba(255,255,255,.04)", border:"1px solid rgba(255,255,255,.08)", borderRadius:8, color:"#a098b0", padding:"6px 12px", cursor:"pointer", fontFamily:"Cinzel,serif", fontSize:12}}>⚙</button>
+            <button onClick={() => setScreen("menu")} style={{background:"linear-gradient(135deg,#c8a84b,#8a6820)", color:"#0d0900", border:"none", borderRadius:8, padding:"8px 18px", cursor:"pointer", fontFamily:"Cinzel,serif", fontSize:11, fontWeight:900, letterSpacing:"1px"}}>New Game</button>
           </div>
         </div>
-        <div style={{flex:1,display:"flex",overflow:"hidden"}}>
-          {!mob&&<div style={{width:240,background:"#0d0f1a",borderRight:"1px solid #1c1e2c",padding:"16px",overflowY:"auto",flexShrink:0,display:"flex",flexDirection:"column",gap:14}}>
-            {[{l:"♔ White",acc:wAcc,c:"w"},{l:`♚ Black`,acc:bAcc,c:"b",clr:botSide==="b"?bot.clr:null}].map((x,i)=>(
-              <div key={i} className="glass-panel" style={{borderRadius:12,padding:"16px"}}>
-                <div style={{fontFamily:"Crimson Pro,serif",fontSize:11,color:"#8a8498",marginBottom:8,fontWeight:600}}>
-                  {x.l} {x.c===pColor?"(You)":`(${bot.name})`}
+        <div style={{flex:1, display:"flex", overflow:"hidden"}}>
+          {!mob && (
+            <div style={{width:240, background:"#0d0f1a", borderRight:"1px solid #1c1e2c", padding:"16px", overflowY:"auto", flexShrink:0, display:"flex", flexDirection:"column", gap:14}}>
+              {[{l:"♔ White", acc:wAcc, c:"w"}, {l:`♚ Black`, acc:bAcc, c:"b", clr:botSide==="b"?bot.clr:null}].map((x, i) => (
+                <div key={i} className="glass-panel" style={{borderRadius:12, padding:"16px"}}>
+                  <div style={{fontFamily:"Crimson Pro,serif", fontSize:11, color:"#8a8498", marginBottom:8, fontWeight:600}}>
+                    {x.l} {x.c === pColor ? "(You)" : `(${bot.name})`}
+                  </div>
+                  <div style={{fontFamily:"Cinzel,serif", fontSize:32, fontWeight:900, color:x.acc>=80?"#4CAF50":x.acc>=60?"#FF9800":"#f44336", lineHeight:1}}>{x.acc??0}%</div>
+                  <div style={{fontFamily:"Crimson Pro,serif", fontSize:10, color:"#6a6478", marginBottom:12, marginTop:4, letterSpacing:"1px", textTransform:"uppercase"}}>Accuracy</div>
+                  <div style={{height:6, background:"#0a0c14", borderRadius:3, border:"1px solid rgba(255,255,255,0.05)"}}><div style={{height:"100%", width:`${x.acc??0}%`, background:x.acc>=80?"#4CAF50":x.acc>=60?"#FF9800":"#f44336", borderRadius:3, transition:"width 1s cubic-bezier(0.34, 1.56, 0.64, 1)"}}/></div>
+                  <div style={{marginTop:16}}>
+                    {CATS.map(([em, label, clr]) => {
+                      const n = history.filter(m => cl(m.piece) === x.c && m.classification?.label === label).length;
+                      return n > 0 ? (
+                        <div key={label} style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6}}>
+                          <span style={{fontFamily:"Crimson Pro,serif", fontSize:11, color:"#a098b0"}}>{em} {label}</span>
+                          <span style={{fontFamily:"Cinzel,serif", fontSize:13, fontWeight:900, color:clr}}>{n}</span>
+                        </div>
+                      ) : null;
+                    })}
+                  </div>
+                  <div style={{marginTop:12, paddingTop:12, borderTop:"1px solid rgba(255,255,255,0.05)"}}>
+                    <div style={{fontFamily:"Crimson Pro,serif", fontSize:10, color:"#6a6478", marginBottom:4, textTransform:"uppercase", letterSpacing:"1px"}}>Avg CPL</div>
+                    <div style={{fontFamily:"Cinzel,serif", fontSize:18, fontWeight:900, color:"#c8a84b"}}>
+                      {(() => {
+                        const pm = history.filter(m => cl(m.piece) === x.c);
+                        return pm.length ? Math.round(pm.reduce((s, m) => s + (m.cpl || 0), 0) / pm.length) : 0;
+                      })()}
+                    </div>
+                  </div>
                 </div>
-                <div style={{fontFamily:"Cinzel,serif",fontSize:32,fontWeight:900,color:x.acc>=80?"#4CAF50":x.acc>=60?"#FF9800":"#f44336",lineHeight:1}}>{x.acc??0}%</div>
-                <div style={{fontFamily:"Crimson Pro,serif",fontSize:10,color:"#6a6478",marginBottom:12,marginTop:4,letterSpacing:"1px",textTransform:"uppercase"}}>Accuracy</div>
-                <div style={{height:6,background:"#0a0c14",borderRadius:3,border:"1px solid rgba(255,255,255,0.05)"}}><div style={{height:"100%",width:`${x.acc??0}%`,background:x.acc>=80?"#4CAF50":x.acc>=60?"#FF9800":"#f44336",borderRadius:3,transition:"width 1s cubic-bezier(0.34, 1.56, 0.64, 1)"}}/></div>
-                <div style={{marginTop:16}}>{CATS.map(([em,label,clr])=>{const n=history.filter(m=>cl(m.piece)===x.c&&m.classification?.label===label).length;return n>0?<div key={label} style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}><span style={{fontFamily:"Crimson Pro,serif",fontSize:11,color:"#a098b0"}}>{em} {label}</span><span style={{fontFamily:"Cinzel,serif",fontSize:13,fontWeight:900,color:clr}}>{n}</span></div>:null;})}</div>
-              </div>
-            ))}
-          </div>}
-          <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:"radial-gradient(ellipse at center, #121520 0%, #080a12 100%)"}}>
-            <div style={{height:100,background:"#0d0f1a",borderBottom:"1px solid #1c1e2c",padding:"12px 16px",flexShrink:0}}>
-              <svg width="100%" height="76" style={{display:"block",cursor:"pointer"}}>
+              ))}
+            </div>
+          )}
+          
+          <div style={{flex:1, display:"flex", flexDirection:"column", overflow:"hidden", background:"radial-gradient(ellipse at center, #121520 0%, #080a12 100%)"}}>
+            <div style={{height:100, background:"#0d0f1a", borderBottom:"1px solid #1c1e2c", padding:"12px 16px", flexShrink:0}}>
+              <svg width="100%" height="76" style={{display:"block", cursor:"pointer"}}>
                 <rect width="100%" height="100%" fill="transparent"/>
                 <line x1="0%" y1="50%" x2="100%" y2="50%" stroke="rgba(255,255,255,0.1)" strokeWidth="1" strokeDasharray="4 4"/>
-                <path d={`M${pts[0]?.[0]}% 50 ${pts.map(([x,y])=>`L${x}% ${y}`).join(" ")} L${pts[pts.length-1]?.[0]}% 50 Z`} fill="rgba(200,168,75,.15)"/>
-                <polyline points={pts.map(([x,y])=>`${x}% ${y}`).join(" ")} fill="none" stroke="#c8a84b" strokeWidth="2.5" style={{filter:"drop-shadow(0 2px 4px rgba(0,0,0,0.5))"}}/>
-                {revIdx>=0&&pts[revIdx+1]&&<circle cx={`${pts[revIdx+1][0]}%`} cy={pts[revIdx+1][1]} r="6" fill="#fff" stroke="#c8a84b" strokeWidth="3" style={{filter:"drop-shadow(0 0 8px #c8a84b)"}}/>}
-                {pts.map((_,i)=>i>0&&<rect key={i} x={`${(i/(pts.length||1))*100}%`} y="0" width={`${100/(pts.length||1)}%`} height="76" fill="transparent" onClick={()=>setRevIdx(i-1)}/>)}
+                <path d={`M${pts[0]?.[0]}% 50 ${pts.map(([x, y]) => `L${x}% ${y}`).join(" ")} L${pts[pts.length-1]?.[0]}% 50 Z`} fill="rgba(200,168,75,.15)"/>
+                <polyline points={pts.map(([x, y]) => `${x}% ${y}`).join(" ")} fill="none" stroke="#c8a84b" strokeWidth="2.5" style={{filter:"drop-shadow(0 2px 4px rgba(0,0,0,0.5))"}}/>
+                {revIdx >= 0 && pts[revIdx + 1] && <circle cx={`${pts[revIdx + 1][0]}%`} cy={pts[revIdx + 1][1]} r="6" fill="#fff" stroke="#c8a84b" strokeWidth="3" style={{filter:"drop-shadow(0 0 8px #c8a84b)"}}/>}
+                {pts.map((_, i) => i > 0 && <rect key={i} x={`${(i / (pts.length || 1)) * 100}%`} y="0" width={`${100 / (pts.length || 1)}%`} height="76" fill="transparent" onClick={() => setRevIdx(i - 1)}/>)}
               </svg>
             </div>
-            <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"16px",overflow:"hidden",gap:8}}>
+            
+            <div style={{flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"16px", overflow:"hidden", gap:8}}>
               <div style={{width:"min(calc(100vh - 300px),500px)"}}><EvalBar wp={rWp} ev={rEval}/></div>
-              <div style={{width:"min(calc(100vh - 300px),500px)",aspectRatio:"1/1",borderRadius:12,overflow:"hidden",boxShadow:"0 25px 70px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,0.05)"}}>
+              <div style={{width:"min(calc(100vh - 300px),500px)", aspectRatio:"1/1", borderRadius:12, overflow:"hidden", boxShadow:"0 25px 70px rgba(0,0,0,.9), 0 0 0 1px rgba(255,255,255,0.05)"}}>
                 <Board brd={rBoard} lm={rLM} clickable={false} legalMoves={[]} sel={null} chk={false} curTurn={"w"} anim={null}/>
               </div>
+              
               {revIdx >= 0 && history[revIdx]?.classification && (
                 <div style={{width:"min(calc(100vh - 300px),500px)", marginTop:16, padding:"12px 16px", background:"rgba(0,0,0,0.6)", border:`1px solid ${history[revIdx].classification.clr}55`, borderRadius:8, display:"flex", alignItems:"center", gap:12, animation:"fadeIn 0.3s ease"}}>
                   <span style={{fontSize:24, fontWeight:900, color:history[revIdx].classification.clr}}>{history[revIdx].classification.sym}</span>
@@ -1189,152 +1891,192 @@ function ChessApp(){
                 </div>
               )}
             </div>
-            <div style={{height:56,background:"#0d0f1a",borderTop:"1px solid #1c1e2c",display:"flex",alignItems:"center",justifyContent:"center",gap:12,flexShrink:0}}>
-              {[["⏮",()=>setRevIdx(-1)],["◀",()=>setRevIdx(i=>Math.max(-1,i-1))],["▶",()=>setRevIdx(i=>Math.min(history.length-1,i+1))],["⏭",()=>setRevIdx(history.length-1)]].map(([l,fn])=>(
-                <button key={l} onClick={fn} style={{background:"rgba(255,255,255,0.05)",border:"1px solid rgba(255,255,255,0.08)",borderRadius:8,color:"#c8a84b",padding:"8px 20px",cursor:"pointer",fontSize:16,fontFamily:"Cinzel,monospace",transition:"all .2s"}} onMouseEnter={e=>{e.currentTarget.style.background="rgba(255,255,255,0.1)";}} onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,0.05)";}}>{l}</button>
+            
+            <div style={{height:56, background:"#0d0f1a", borderTop:"1px solid #1c1e2c", display:"flex", alignItems:"center", justifyContent:"center", gap:12, flexShrink:0}}>
+              {[["⏮", () => setRevIdx(-1)], ["◀", () => setRevIdx(i => Math.max(-1, i - 1))], ["▶", () => setRevIdx(i => Math.min(history.length - 1, i + 1))], ["⏭", () => setRevIdx(history.length - 1)]].map(([l, fn]) => (
+                <button key={l} onClick={fn} style={{background:"rgba(255,255,255,0.05)", border:"1px solid rgba(255,255,255,0.08)", borderRadius:8, color:"#c8a84b", padding:"8px 20px", cursor:"pointer", fontSize:16, fontFamily:"Cinzel,monospace", transition:"all .2s"}} onMouseEnter={e => { e.currentTarget.style.background = "rgba(255,255,255,0.1)"; }} onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; }}>{l}</button>
               ))}
+              <span style={{fontFamily:"Crimson Pro,serif", color:"#6a6478", fontSize:13, marginLeft:12, fontWeight:600}}>Move {revIdx + 1} / {history.length}</span>
             </div>
           </div>
-          {!mob&&<div style={{width:240,background:"#0d0f1a",borderLeft:"1px solid #1c1e2c",display:"flex",flexDirection:"column",flexShrink:0}}>
-            <div style={{padding:"12px 16px",borderBottom:"1px solid #1c1e2c",fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"3px",color:"#6a6478",textTransform:"uppercase",fontWeight:700}}>Annotated Moves</div>
-            <MoveList hist={history} active={revIdx} onNav={setRevIdx}/>
-          </div>}
+          
+          {!mob && (
+            <div style={{width:240, background:"#0d0f1a", borderLeft:"1px solid #1c1e2c", display:"flex", flexDirection:"column", flexShrink:0}}>
+              <div style={{padding:"12px 16px", borderBottom:"1px solid #1c1e2c", fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"3px", color:"#6a6478", textTransform:"uppercase", fontWeight:700}}>Annotated Moves</div>
+              <MoveList hist={history} active={revIdx} onNav={setRevIdx}/>
+            </div>
+          )}
         </div>
       </div>
     );
   }
 
-  // ── GAME ────────────────────────────────────────────────────────────────
+  // ── GAME PLAYING SCREEN ─────────────────────────────────────────────────
   return(
-    <div style={{height:"100vh",background:"#080a12",color:"#e0d8c8",fontFamily:"Cinzel,Georgia,serif",display:"flex",flexDirection:"column",overflow:"hidden"}}>
-      {showSet&&<SettingsPanel settings={settings} onSave={s=>{setSettings(s);}} onClose={()=>setShowSet(false)}/>}
+    <div style={{height:"100vh", background:"#080a12", color:"#e0d8c8", fontFamily:"Cinzel,Georgia,serif", display:"flex", flexDirection:"column", overflow:"hidden"}}>
+      {showSet && <SettingsPanel settings={settings} onSave={s => { setSettings(s); }} onClose={() => setShowSet(false)} />}
       
-      {result&&<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.85)",backdropFilter:"blur(8px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:2000,animation:"fadeIn .3s ease"}}>
-        <div className="glass-panel" style={{borderRadius:20,padding:"40px 50px",textAlign:"center",boxShadow:"0 30px 90px rgba(0,0,0,.9), 0 0 50px rgba(200,168,75,.15)",animation:"modalPop .5s cubic-bezier(.34,1.56,.64,1)"}}>
-          <div style={{fontSize:56,marginBottom:12,filter:"drop-shadow(0 0 16px rgba(200,168,75,.5))"}}>🏆</div>
-          <div style={{fontFamily:"Cinzel,serif",fontSize:26,fontWeight:900,color:"#e8dfc8",marginBottom:10,letterSpacing:"2px"}}>{result.replace(/[🤝♟🏆⏱]/g, '')}</div>
-          <div style={{fontFamily:"Crimson Pro,serif",fontSize:15,color:"#a098b0",marginBottom:30,background:"rgba(0,0,0,0.4)",padding:"10px 20px",borderRadius:8,display:"inline-block"}}>
-            Your Accuracy: <b style={{fontSize:18, color:myAcc>=80?"#4CAF50":myAcc>=60?"#FF9800":"#f44336"}}>{myAcc}%</b> <br/>
-            Bot Accuracy: <b style={{fontSize:18, color:botAcc>=80?"#4CAF50":botAcc>=60?"#FF9800":"#f44336"}}>{botAcc}%</b>
-          </div>
-          <div style={{display:"flex",gap:16,justifyContent:"center"}}>
-            <button onClick={()=>{setRevIdx(-1);setScreen("review");}} style={{background:"linear-gradient(135deg,#c8a84b,#8a6820)",color:"#0d0900",border:"none",borderRadius:10,padding:"12px 26px",cursor:"pointer",fontFamily:"Cinzel,serif",fontSize:13,fontWeight:900,letterSpacing:"1px",transition:"transform .2s",boxShadow:"0 8px 20px rgba(200,168,75,0.3)"}} onMouseEnter={e=>e.currentTarget.style.transform="scale(1.05) translateY(-2px)"} onMouseLeave={e=>e.currentTarget.style.transform="none"}>📊 Review Game</button>
-            <button onClick={()=>setScreen("menu")} style={{background:"rgba(255,255,255,.05)",border:"1px solid rgba(255,255,255,.1)",color:"#c0b8a0",borderRadius:10,padding:"12px 26px",cursor:"pointer",fontFamily:"Cinzel,serif",fontSize:13,fontWeight:900,letterSpacing:"1px",transition:"all .2s"}} onMouseEnter={e=>e.currentTarget.style.background="rgba(255,255,255,.1)"} onMouseLeave={e=>e.currentTarget.style.background="rgba(255,255,255,.05)"}>Main Menu</button>
+      {result && (
+        <div style={{position:"fixed", inset:0, background:"rgba(0,0,0,.85)", backdropFilter:"blur(8px)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:2000, animation:"fadeIn .3s ease"}}>
+          <div className="glass-panel" style={{borderRadius:20, padding:"40px 50px", textAlign:"center", boxShadow:"0 30px 90px rgba(0,0,0,.9), 0 0 50px rgba(200,168,75,.15)", animation:"modalPop .5s cubic-bezier(.34,1.56,.64,1)"}}>
+            <div style={{fontSize:56, marginBottom:12, filter:"drop-shadow(0 0 16px rgba(200,168,75,.5))"}}>🏆</div>
+            <div style={{fontFamily:"Cinzel,serif", fontSize:26, fontWeight:900, color:"#e8dfc8", marginBottom:10, letterSpacing:"2px"}}>{result.replace(/[🤝♟🏆⏱]/g, '')}</div>
+            <div style={{fontFamily:"Crimson Pro,serif", fontSize:15, color:"#a098b0", marginBottom:30, background:"rgba(0,0,0,0.4)", padding:"10px 20px", borderRadius:8, display:"inline-block"}}>
+              Your Accuracy: <b style={{fontSize:18, color:myAcc>=80?"#4CAF50":myAcc>=60?"#FF9800":"#f44336"}}>{myAcc}%</b> <br/>
+              Bot Accuracy: <b style={{fontSize:18, color:botAcc>=80?"#4CAF50":botAcc>=60?"#FF9800":"#f44336"}}>{botAcc}%</b>
+            </div>
+            <div style={{display:"flex", gap:16, justifyContent:"center"}}>
+              <button onClick={() => { setRevIdx(-1); setScreen("review"); }} style={{background:"linear-gradient(135deg,#c8a84b,#8a6820)", color:"#0d0900", border:"none", borderRadius:10, padding:"12px 26px", cursor:"pointer", fontFamily:"Cinzel,serif", fontSize:13, fontWeight:900, letterSpacing:"1px", transition:"transform .2s", boxShadow:"0 8px 20px rgba(200,168,75,0.3)"}} onMouseEnter={e => e.currentTarget.style.transform = "scale(1.05) translateY(-2px)"} onMouseLeave={e => e.currentTarget.style.transform = "none"}>📊 Review Game</button>
+              <button onClick={() => setScreen("menu")} style={{background:"rgba(255,255,255,.05)", border:"1px solid rgba(255,255,255,.1)", color:"#c0b8a0", borderRadius:10, padding:"12px 26px", cursor:"pointer", fontFamily:"Cinzel,serif", fontSize:13, fontWeight:900, letterSpacing:"1px", transition:"all .2s"}} onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,.1)"} onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,.05)"}>Main Menu</button>
+            </div>
           </div>
         </div>
-      </div>}
+      )}
 
-      <div style={{background:"#0d0f1a",borderBottom:"1px solid #1c1e2c",padding:"10px 16px",display:"flex",alignItems:"center",justifyContent:"space-between",flexShrink:0}}>
-        <div style={{display:"flex",alignItems:"center",gap:12}}>
-          <span style={{fontSize:20,color:"#c8a84b"}}>♞</span>
-          <span style={{fontFamily:"Cinzel,serif",fontWeight:900,fontSize:14,color:"#c8a84b",letterSpacing:"2px"}}>CHESS TRAINER</span>
+      <div style={{background:"#0d0f1a", borderBottom:"1px solid #1c1e2c", padding:"10px 16px", display:"flex", alignItems:"center", justifyContent:"space-between", flexShrink:0}}>
+        <div style={{display:"flex", alignItems:"center", gap:12}}>
+          <span style={{fontSize:20, color:"#c8a84b"}}>♞</span>
+          <span style={{fontFamily:"Cinzel,serif", fontWeight:900, fontSize:14, color:"#c8a84b", letterSpacing:"2px"}}>CHESS TRAINER</span>
+          {!mob && <span style={{fontFamily:"Crimson Pro,serif", fontSize:11, color:"#6a6478", borderLeft:"1px solid #1c1e2c", paddingLeft:12, fontWeight:600}}>{bot.em} {bot.name} · ELO {bot.elo}</span>}
         </div>
-        <div style={{display:"flex",gap:8}}>
-          <button onClick={()=>setShowSet(true)} style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:8,color:"#a098b0",padding:"6px 12px",cursor:"pointer",fontFamily:"Cinzel,serif",fontSize:11}}>⚙ Settings</button>
-          {history.length>1&&!result&&<button onClick={takeback} style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:8,color:"#a098b0",padding:"6px 12px",cursor:"pointer",fontSize:11,fontFamily:"Cinzel,serif",fontWeight:700}}>↩ Takeback</button>}
-          <button onClick={()=>setScreen("menu")} style={{background:"rgba(255,255,255,.04)",border:"1px solid rgba(255,255,255,.08)",borderRadius:8,color:"#a098b0",padding:"6px 12px",cursor:"pointer",fontFamily:"Cinzel,serif",fontSize:11,fontWeight:700}}>Menu</button>
+        <div style={{display:"flex", gap:8}}>
+          <button onClick={() => setShowSet(true)} style={{background:"rgba(255,255,255,.04)", border:"1px solid rgba(255,255,255,.08)", borderRadius:8, color:"#a098b0", padding:"6px 12px", cursor:"pointer", fontFamily:"Cinzel,serif", fontSize:11, transition:"all 0.2s"}} onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"} onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}>⚙ Settings</button>
+          {history.length > 1 && !result && <button onClick={takeback} style={{background:"rgba(255,255,255,.04)", border:"1px solid rgba(255,255,255,.08)", borderRadius:8, color:"#a098b0", padding:"6px 12px", cursor:"pointer", fontSize:11, fontFamily:"Cinzel,serif", fontWeight:700, transition:"all .2s"}} onMouseEnter={e => { e.currentTarget.style.color = "#c8a84b"; e.currentTarget.style.borderColor = "rgba(200,168,75,0.4)"; }} onMouseLeave={e => { e.currentTarget.style.color = "#a098b0"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.08)"; }}>↩ Takeback</button>}
+          <button onClick={() => setScreen("menu")} style={{background:"rgba(255,255,255,.04)", border:"1px solid rgba(255,255,255,.08)", borderRadius:8, color:"#a098b0", padding:"6px 12px", cursor:"pointer", fontFamily:"Cinzel,serif", fontSize:11, fontWeight:700, transition:"all 0.2s"}} onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.1)"} onMouseLeave={e => e.currentTarget.style.background = "rgba(255,255,255,0.04)"}>Menu</button>
         </div>
       </div>
       
-      {mob?(
-        <div style={{flex:1,display:"flex",flexDirection:"column",overflow:"hidden",background:"radial-gradient(ellipse at center, #121520 0%, #080a12 100%)"}}>
-          <div style={{padding:"6px 12px",flexShrink:0}}><PCard side={botSide} active={turn===botSide&&!result}/></div>
-          <div style={{padding:"4px 12px 2px",flexShrink:0}}><EvalBar wp={winPct} ev={curEval}/></div>
-          {chkFlag&&!result&&<div style={{padding:"2px 12px",flexShrink:0}}><div style={{background:"rgba(244,67,54,.15)",border:"1px solid rgba(244,67,54,.4)",borderRadius:6,padding:"4px",textAlign:"center",animation:"pulse .7s infinite"}}><span style={{fontFamily:"Cinzel,serif",fontSize:12,fontWeight:900,color:"#f44336",letterSpacing:"1px"}}>CHECK!</span></div></div>}
-          <div style={{flexShrink:0,padding:"4px 12px",position:"relative"}}>
-            <div style={{width:"100%",aspectRatio:"1/1",borderRadius:10,overflow:"hidden",boxShadow:"0 15px 50px rgba(0,0,0,.9)",border:`1px solid rgba(255,255,255,0.05)`}}>
+      {mob ? (
+        <div style={{flex:1, display:"flex", flexDirection:"column", overflow:"hidden", background:"radial-gradient(ellipse at center, #121520 0%, #080a12 100%)"}}>
+          <div style={{padding:"6px 12px", flexShrink:0}}><PCard side={botSide} active={turn===botSide && !result}/></div>
+          <div style={{padding:"4px 12px 2px", flexShrink:0}}><EvalBar wp={winPct} ev={curEval}/></div>
+          
+          {chkFlag && !result && (
+            <div style={{padding:"2px 12px", flexShrink:0}}>
+              <div style={{background:"rgba(244,67,54,.15)", border:"1px solid rgba(244,67,54,.4)", borderRadius:6, padding:"4px", textAlign:"center", animation:"pulse .7s infinite"}}>
+                <span style={{fontFamily:"Cinzel,serif", fontSize:12, fontWeight:900, color:"#f44336", letterSpacing:"1px"}}>CHECK!</span>
+              </div>
+            </div>
+          )}
+          
+          <div style={{flexShrink:0, padding:"4px 12px", position:"relative"}}>
+            <div style={{width:"100%", aspectRatio:"1/1", borderRadius:10, overflow:"hidden", boxShadow:"0 15px 50px rgba(0,0,0,.9)", border:`1px solid rgba(255,255,255,0.05)`}}>
               <Board brd={board} lm={lastMove} clickable={true} legalMoves={legal} sel={selSq} chk={chkFlag} curTurn={turn} anim={landSq}/>
             </div>
             
+            {/* Live Coach Feedback Overlay */}
             {coachMsg && !result && turn !== pColor && (
-              <div style={{position:"absolute",top:16,left:24,right:24,background:"rgba(10,12,20,0.95)",border:`1px solid ${coachMsg.clr}66`,borderRadius:8,padding:"10px 14px",zIndex:5,animation:"slideDown .3s cubic-bezier(0.34, 1.56, 0.64, 1)",backdropFilter:"blur(8px)",display:"flex",alignItems:"center",gap:10,boxShadow:`0 8px 24px rgba(0,0,0,0.8), 0 0 12px ${coachMsg.clr}33`}}>
-                <span style={{fontSize:20,fontWeight:900,color:coachMsg.clr}}>{coachMsg.sym}</span>
-                <span style={{fontFamily:"Crimson Pro,serif",fontSize:13,color:"#e8dfc8",lineHeight:1.2}}>{coachMsg.text}</span>
+              <div style={{position:"absolute", top:16, left:24, right:24, background:"rgba(10,12,20,0.95)", border:`1px solid ${coachMsg.clr}66`, borderRadius:8, padding:"10px 14px", zIndex:5, animation:"slideDown .3s cubic-bezier(0.34, 1.56, 0.64, 1)", backdropFilter:"blur(8px)", display:"flex", alignItems:"center", gap:10, boxShadow:`0 8px 24px rgba(0,0,0,0.8), 0 0 12px ${coachMsg.clr}33`}}>
+                <span style={{fontSize:20, fontWeight:900, color:coachMsg.clr}}>{coachMsg.sym}</span>
+                <span style={{fontFamily:"Crimson Pro,serif", fontSize:13, color:"#e8dfc8", lineHeight:1.2}}>{coachMsg.text}</span>
               </div>
             )}
           </div>
-          <div style={{padding:"4px 12px 6px",flexShrink:0}}><PCard side={pColor} active={turn===pColor&&!result}/></div>
-          <div style={{display:"flex",padding:"0 12px",gap:6,flexShrink:0}}>
-            {[["moves","Moves"],["analysis","Stats"]].map(([v,l])=><div key={v} onClick={()=>setGameTab(v)} style={{flex:1,padding:"8px",textAlign:"center",borderRadius:"10px 10px 0 0",cursor:"pointer",fontFamily:"Cinzel,serif",fontSize:11,fontWeight:900,letterSpacing:"1px",background:gameTab===v?"#0d0f1a":"rgba(255,255,255,0.02)",border:gameTab===v?"1px solid #1c1e2c":"1px solid transparent",borderBottom:"none",color:gameTab===v?"#c8a84b":"#6a6478",transition:"all 0.2s"}}>{l}</div>)}
+          
+          <div style={{padding:"4px 12px 6px", flexShrink:0}}><PCard side={pColor} active={turn===pColor && !result}/></div>
+          
+          <div style={{display:"flex", padding:"0 12px", gap:6, flexShrink:0}}>
+            {[["moves", "Moves"], ["analysis", "Stats"]].map(([v, l]) => (
+              <div key={v} onClick={() => setGameTab(v)} style={{flex:1, padding:"8px", textAlign:"center", borderRadius:"10px 10px 0 0", cursor:"pointer", fontFamily:"Cinzel,serif", fontSize:11, fontWeight:900, letterSpacing:"1px", background:gameTab===v?"#0d0f1a":"rgba(255,255,255,0.02)", border:gameTab===v?"1px solid #1c1e2c":"1px solid transparent", borderBottom:"none", color:gameTab===v?"#c8a84b":"#6a6478", transition:"all 0.2s"}}>{l}</div>
+            ))}
           </div>
-          <div style={{flex:1,background:"#0d0f1a",borderTop:"1px solid #1c1e2c",overflow:"hidden",margin:"0 12px",borderRadius:"0 0 10px 10px",display:"flex",flexDirection:"column"}}>
-            {gameTab==="moves"?<div ref={mlRef} style={{flex:1,overflowY:"auto",padding:"6px"}}><MoveList hist={history} active={history.length-1} onNav={null}/></div>
-            :<div style={{flex:1,overflowY:"auto",padding:"16px"}}>
-              <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:8,marginBottom:12}}>
-                {[["💎","Brilliant","#00BCD4"],["✦","Best","#4CAF50"],["💥","Blunder","#F44336"],["❗","Mistake","#FF5722"],["⚠️","Inaccuracy","#FF9800"],["✨","Excellent","#8BC34A"]].map(([em,label,clr])=>(
-                  <div key={label} style={{background:"rgba(255,255,255,.02)",border:"1px solid #1c1e2c",borderRadius:10,padding:"10px 6px",textAlign:"center"}}>
-                    <div style={{fontSize:16,marginBottom:4}}>{em}</div>
-                    <div style={{fontFamily:"Cinzel,serif",fontSize:22,fontWeight:900,color:history.filter(m=>m.classification?.label===label&&cl(m.piece)===pColor).length>0?clr:"#2a2030"}}>{history.filter(m=>m.classification?.label===label&&cl(m.piece)===pColor).length}</div>
-                    <div style={{fontSize:9,color:"#6a6478",marginTop:4,textTransform:"uppercase",letterSpacing:"1px",fontFamily:"Crimson Pro,serif"}}>{label}</div>
+          
+          <div style={{flex:1, background:"#0d0f1a", borderTop:"1px solid #1c1e2c", overflow:"hidden", margin:"0 12px", borderRadius:"0 0 10px 10px", display:"flex", flexDirection:"column"}}>
+            {gameTab === "moves" ? (
+              <div ref={mlRef} style={{flex:1, overflowY:"auto", padding:"6px"}}><MoveList hist={history} active={history.length-1} onNav={null}/></div>
+            ) : (
+              <div style={{flex:1, overflowY:"auto", padding:"16px"}}>
+                <div style={{display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:8, marginBottom:12}}>
+                  {[["💎","Brilliant","#00BCD4"], ["✦","Best","#4CAF50"], ["💥","Blunder","#F44336"], ["❗","Mistake","#FF5722"], ["⚠️","Inaccuracy","#FF9800"], ["✨","Excellent","#8BC34A"]].map(([em, label, clr]) => (
+                    <div key={label} style={{background:"rgba(255,255,255,.02)", border:"1px solid #1c1e2c", borderRadius:10, padding:"10px 6px", textAlign:"center"}}>
+                      <div style={{fontSize:16, marginBottom:4}}>{em}</div>
+                      <div style={{fontFamily:"Cinzel,serif", fontSize:22, fontWeight:900, color:history.filter(m => m.classification?.label === label && cl(m.piece) === pColor).length > 0 ? clr : "#2a2030"}}>
+                        {history.filter(m => m.classification?.label === label && cl(m.piece) === pColor).length}
+                      </div>
+                      <div style={{fontSize:9, color:"#6a6478", marginTop:4, textTransform:"uppercase", letterSpacing:"1px", fontFamily:"Crimson Pro,serif"}}>{label}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      ) : (
+        <div style={{flex:1, display:"flex", overflow:"hidden", background:"radial-gradient(ellipse at center, #121520 0%, #080a12 100%)"}}>
+          <div style={{width:240, background:"#0d0f1a", borderRight:"1px solid #1c1e2c", display:"flex", flexDirection:"column", padding:"16px", gap:12, flexShrink:0}}>
+            <PCard side={botSide} active={turn===botSide && !result}/>
+            <PCard side={pColor} active={turn===pColor && !result}/>
+            
+            {chkFlag && !result && (
+              <div style={{background:"rgba(244,67,54,.15)", border:"1px solid rgba(244,67,54,.4)", borderRadius:10, padding:"8px", textAlign:"center", animation:"pulse .8s infinite"}}>
+                <span style={{fontFamily:"Cinzel,serif", fontSize:13, fontWeight:900, color:"#f44336", letterSpacing:"2px"}}>CHECK!</span>
+              </div>
+            )}
+            
+            {history.length > 1 && (
+              <div className="glass-panel" style={{flex:1, borderRadius:12, padding:"16px", overflow:"hidden", display:"flex", flexDirection:"column", minHeight:0, marginTop:10}}>
+                <div style={{fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"3px", color:"#6a6478", textTransform:"uppercase", marginBottom:12, fontWeight:700}}>Your Stats</div>
+                {[["💎","Brilliant","#00BCD4"], ["✦","Best","#4CAF50"], ["💥","Blunder","#F44336"], ["❗","Mistake","#FF5722"], ["⚠️","Inaccuracy","#FF9800"]].map(([em, label, clr]) => (
+                  <div key={label} style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:8}}>
+                    <span style={{fontFamily:"Crimson Pro,serif", fontSize:12, color:"#8a8498"}}>{em} {label}</span>
+                    <span style={{fontFamily:"Cinzel,serif", fontSize:14, fontWeight:900, color:history.filter(m => m.classification?.label === label && cl(m.piece) === pColor).length > 0 ? "rgba(255,255,255,0.1)" : "#2a2030"}}>
+                      {history.filter(m => m.classification?.label === label && cl(m.piece) === pColor).length}
+                    </span>
                   </div>
                 ))}
               </div>
-            </div>}
-          </div>
-        </div>
-      ):(
-        <div style={{flex:1,display:"flex",overflow:"hidden",background:"radial-gradient(ellipse at center, #121520 0%, #080a12 100%)"}}>
-          <div style={{width:240,background:"#0d0f1a",borderRight:"1px solid #1c1e2c",display:"flex",flexDirection:"column",padding:"16px",gap:12,flexShrink:0}}>
-            <PCard side={botSide} active={turn===botSide&&!result}/>
-            <PCard side={pColor} active={turn===pColor&&!result}/>
-            {chkFlag&&!result&&<div style={{background:"rgba(244,67,54,.15)",border:"1px solid rgba(244,67,54,.4)",borderRadius:10,padding:"8px",textAlign:"center",animation:"pulse .8s infinite"}}><span style={{fontFamily:"Cinzel,serif",fontSize:13,fontWeight:900,color:"#f44336",letterSpacing:"2px"}}>CHECK!</span></div>}
-            {history.length>1&&<div className="glass-panel" style={{flex:1,borderRadius:12,padding:"16px",overflow:"hidden",display:"flex",flexDirection:"column",minHeight:0,marginTop:10}}>
-              <div style={{fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"3px",color:"#6a6478",textTransform:"uppercase",marginBottom:12,fontWeight:700}}>Your Stats</div>
-              {[["💎","Brilliant","#00BCD4"],["✦","Best","#4CAF50"],["💥","Blunder","#F44336"],["❗","Mistake","#FF5722"],["⚠️","Inaccuracy","#FF9800"]].map(([em,label,clr])=>(
-                <div key={label} style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
-                  <span style={{fontFamily:"Crimson Pro,serif",fontSize:12,color:"#8a8498"}}>{em} {label}</span>
-                  <span style={{fontFamily:"Cinzel,serif",fontSize:14,fontWeight:900,color:history.filter(m=>m.classification?.label===label&&cl(m.piece)===pColor).length>0?clr:"rgba(255,255,255,0.1)"}}>{history.filter(m=>m.classification?.label===label&&cl(m.piece)===pColor).length}</span>
-                </div>
-              ))}
-            </div>}
+            )}
           </div>
           
-          <div style={{flex:1,display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"16px",overflow:"hidden",gap:8,position:"relative"}}>
+          <div style={{flex:1, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", padding:"16px", overflow:"hidden", gap:8, position:"relative"}}>
             <div style={{width:"min(calc(100vh - 160px),600px)"}}><EvalBar wp={winPct} ev={curEval}/></div>
-            <div style={{width:"min(calc(100vh - 160px),600px)",flexShrink:0,borderRadius:12,overflow:"hidden",boxShadow:"0 30px 90px rgba(0,0,0,.9)",border:"1px solid rgba(255,255,255,0.05)",animation:"boardIn .75s cubic-bezier(.34,1.2,.64,1) forwards",position:"relative"}}>
+            <div style={{width:"min(calc(100vh - 160px),600px)", flexShrink:0, borderRadius:12, overflow:"hidden", boxShadow:"0 30px 90px rgba(0,0,0,.9)", border:"1px solid rgba(255,255,255,0.05)", animation:"boardIn .75s cubic-bezier(.34,1.2,.64,1) forwards", position:"relative"}}>
               <Board brd={board} lm={lastMove} clickable={true} legalMoves={legal} sel={selSq} chk={chkFlag} curTurn={turn} anim={landSq}/>
+              
               {coachMsg && !result && turn !== pColor && (
-                <div style={{position:"absolute",top:20,left:30,right:30,background:"rgba(10,12,20,0.95)",border:`1px solid ${coachMsg.clr}66`,borderRadius:10,padding:"14px 20px",zIndex:5,animation:"slideDown .3s cubic-bezier(0.34, 1.56, 0.64, 1)",backdropFilter:"blur(8px)",display:"flex",alignItems:"center",gap:16,boxShadow:`0 10px 30px rgba(0,0,0,0.8), 0 0 15px ${coachMsg.clr}33`}}>
-                  <span style={{fontSize:28,fontWeight:900,color:coachMsg.clr}}>{coachMsg.sym}</span>
-                  <div style={{display:"flex",flexDirection:"column",gap:2}}>
-                    <span style={{fontFamily:"Cinzel,serif",fontSize:12,color:coachMsg.clr,fontWeight:900,letterSpacing:"1px",textTransform:"uppercase"}}>Coach Analysis</span>
-                    <span style={{fontFamily:"Crimson Pro,serif",fontSize:15,color:"#e8dfc8"}}>{coachMsg.text}</span>
+                <div style={{position:"absolute", top:20, left:30, right:30, background:"rgba(10,12,20,0.95)", border:`1px solid ${coachMsg.clr}66`, borderRadius:10, padding:"14px 20px", zIndex:5, animation:"slideDown .3s cubic-bezier(0.34, 1.56, 0.64, 1)", backdropFilter:"blur(8px)", display:"flex", alignItems:"center", gap:16, boxShadow:`0 10px 30px rgba(0,0,0,0.8), 0 0 15px ${coachMsg.clr}33`}}>
+                  <span style={{fontSize:28, fontWeight:900, color:coachMsg.clr}}>{coachMsg.sym}</span>
+                  <div style={{display:"flex", flexDirection:"column", gap:2}}>
+                    <span style={{fontFamily:"Cinzel,serif", fontSize:12, color:coachMsg.clr, fontWeight:900, letterSpacing:"1px", textTransform:"uppercase"}}>Coach Analysis</span>
+                    <span style={{fontFamily:"Crimson Pro,serif", fontSize:15, color:"#e8dfc8"}}>{coachMsg.text}</span>
                   </div>
                 </div>
               )}
             </div>
           </div>
           
-          <div style={{width:240,background:"#0d0f1a",borderLeft:"1px solid #1c1e2c",display:"flex",flexDirection:"column",flexShrink:0}}>
-            <div style={{padding:"12px 16px",borderBottom:"1px solid #1c1e2c",display:"flex",justifyContent:"space-between",alignItems:"center"}}>
-              <span style={{fontFamily:"Cinzel,serif",fontSize:10,letterSpacing:"3px",color:"#6a6478",textTransform:"uppercase",fontWeight:700}}>Moves</span>
-              <span style={{fontFamily:"Cinzel,serif",fontSize:16,fontWeight:900,color:"#c8a84b",background:"rgba(200,168,75,0.1)",padding:"2px 8px",borderRadius:4}}>{fmtEval(curEval)}</span>
+          <div style={{width:240, background:"#0d0f1a", borderLeft:"1px solid #1c1e2c", display:"flex", flexDirection:"column", flexShrink:0}}>
+            <div style={{padding:"12px 16px", borderBottom:"1px solid #1c1e2c", display:"flex", justifyContent:"space-between", alignItems:"center"}}>
+              <span style={{fontFamily:"Cinzel,serif", fontSize:10, letterSpacing:"3px", color:"#6a6478", textTransform:"uppercase", fontWeight:700}}>Moves</span>
+              <span style={{fontFamily:"Cinzel,serif", fontSize:16, fontWeight:900, color:"#c8a84b", background:"rgba(200,168,75,0.1)", padding:"2px 8px", borderRadius:4}}>{fmtEval(curEval)}</span>
             </div>
-            <div ref={mlRef} style={{flex:1,overflowY:"auto"}}><MoveList hist={history} active={history.length-1} onNav={null}/></div>
+            <div ref={mlRef} style={{flex:1, overflowY:"auto"}}><MoveList hist={history} active={history.length-1} onNav={null}/></div>
           </div>
         </div>
       )}
 
-      {showPromo&&<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.88)",backdropFilter:"blur(6px)",display:"flex",alignItems:"center",justifyContent:"center",zIndex:1000}}>
-        <div className="glass-panel" style={{borderRadius:16,padding:"32px",textAlign:"center",boxShadow:"0 24px 80px rgba(0,0,0,.9), 0 0 0 1px rgba(200,168,75,0.3)"}}>
-          <div style={{fontFamily:"Cinzel,serif",fontSize:12,color:"#c8a84b",marginBottom:20,letterSpacing:"4px",textTransform:"uppercase",fontWeight:900}}>Promote Pawn</div>
-          <div style={{display:"flex",gap:16}}>
-            {["Q","R","B","N"].map(t=>(
-              <div key={t} onClick={()=>{execMove(showPromo.fr,showPromo.fc,showPromo.tr,showPromo.tc,t);setShowPromo(null);}}
-                style={{width:80,height:80,background:"rgba(255,255,255,0.05)",border:"2px solid rgba(255,255,255,0.1)",borderRadius:12,cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s"}}
-                onMouseEnter={e=>{e.currentTarget.style.background="rgba(200,168,75,.2)";e.currentTarget.style.borderColor="rgba(200,168,75,0.6)";e.currentTarget.style.transform="scale(1.1)";}}
-                onMouseLeave={e=>{e.currentTarget.style.background="rgba(255,255,255,0.05)";e.currentTarget.style.borderColor="rgba(255,255,255,0.1)";e.currentTarget.style.transform="scale(1)";}}>
-                <PieceSVG piece={pColor+t} pStyle={settings.pieceStyle}/>
-              </div>
-            ))}
+      {showPromo && (
+        <div style={{position:"fixed", inset:0, background:"rgba(0,0,0,.88)", backdropFilter:"blur(6px)", display:"flex", alignItems:"center", justifyContent:"center", zIndex:1000}}>
+          <div className="glass-panel" style={{borderRadius:16, padding:"32px", textAlign:"center", boxShadow:"0 24px 80px rgba(0,0,0,.9), 0 0 0 1px rgba(200,168,75,0.3)"}}>
+            <div style={{fontFamily:"Cinzel,serif", fontSize:12, color:"#c8a84b", marginBottom:20, letterSpacing:"4px", textTransform:"uppercase", fontWeight:900}}>Promote Pawn</div>
+            <div style={{display:"flex", gap:16}}>
+              {["Q","R","B","N"].map(t => (
+                <div key={t} onClick={() => { execMove(showPromo.fr, showPromo.fc, showPromo.tr, showPromo.tc, t); setShowPromo(null); }}
+                  style={{width:80, height:80, background:"rgba(255,255,255,0.05)", border:"2px solid rgba(255,255,255,0.1)", borderRadius:12, cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"center", transition:"all .2s"}}
+                  onMouseEnter={e => { e.currentTarget.style.background = "rgba(200,168,75,.2)"; e.currentTarget.style.borderColor = "rgba(200,168,75,0.6)"; e.currentTarget.style.transform = "scale(1.1)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background = "rgba(255,255,255,0.05)"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.1)"; e.currentTarget.style.transform = "scale(1)"; }}>
+                  <PieceSVG piece={pColor+t} pStyle={settings.pieceStyle}/>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </div>}
+      )}
     </div>
   );
 }
 
-// Render to DOM
+// 5. Tell ReactDOM to render the component into the div we created
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<ChessApp />);
   </script>
